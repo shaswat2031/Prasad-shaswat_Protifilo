@@ -1,11 +1,10 @@
 import React from 'react';
 import {
-  FaGitAlt, FaGithub, FaJava, FaJsSquare, FaPython, FaLinux, FaWindows, 
-  FaReact, FaNodeJs, FaAws, FaCloud
+  FaGitAlt, FaGithub,  FaJsSquare, FaPython, FaLinux, FaWindows,
+  FaReact, FaNodeJs, FaCloud
 } from 'react-icons/fa';
 import {
-  SiFlask, SiMongodb, SiMysql, SiExpress, SiTailwindcss, SiFirebase, 
-  SiRedux, SiTypescript, SiNextdotjs, SiDocker
+  SiFlask, SiMongodb, SiMysql, SiExpress, SiTailwindcss,SiTypescript, SiNextdotjs,
 } from 'react-icons/si';
 
 const Skills = () => {

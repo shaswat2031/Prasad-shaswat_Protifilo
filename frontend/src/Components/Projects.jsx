@@ -1,35 +1,36 @@
 import { motion } from 'framer-motion';
 import React from 'react';
 import { FaExternalLinkAlt, FaGithub } from 'react-icons/fa';
-import gateupscImage from '../Assets/gateupsc.png';
-import protifiloImage from '../Assets/protifilo.png';
-import universityConnectImage from '../Assets/university-connect.png'; // Add a relevant image for University Connect
+import universityConnectImage from '../Assets/university-connect.png';
+import inventoryImage from '../Assets/image.png';
+import ecommerceImage from '../Assets/Ecommerce.png';
 
 const projects = [
   {
-    title: "Portfolio Website",
-    description: "A personal portfolio website showcasing my skills, projects, and experience. Built with React, Tailwind CSS, and Framer Motion.",
-    date: "August 2024",
-    liveLink: "https://prasadshaswat.github.io/shaswat_protfilo/",
-    githubLink: "https://github.com/prasadshaswat/shaswat_protfilo",
-    image: protifiloImage,
+    title: "University Connect",
+    description:
+      "A student-driven platform enabling users to create profiles, showcase skills, and connect for collaboration. Developed a dynamic UI, integrated student profiles, messaging, and a certification system with secure authentication and optimized data handling.",
+    date: "Jan 2025 – Feb 2025",
+    githubLink: "https://github.com/shaswat2031/Minor-Project-University-Connect.git",
+    image: universityConnectImage,
     alignment: "left",
   },
   {
-    title: "UPSC & GATE Study Material Website",
-    description: "A website providing study materials and resources for UPSC and GATE exams. Developed using HTML, CSS, JavaScript, and SCSS.",
-    date: "May 2024",
-    liveLink: "https://lnkd.in/dv-GFVDY",
-    githubLink: "https://github.com/shaswat2031/GATE-UPSC-WEBSITE",
-    image: gateupscImage,
+    title: "Flask Inventory Management System",
+    description:
+      "A personal project focused on authentication, inventory & sales management, and billing. Features secure login/logout with hashed passwords, user-specific access control, invoice generation, and real-time stock analytics.",
+    date: "Feb 2025 – Present",
+    githubLink: "https://github.com/shaswat2031/Flask-Inventory-Management",
+    image: inventoryImage,
     alignment: "right",
   },
   {
-    title: "University Connect",
-    description: "A platform to help university students connect, collaborate, and share knowledge. Built with React, Tailwind CSS, Node.js, Express, and MongoDB.",
-    date: "February 2025",
-    githubLink: "https://github.com/shaswat2031/Minor-Project-University-Connect.git",
-    image: universityConnectImage,
+    title: "E-commerce Platform (MERN Stack)",
+    description:
+      "A fully functional e-commerce platform built using the MERN stack. Features include user authentication, product management, shopping cart, order processing, and payment gateway integration.",
+    date: "March 2025",
+    githubLink: "https://github.com/shaswat2031/ecommerce",
+    image: ecommerceImage,
     alignment: "left",
   },
 ];
@@ -38,7 +39,7 @@ const Projects = () => {
   return (
     <section id="projects" className="min-h-screen bg-white p-8">
       <h2 className="text-4xl font-bold text-gray-800 mb-12 text-center">Projects</h2>
-      
+
       <div className="w-full max-w-5xl mx-auto">
         {projects.map((project, index) => (
           <motion.div

@@ -115,7 +115,7 @@ const Home = () => {
           transition={{ delay: 0.8, duration: 0.6, ease: "easeInOut" }}
         >
           <a
-            href="https://drive.google.com/uc?id=1clis7nzq4Enrdn9PcVZfzEwUUVa3jyKi"
+            href="https://drive.google.com/uc?export=download&id=1z-HEsyCKudk9_HIZZxkz2ObZ2x4D9j4K"
             download="Prasadshaswatresume.pdf"
             className="px-6 py-3 text-white bg-blue-600 rounded-lg shadow-md hover:bg-blue-700 transition duration-300"
           >

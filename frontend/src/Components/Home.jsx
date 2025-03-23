@@ -44,8 +44,6 @@ const Home = () => {
             Vadodara, 391760
           </span>
           <span className="hidden md:inline text-gray-500">•</span>
-          <span>(+91) 9265-18481</span>
-          <span className="hidden md:inline text-gray-500">•</span>
           <span className="font-medium text-indigo-300">prasadshaswat9265@gmail.com</span>
         </div>
 

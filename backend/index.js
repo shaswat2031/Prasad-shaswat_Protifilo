@@ -11,10 +11,10 @@ const PORT = process.env.PORT || 5000;
 // Middleware
 app.use(bodyParser.json());
 
-// Set up CORS to allow requests from your frontend domain
+// Set up CORS to allow requests from frontend (deployed & local)
 app.use(
   cors({
-    origin: "https://prasadshaswat.tech/", // Replace with your actual frontend URL
+    origin: ["https://prasadshaswat.tech", "http://localhost:3000"], // Replace with your actual frontend URL & localhost for testing
     methods: "POST",
     allowedHeaders: ["Content-Type"],
   })
@@ -27,7 +27,7 @@ app.use(
       directives: {
         defaultSrc: ["'self'"],
         scriptSrc: ["'self'"],
-        connectSrc: ["'self'", "https://prasad-shaswat-protifilo-fcs8.onrender.com"], // Allow API requests
+        connectSrc: ["'self'", "https://prasad-shaswat-protifilo-fcs8.onrender.com", "http://localhost:5000"], // Allow API requests from localhost & server
       },
     },
   })
@@ -50,7 +50,7 @@ app.post('/api/contact', (req, res) => {
 
   // Create transporter using email service credentials
   const transporter = nodemailer.createTransport({
-    service: 'gmail', // Change this if using a different service
+    service: 'gmail',
     auth: {
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASS,
@@ -60,7 +60,7 @@ app.post('/api/contact', (req, res) => {
   // Email options
   const mailOptions = {
     from: email,
-    to: process.env.EMAIL_USER, // Your email address
+    to: process.env.EMAIL_USER,
     subject: `New message from ${name}`,
     text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
   };

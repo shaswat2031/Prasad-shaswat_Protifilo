@@ -27,14 +27,22 @@ app.use(
       directives: {
         defaultSrc: ["'self'"],
         scriptSrc: ["'self'"],
-        connectSrc: ["'self'", 
-                    "https://prasad-shaswat-protifilo-fcs8.onrender.com", 
-                    "https://www.prasadshaswat.tech", 
-                    "https://prasadshaswat.tech", 
-                    "http://localhost:5000", 
-                    "http://localhost:3000"],
+        connectSrc: [
+          "'self'", 
+          "https://prasad-shaswat-protifilo-fcs8.onrender.com", 
+          "https://www.prasadshaswat.tech", 
+          "https://prasadshaswat.tech", 
+          "http://localhost:5000", 
+          "http://localhost:3000"
+        ],
+        frameSrc: ["'self'"],
+        imgSrc: ["'self'", "data:"],
+        styleSrc: ["'self'", "'unsafe-inline'"],
+        fontSrc: ["'self'", "data:"],
       },
     },
+    crossOriginResourcePolicy: { policy: "cross-origin" },
+    crossOriginEmbedderPolicy: false,
   })
 );
 

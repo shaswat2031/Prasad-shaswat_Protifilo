@@ -14,8 +14,8 @@ app.use(bodyParser.json());
 // Set up CORS to allow requests from frontend (deployed & local)
 app.use(
   cors({
-    origin: ["https://prasadshaswat.tech", "http://localhost:3000"], // Replace with your actual frontend URL & localhost for testing
-    methods: "POST",
+    origin: ["https://www.prasadshaswat.tech", "https://prasadshaswat.tech", "http://localhost:3000"],
+    methods: ["POST", "GET", "OPTIONS"],
     allowedHeaders: ["Content-Type"],
   })
 );
@@ -27,7 +27,12 @@ app.use(
       directives: {
         defaultSrc: ["'self'"],
         scriptSrc: ["'self'"],
-        connectSrc: ["'self'", "https://prasad-shaswat-protifilo-fcs8.onrender.com", "http://localhost:5000"], // Allow API requests from localhost & server
+        connectSrc: ["'self'", 
+                    "https://prasad-shaswat-protifilo-fcs8.onrender.com", 
+                    "https://www.prasadshaswat.tech", 
+                    "https://prasadshaswat.tech", 
+                    "http://localhost:5000", 
+                    "http://localhost:3000"],
       },
     },
   })

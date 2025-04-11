@@ -21,7 +21,7 @@ const ContactUs = () => {
     setSending(true);
     
     try {
-      const response = await fetch('https://prasad-shaswat-protifilo-fcs8.onrender.com/api/contact', { // Ensure the endpoint is correct
+      const response = await fetch('https://prasadshaswat.tech/api/contact', { // Updated API endpoint
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

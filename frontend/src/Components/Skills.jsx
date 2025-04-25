@@ -24,30 +24,30 @@ const Skills = () => {
   
   const skillsData = [
     // Programming Languages
-    { id: 'javascript', name: 'JavaScript', icon: <FaJsSquare />, color: 'text-yellow-500', bg: 'bg-gray-800', category: 'languages', level: 90 },
-    { id: 'typescript', name: 'TypeScript', icon: <SiTypescript />, color: 'text-blue-400', bg: 'bg-gray-800', category: 'languages', level: 75, learning: true },
-    { id: 'python', name: 'Python', icon: <FaPython />, color: 'text-blue-500', bg: 'bg-gray-800', category: 'languages', level: 85 },
+    { id: 'javascript', name: 'JavaScript', icon: <FaJsSquare />, color: 'text-yellow-500', bg: 'bg-gray-800', category: 'languages', learning: false },
+    { id: 'typescript', name: 'TypeScript', icon: <SiTypescript />, color: 'text-blue-400', bg: 'bg-gray-800', category: 'languages', learning: true },
+    { id: 'python', name: 'Python', icon: <FaPython />, color: 'text-blue-500', bg: 'bg-gray-800', category: 'languages', learning: false },
     
     // Frontend
-    { id: 'react', name: 'React.js', icon: <FaReact />, color: 'text-blue-400', bg: 'bg-gray-800', category: 'frontend', level: 92 },
-    { id: 'nextjs', name: 'Next.js', icon: <SiNextdotjs />, color: 'text-gray-300', bg: 'bg-gray-800', category: 'frontend', level: 70, learning: true },
-    { id: 'tailwind', name: 'Tailwind CSS', icon: <SiTailwindcss />, color: 'text-teal-500', bg: 'bg-gray-800', category: 'frontend', level: 88 },
+    { id: 'react', name: 'React.js', icon: <FaReact />, color: 'text-blue-400', bg: 'bg-gray-800', category: 'frontend', learning: false },
+    { id: 'nextjs', name: 'Next.js', icon: <SiNextdotjs />, color: 'text-gray-300', bg: 'bg-gray-800', category: 'frontend', learning: true },
+    { id: 'tailwind', name: 'Tailwind CSS', icon: <SiTailwindcss />, color: 'text-teal-500', bg: 'bg-gray-800', category: 'frontend', learning: false },
     
     // Backend
-    { id: 'nodejs', name: 'Node.js', icon: <FaNodeJs />, color: 'text-green-500', bg: 'bg-gray-800', category: 'backend', level: 85 },
-    { id: 'express', name: 'Express.js', icon: <SiExpress />, color: 'text-gray-300', bg: 'bg-gray-800', category: 'backend', level: 82 },
-    { id: 'flask', name: 'Flask', icon: <SiFlask />, color: 'text-gray-300', bg: 'bg-gray-800', category: 'backend', level: 75 },
+    { id: 'nodejs', name: 'Node.js', icon: <FaNodeJs />, color: 'text-green-500', bg: 'bg-gray-800', category: 'backend', learning: false },
+    { id: 'express', name: 'Express.js', icon: <SiExpress />, color: 'text-gray-300', bg: 'bg-gray-800', category: 'backend', learning: false },
+    { id: 'flask', name: 'Flask', icon: <SiFlask />, color: 'text-gray-300', bg: 'bg-gray-800', category: 'backend', learning: false },
     
     // Databases
-    { id: 'mongodb', name: 'MongoDB', icon: <SiMongodb />, color: 'text-green-500', bg: 'bg-gray-800', category: 'database', level: 80 },
-    { id: 'mysql', name: 'MySQL', icon: <SiMysql />, color: 'text-blue-500', bg: 'bg-gray-800', category: 'database', level: 78 },
+    { id: 'mongodb', name: 'MongoDB', icon: <SiMongodb />, color: 'text-green-500', bg: 'bg-gray-800', category: 'database', learning: false },
+    { id: 'mysql', name: 'MySQL', icon: <SiMysql />, color: 'text-blue-500', bg: 'bg-gray-800', category: 'database', learning: false },
     
     // Tools & Platforms
-    { id: 'git', name: 'Git', icon: <FaGitAlt />, color: 'text-red-500', bg: 'bg-gray-800', category: 'tools', level: 85 },
-    { id: 'github', name: 'GitHub', icon: <FaGithub />, color: 'text-gray-300', bg: 'bg-gray-800', category: 'tools', level: 90 },
-    { id: 'linux', name: 'Linux', icon: <FaLinux />, color: 'text-gray-300', bg: 'bg-gray-800', category: 'tools', level: 70 },
-    { id: 'windows', name: 'Windows', icon: <FaWindows />, color: 'text-blue-500', bg: 'bg-gray-800', category: 'tools', level: 95 },
-    { id: 'cloud', name: 'Cloud Services', icon: <FaCloud />, color: 'text-sky-400', bg: 'bg-gray-800', category: 'tools', level: 65, learning: true }
+    { id: 'git', name: 'Git', icon: <FaGitAlt />, color: 'text-red-500', bg: 'bg-gray-800', category: 'tools', learning: false },
+    { id: 'github', name: 'GitHub', icon: <FaGithub />, color: 'text-gray-300', bg: 'bg-gray-800', category: 'tools', learning: false },
+    { id: 'linux', name: 'Linux', icon: <FaLinux />, color: 'text-gray-300', bg: 'bg-gray-800', category: 'tools', learning: false },
+    { id: 'windows', name: 'Windows', icon: <FaWindows />, color: 'text-blue-500', bg: 'bg-gray-800', category: 'tools', learning: false },
+    { id: 'cloud', name: 'Cloud Services', icon: <FaCloud />, color: 'text-sky-400', bg: 'bg-gray-800', category: 'tools', learning: true }
   ];
   
   const filteredSkills = activeCategory === 'all' 
@@ -172,17 +172,8 @@ const Skills = () => {
               
               <h3 className="font-bold text-white mb-2 text-center text-sm">{skill.name}</h3>
               
-              <div className="w-full bg-gray-700 rounded-full h-1.5 mb-1 overflow-hidden">
-                <motion.div 
-                  className="h-full bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full"
-                  initial={{ width: 0 }}
-                  animate={{ width: `${skill.level}%` }}
-                  transition={{ delay: 0.6, duration: 1, ease: "easeOut" }}
-                />
-              </div>
-              
               <span className="text-xs text-gray-400 font-medium">
-                {skill.learning ? 'Learning' : `${skill.level}%`}
+                {skill.learning ? 'Learning' : ''}
               </span>
             </motion.div>
           ))}

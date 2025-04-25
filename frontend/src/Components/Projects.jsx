@@ -43,26 +43,7 @@ export const projects = [
       "Data analytics dashboard"
     ],
     color: "from-blue-600 to-indigo-600"
-  },
-  {
-    title: "E-commerce Platform (MERN Stack)",
-    description: "A fully functional e-commerce platform built using the MERN stack.",
-    longDescription: "Features include user authentication, product management, shopping cart, order processing, and payment gateway integration.",
-    date: "March 2025",
-    githubLink: "https://github.com/shaswat2031/ecommerce",
-    image: ecommerceImage,
-    alignment: "left",
-    tags: ["MongoDB", "Express", "React", "Node.js"],
-    highlight: true,
-    features: [
-      "User authentication and profiles",
-      "Product search and filtering",
-      "Shopping cart functionality",
-      "Secure payment processing",
-      "Order tracking system"
-    ],
-    color: "from-purple-600 to-indigo-600"
-  },
+  }
 ];
 
 const Projects = () => {

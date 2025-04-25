@@ -4,6 +4,7 @@ import { FaExternalLinkAlt, FaGithub, FaCalendarAlt, FaCode, FaTools, FaArrowRig
 import { Link } from 'react-router-dom';
 import universityConnectImage from '../Assets/university-connect.png';
 import inventoryImage from '../Assets/image.png';
+import Builtwithme from '/workspaces/Prasad-shaswat_Protifilo/frontend/src/Assets/builtwithme.jpg';
 import ecommerceImage from '../Assets/Ecommerce.png';
 
 // Import the projects array from Projects component
@@ -11,61 +12,47 @@ import { projects } from '../Components/Projects';
 
 // Additional projects for the all-projects page
 const additionalProjects = [
+  
   {
-    title: "Personal Portfolio Website",
-    description: "My developer portfolio showcasing projects, skills, and professional journey.",
-    longDescription: "A responsive and interactive portfolio with animations, dark mode, and mobile-friendly design built using React and Tailwind CSS.",
+    title: "Built-It-Wit-hMe",
+    description: "Get your website built with me.",
+    longDescription:
+      "I will build your website with the latest technologies and frameworks, just for you. 'Protifilo' is a responsive and interactive portfolio with animations, dark mode, and mobile-friendly design built using React and Tailwind CSS.",
     date: "April 2025",
-    githubLink: "https://github.com/shaswat2031/Prasad-shaswat_Protifilo",
-    image: ecommerceImage, // Placeholder, replace with actual image
-    alignment: "left",
-    tags: ["React", "Tailwind CSS", "Framer Motion", "Responsive Design"],
-    highlight: true,
-    features: [
-      "Interactive UI with Framer Motion animations",
-      "Responsive design for all devices",
-      "Project showcase with detailed descriptions",
-      "Skills and education timeline"
-    ],
-    color: "from-green-600 to-teal-600"
-  },
-  {
-    title: "Weather Dashboard App",
-    description: "A real-time weather application with forecasting and location tracking.",
-    longDescription: "Integrates with multiple weather APIs to provide accurate forecasts, location-based services, and interactive maps.",
-    date: "March 2025",
-    githubLink: "https://github.com/shaswat2031/weather-dashboard",
-    image: inventoryImage, // Placeholder, replace with actual image
+    githubLink: "https://github.com/shaswat2031/BuiltItWithme",
+    liveLink: "https://built-it-withme.vercel.app/",
+    image: Builtwithme, // assuming this is imported elsewhere
     alignment: "right",
-    tags: ["JavaScript", "React", "Weather API", "Geolocation"],
-    highlight: false,
-    features: [
-      "Real-time weather updates",
-      "5-day forecast prediction",
-      "Location-based services",
-      "Interactive weather maps",
-      "Temperature trend visualization"
+    tags: ["Next.js", "Tailwind CSS", "Framer Motion", "Responsive Design"],
+    highlight: true,
+    highlights: [
+      {
+        icon: "💰",
+        title: "Affordable Pricing",
+        description: "Premium quality without breaking the bank",
+      },
+      {
+        icon: "⚡",
+        title: "3–4 Day Delivery",
+        description: "Quick turnaround to get you online fast",
+      },
+      {
+        icon: "🎨",
+        title: "Custom Design & Code",
+        description: "Tailored to match your personal brand",
+      },
+      {
+        icon: "🚀",
+        title: "FREE Vercel Deployment",
+        description: "Professional hosting included",
+      },
+      {
+        icon: "🌟",
+        title: "Perfect for Creators",
+        description: "Ideal for freelancers & small businesses",
+      },
     ],
-    color: "from-blue-500 to-cyan-500"
-  },
-  {
-    title: "Task Management System",
-    description: "A comprehensive task and project management application.",
-    longDescription: "Features include task assignment, progress tracking, deadline management, and team collaboration tools.",
-    date: "February 2025",
-    githubLink: "https://github.com/shaswat2031/task-management",
-    image: universityConnectImage, // Placeholder, replace with actual image
-    alignment: "left",
-    tags: ["React", "Express", "MongoDB", "Socket.io"],
-    highlight: false,
-    features: [
-      "Task creation and assignment",
-      "Progress tracking with visualizations",
-      "Deadline reminders and notifications",
-      "Team collaboration features",
-      "Priority management"
-    ],
-    color: "from-amber-600 to-orange-600"
+    color: "from-blue-600 to-cyan-600",
   }
 ];
 
@@ -301,16 +288,32 @@ const AllProjects = () => {
                       <FaArrowRight className="ml-1.5" size={10} />
                     </motion.button>
                     
-                    <motion.a
-                      href={project.githubLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="p-2 rounded-full bg-gray-700 text-white hover:bg-indigo-600 transition-colors"
-                      whileHover={{ scale: 1.1, rotate: 5 }}
-                      whileTap={{ scale: 0.9 }}
-                    >
-                      <FaGithub size={14} />
-                    </motion.a>
+                    <div className="flex gap-2">
+                      {project.liveLink && (
+                        <motion.a
+                          href={project.liveLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="p-2 rounded-full bg-gray-700 text-white hover:bg-green-600 transition-colors"
+                          whileHover={{ scale: 1.1, rotate: -5 }}
+                          whileTap={{ scale: 0.9 }}
+                          title="Live Demo"
+                        >
+                          <FaExternalLinkAlt size={12} />
+                        </motion.a>
+                      )}
+                      <motion.a
+                        href={project.githubLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="p-2 rounded-full bg-gray-700 text-white hover:bg-indigo-600 transition-colors"
+                        whileHover={{ scale: 1.1, rotate: 5 }}
+                        whileTap={{ scale: 0.9 }}
+                        title="View Code"
+                      >
+                        <FaGithub size={14} />
+                      </motion.a>
+                    </div>
                   </div>
                 </div>
                 
@@ -394,6 +397,19 @@ const AllProjects = () => {
                         
                         {/* Action Button */}
                         <div className="flex justify-end gap-4 pt-4 border-t border-gray-700">
+                          {project.liveLink && (
+                            <motion.a
+                              href={project.liveLink}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="px-5 py-2.5 bg-gradient-to-r from-green-600 to-teal-600 text-white rounded-lg font-medium hover:from-green-700 hover:to-teal-700 transition-colors flex items-center"
+                              whileHover={{ scale: 1.05 }}
+                              whileTap={{ scale: 0.95 }}
+                            >
+                              <FaExternalLinkAlt className="mr-2" size={14} />
+                              View Live Demo
+                            </motion.a>
+                          )}
                           <motion.a
                             href={project.githubLink}
                             target="_blank"

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaAward, FaExternalLinkAlt, FaArrowRight, FaArrowLeft, FaInfoCircle, FaTimes, FaCode, FaLaptopCode } from 'react-icons/fa';
+import { FaAward, FaArrowRight, FaArrowLeft, FaInfoCircle, FaTimes, FaCode, FaLaptopCode } from 'react-icons/fa';
 
 // Import images
 import bootcampImage from '../Assets/bootcamp.jpg';

@@ -5,7 +5,7 @@ import universityConnectImage from '../Assets/university-connect.png';
 import inventoryImage from '../Assets/image.png';
 import ecommerceImage from '../Assets/Ecommerce.png';
 
-const projects = [
+export const projects = [
   {
     title: "University Connect",
     description: "A student-driven platform enabling users to create profiles, showcase skills, and connect for collaboration.",
@@ -45,7 +45,7 @@ const projects = [
     color: "from-blue-600 to-indigo-600"
   },
   {
-    title: "E-commerce Platform (MERN Stack) (Work in Progress)",
+    title: "E-commerce Platform (MERN Stack)",
     description: "A fully functional e-commerce platform built using the MERN stack.",
     longDescription: "Features include user authentication, product management, shopping cart, order processing, and payment gateway integration.",
     date: "March 2025",
@@ -329,20 +329,32 @@ const Projects = () => {
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-indigo-600 rounded-full opacity-10 blur-2xl"></div>
           <div className="absolute left-1/4 top-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 bg-purple-600 rounded-full opacity-10 blur-xl"></div>
           
-          <motion.a
-            href="https://github.com/shaswat2031"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="relative inline-flex items-center px-6 py-3 text-sm font-medium rounded-full text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 shadow-lg hover:shadow-indigo-500/30 transition-all duration-300"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <FaGithub className="mr-2" />
-            Explore More on GitHub
-          </motion.a>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <motion.a
+              href="https://github.com/shaswat2031"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="relative inline-flex items-center px-6 py-3 text-sm font-medium rounded-full text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 shadow-lg hover:shadow-indigo-500/30 transition-all duration-300"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <FaGithub className="mr-2" />
+              Explore More on GitHub
+            </motion.a>
+            
+            <motion.a
+              href="/all-projects"
+              className="relative inline-flex items-center px-6 py-3 text-sm font-medium rounded-full text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 shadow-lg hover:shadow-purple-500/30 transition-all duration-300"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <FaLaptopCode className="mr-2" />
+              View All Projects
+            </motion.a>
+          </div>
           
           <p className="text-gray-400 mt-4 text-sm relative max-w-md mx-auto">
-            Discover additional projects and contributions in my GitHub repositories
+            Discover additional projects and contributions in my repositories
           </p>
         </motion.div>
       </div>

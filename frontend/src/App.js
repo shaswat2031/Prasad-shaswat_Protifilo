@@ -1,7 +1,8 @@
 import React, { useState, useEffect, lazy, Suspense } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { IoMenu, IoClose } from "react-icons/io5";
-import { FaCoffee, FaCode } from "react-icons/fa";
+import { FaCoffee } from "react-icons/fa";
+import { Routes, Route, useLocation } from "react-router-dom";
 import confetti from "canvas-confetti";
 import logo from "./Assets/logops.png";
 
@@ -17,6 +18,7 @@ const Extra = lazy(() => import("./Components/Extra"));
 const Certifications = lazy(() => import("./Components/Certifications"));
 const ContactUs = lazy(() => import("./Components/ContactUs"));
 const Popup = lazy(() => import("./Components/Popup"));
+const AllProjects = lazy(() => import("./pages/AllProjects"));
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -24,6 +26,7 @@ function App() {
   const [isButtonVisible, setIsButtonVisible] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const location = useLocation();
 
   useEffect(() => {
     // Show the loading screen for 4 seconds
@@ -36,14 +39,24 @@ function App() {
       setIsButtonVisible(true);
     }, 5500);
 
-    // Track scroll progress
+    // Track scroll progress - improved calculation
     const handleScroll = () => {
       const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = (window.scrollY / totalHeight) * 100;
+      // Prevent division by zero and ensure progress is between 0-100
+      const progress = totalHeight <= 0 ? 0 : Math.min(Math.max((window.scrollY / totalHeight) * 100, 0), 100);
       setScrollProgress(progress);
+      
+      // Ensure scroll events aren't blocked
+      document.body.style.overflow = "auto";
     };
 
     window.addEventListener('scroll', handleScroll);
+
+    // Initialize scroll position on component mount
+    handleScroll();
+    
+    // Ensure scrolling is enabled
+    document.body.style.overflow = "auto";
 
     return () => {
       clearTimeout(timer);
@@ -94,6 +107,30 @@ function App() {
       }
     }
   };
+
+  // Main homepage content
+  const MainContent = () => (
+    <>
+      <Home />
+      
+      <Suspense fallback={
+        <div className="flex justify-center items-center py-20">
+          <div className="animate-pulse flex space-x-2">
+            <div className="rounded-full bg-indigo-600 h-3 w-3"></div>
+            <div className="rounded-full bg-purple-600 h-3 w-3"></div>
+            <div className="rounded-full bg-indigo-600 h-3 w-3"></div>
+          </div>
+        </div>
+      }>
+        <Education />
+        <Skills />
+        <Projects />
+        <Extra />
+        <Certifications />
+        <ContactUs />
+      </Suspense>
+    </>
+  );
 
   return (
     <div className="flex">
@@ -189,66 +226,71 @@ function App() {
       {/* Main App Content */}
       {!isLoading && (
         <>
-          {/* Mobile Sidebar Button */}
-          <motion.button
-            className="md:hidden fixed top-6 left-6 bg-gradient-to-r from-indigo-600 to-purple-600 text-white p-3 rounded-full shadow-lg shadow-indigo-900/20 transition-all hover:from-indigo-700 hover:to-purple-700 focus:outline-none z-50"
-            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ type: "spring", stiffness: 200, damping: 20, delay: 0.2 }}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-          >
-            {isSidebarOpen ? <IoClose size={24} /> : <IoMenu size={24} />}
-          </motion.button>
+          {location.pathname === '/' && (
+            <>
+              {/* Mobile Sidebar Button */}
+              <motion.button
+                className="md:hidden fixed top-6 left-6 bg-gradient-to-r from-indigo-600 to-purple-600 text-white p-3 rounded-full shadow-lg shadow-indigo-900/20 transition-all hover:from-indigo-700 hover:to-purple-700 focus:outline-none z-50"
+                onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ type: "spring", stiffness: 200, damping: 20, delay: 0.2 }}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                {isSidebarOpen ? <IoClose size={24} /> : <IoMenu size={24} />}
+              </motion.button>
 
-          {/* Sidebar Overlay */}
-          {isSidebarOpen && (
-            <motion.div
-              className="fixed inset-0 bg-gray-900 bg-opacity-70 backdrop-blur-sm z-30 md:hidden"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={closeSidebar}
-            />
+              {/* Sidebar Overlay */}
+              {isSidebarOpen && (
+                <motion.div
+                  className="fixed inset-0 bg-gray-900 bg-opacity-70 backdrop-blur-sm z-30 md:hidden"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  onClick={closeSidebar}
+                />
+              )}
+
+              {/* Sidebar (Hidden on Mobile, Animated) */}
+              <motion.div
+                className={`fixed top-0 left-0 h-full w-64 bg-gray-900 shadow-lg shadow-indigo-900/10 z-40 ${
+                  isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+                } md:translate-x-0 md:block`}
+                initial={{ x: -250 }}
+                animate={{ x: isSidebarOpen || window.innerWidth >= 768 ? 0 : -250 }}
+                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              >
+                <Sidebar closeSidebar={closeSidebar} />
+              </motion.div>
+            </>
           )}
 
-          {/* Sidebar (Hidden on Mobile, Animated) */}
-          <motion.div
-            className={`fixed top-0 left-0 h-full w-64 bg-gray-900 shadow-lg shadow-indigo-900/10 z-40 ${
-              isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-            } md:translate-x-0 md:block`}
-            initial={{ x: -250 }}
-            animate={{ x: isSidebarOpen || window.innerWidth >= 768 ? 0 : -250 }}
-            transition={{ type: "spring", stiffness: 300, damping: 30 }}
-          >
-            <Sidebar closeSidebar={closeSidebar} />
-          </motion.div>
+          {/* Main Content with Routes */}
+          <div className={`w-full ${location.pathname === '/' ? 'md:ml-64' : ''} min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900`}>
+            <Routes>
+              <Route path="/" element={<MainContent />} />
+              <Route 
+                path="/all-projects" 
+                element={
+                  <Suspense fallback={
+                    <div className="flex justify-center items-center py-20">
+                      <div className="animate-pulse flex space-x-2">
+                        <div className="rounded-full bg-indigo-600 h-3 w-3"></div>
+                        <div className="rounded-full bg-purple-600 h-3 w-3"></div>
+                        <div className="rounded-full bg-indigo-600 h-3 w-3"></div>
+                      </div>
+                    </div>
+                  }>
+                    <AllProjects />
+                  </Suspense>
+                } 
+              />
+            </Routes>
 
-          {/* Main Content */}
-          <div className={`w-full md:ml-64 min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900`}>
-            <Home />
-            
-            <Suspense fallback={
-              <div className="flex justify-center items-center py-20">
-                <div className="animate-pulse flex space-x-2">
-                  <div className="rounded-full bg-indigo-600 h-3 w-3"></div>
-                  <div className="rounded-full bg-purple-600 h-3 w-3"></div>
-                  <div className="rounded-full bg-indigo-600 h-3 w-3"></div>
-                </div>
-              </div>
-            }>
-              <Education />
-              <Skills />
-              <Projects />
-              <Extra />
-              <Certifications />
-              <ContactUs />
-            </Suspense>
-
-            {/* Animated Floating Button */}
+            {/* Animated Floating Button - Only on homepage */}
             <AnimatePresence>
-              {isButtonVisible && (
+              {isButtonVisible && location.pathname === '/' && (
                 <motion.button
                   onClick={togglePopup}
                   className="fixed bottom-5 right-5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3 px-6 rounded-full shadow-lg shadow-indigo-900/20 hover:from-indigo-700 hover:to-purple-700 transition-all focus:outline-none flex items-center space-x-2 backdrop-blur-sm"

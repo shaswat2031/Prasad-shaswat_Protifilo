@@ -1,5 +1,5 @@
 import React from "react";
-import { FaGithub, FaLinkedin, FaDownload, FaCode, FaLaptopCode } from "react-icons/fa";
+import { FaDownload, FaCode, FaLaptopCode } from "react-icons/fa";
 import "./Home.css";
 
 const Home = () => {

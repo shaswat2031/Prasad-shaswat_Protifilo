@@ -1,0 +1,458 @@
+import { motion } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { FaExternalLinkAlt, FaGithub, FaCalendarAlt, FaCode, FaTools, FaArrowRight, FaStar, FaLaptopCode, FaFire, FaArrowLeft } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+import universityConnectImage from '../Assets/university-connect.png';
+import inventoryImage from '../Assets/image.png';
+import ecommerceImage from '../Assets/Ecommerce.png';
+
+// Import the projects array from Projects component
+import { projects } from '../Components/Projects';
+
+// Additional projects for the all-projects page
+const additionalProjects = [
+  {
+    title: "Personal Portfolio Website",
+    description: "My developer portfolio showcasing projects, skills, and professional journey.",
+    longDescription: "A responsive and interactive portfolio with animations, dark mode, and mobile-friendly design built using React and Tailwind CSS.",
+    date: "April 2025",
+    githubLink: "https://github.com/shaswat2031/Prasad-shaswat_Protifilo",
+    image: ecommerceImage, // Placeholder, replace with actual image
+    alignment: "left",
+    tags: ["React", "Tailwind CSS", "Framer Motion", "Responsive Design"],
+    highlight: true,
+    features: [
+      "Interactive UI with Framer Motion animations",
+      "Responsive design for all devices",
+      "Project showcase with detailed descriptions",
+      "Skills and education timeline"
+    ],
+    color: "from-green-600 to-teal-600"
+  },
+  {
+    title: "Weather Dashboard App",
+    description: "A real-time weather application with forecasting and location tracking.",
+    longDescription: "Integrates with multiple weather APIs to provide accurate forecasts, location-based services, and interactive maps.",
+    date: "March 2025",
+    githubLink: "https://github.com/shaswat2031/weather-dashboard",
+    image: inventoryImage, // Placeholder, replace with actual image
+    alignment: "right",
+    tags: ["JavaScript", "React", "Weather API", "Geolocation"],
+    highlight: false,
+    features: [
+      "Real-time weather updates",
+      "5-day forecast prediction",
+      "Location-based services",
+      "Interactive weather maps",
+      "Temperature trend visualization"
+    ],
+    color: "from-blue-500 to-cyan-500"
+  },
+  {
+    title: "Task Management System",
+    description: "A comprehensive task and project management application.",
+    longDescription: "Features include task assignment, progress tracking, deadline management, and team collaboration tools.",
+    date: "February 2025",
+    githubLink: "https://github.com/shaswat2031/task-management",
+    image: universityConnectImage, // Placeholder, replace with actual image
+    alignment: "left",
+    tags: ["React", "Express", "MongoDB", "Socket.io"],
+    highlight: false,
+    features: [
+      "Task creation and assignment",
+      "Progress tracking with visualizations",
+      "Deadline reminders and notifications",
+      "Team collaboration features",
+      "Priority management"
+    ],
+    color: "from-amber-600 to-orange-600"
+  }
+];
+
+// Combine all projects
+const allProjects = [...projects, ...additionalProjects];
+
+const AllProjects = () => {
+  const [activeProject, setActiveProject] = useState(null);
+  const [filterTag, setFilterTag] = useState('All');
+  const [searchQuery, setSearchQuery] = useState('');
+
+  // Extract all unique tags from projects
+  const allTags = ['All', ...new Set(allProjects.flatMap(project => project.tags))];
+
+  // Filter projects based on selected tag and search query
+  const filteredProjects = allProjects.filter(project => {
+    const matchesTag = filterTag === 'All' || project.tags.includes(filterTag);
+    const matchesSearch = project.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                          project.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                          project.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
+    return matchesTag && matchesSearch;
+  });
+
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.1 }
+    }
+  };
+  
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: { 
+      y: 0, 
+      opacity: 1,
+      transition: { type: 'spring', stiffness: 100 }
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 text-white relative overflow-hidden pt-10">
+      {/* Background decorative elements */}
+      <div className="absolute top-0 right-0 w-80 h-80 bg-indigo-500 rounded-full opacity-5 blur-3xl -mr-40 -mt-20"></div>
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-600 rounded-full opacity-5 blur-3xl -ml-48 -mb-20"></div>
+      <div className="absolute top-1/3 left-10 w-2 h-32 bg-indigo-600 opacity-10"></div>
+      
+      <motion.div 
+        className="absolute right-12 top-60 text-indigo-400 opacity-10"
+        animate={{ 
+          y: [0, -15, 0],
+          opacity: [0.1, 0.2, 0.1],
+          scale: [1, 1.2, 1]
+        }}
+        transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+      >
+        <FaCode size={20} />
+      </motion.div>
+      
+      <motion.div 
+        className="absolute left-1/4 bottom-20 text-purple-400 opacity-10"
+        animate={{ 
+          y: [0, 15, 0],
+          opacity: [0.1, 0.2, 0.1],
+          rotate: [0, 10, 0]
+        }}
+        transition={{ repeat: Infinity, duration: 5, ease: "easeInOut", delay: 1 }}
+      >
+        <FaLaptopCode size={24} />
+      </motion.div>
+      
+      <div className="max-w-6xl mx-auto px-4 md:px-8 relative z-10 pb-20">
+        {/* Back to Home Link */}
+        <div className="mb-8">
+          <Link to="/" className="inline-flex items-center text-indigo-400 hover:text-indigo-300 transition-colors">
+            <FaArrowLeft className="mr-2" size={14} />
+            <span>Back to Home</span>
+          </Link>
+        </div>
+
+        {/* Page Header */}
+        <motion.div 
+          className="mb-12 text-center"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <div className="inline-block mb-3 relative">
+            <motion.div 
+              className="absolute inset-0 rounded-xl bg-gradient-to-r from-indigo-600/20 to-purple-600/20 blur-xl"
+              animate={{ 
+                rotate: [0, 5, 0, -5, 0],
+                scale: [1, 1.05, 1, 1.05, 1]
+              }}
+              transition={{ repeat: Infinity, duration: 10, ease: "easeInOut" }}
+            />
+            <div className="w-16 h-16 mx-auto bg-gray-800 rounded-xl flex items-center justify-center border-2 border-indigo-700 shadow-lg shadow-indigo-900/20 relative">
+              <motion.div
+                animate={{ 
+                  rotateY: [0, 360],
+                }}
+                transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
+                className="text-indigo-400 text-2xl"
+              >
+                <FaLaptopCode />
+              </motion.div>
+            </div>
+          </div>
+          
+          <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-3">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400">
+              Project Portfolio
+            </span>
+          </h1>
+          <div className="h-0.5 w-24 mx-auto bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full mb-4"></div>
+          <p className="text-gray-400 max-w-2xl mx-auto text-sm">
+            A comprehensive collection of my development work, showcasing a range of technologies and problem-solving approaches.
+          </p>
+        </motion.div>
+
+        {/* Search and Filter Controls */}
+        <div className="mb-10 flex flex-col md:flex-row gap-4 items-center justify-between">
+          {/* Search Bar */}
+          <div className="relative w-full md:w-1/3">
+            <input
+              type="text"
+              placeholder="Search projects..."
+              className="w-full py-2 px-4 pl-10 rounded-lg bg-gray-800 bg-opacity-50 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-gray-300 placeholder-gray-500"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+            <FaCode className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500" size={16} />
+          </div>
+          
+          {/* Tag Filter */}
+          <div className="flex flex-wrap gap-2 justify-center md:justify-end">
+            {allTags.map((tag, index) => (
+              <motion.button
+                key={index}
+                className={`px-3 py-1 text-xs font-medium rounded-full transition-colors ${
+                  filterTag === tag
+                    ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md'
+                    : 'bg-gray-800 text-gray-400 border border-gray-700 hover:bg-gray-700'
+                }`}
+                onClick={() => setFilterTag(tag)}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                {tag}
+              </motion.button>
+            ))}
+          </div>
+        </div>
+
+        {/* Projects Grid */}
+        {filteredProjects.length > 0 ? (
+          <motion.div 
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+          >
+            {filteredProjects.map((project, index) => (
+              <motion.div
+                key={index}
+                className="bg-gray-800 bg-opacity-60 backdrop-blur-sm rounded-xl overflow-hidden border-t-2 border-indigo-500 shadow-xl hover:shadow-indigo-900/20 transition-all duration-300"
+                variants={itemVariants}
+                whileHover={{ y: -5 }}
+              >
+                {/* Project Image */}
+                <div className="relative h-48 overflow-hidden">
+                  <div className={`absolute inset-0 bg-gradient-to-tr ${project.color} opacity-20 mix-blend-overlay z-10`}></div>
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-full object-cover"
+                  />
+                  
+                  {/* Project Date Badge */}
+                  <div className="absolute top-2 left-2 bg-gray-900 bg-opacity-70 backdrop-blur-sm px-2 py-1 rounded text-xs font-medium text-gray-300 flex items-center">
+                    <FaCalendarAlt className="mr-1" size={10} />
+                    {project.date}
+                  </div>
+                  
+                  {/* Featured Badge */}
+                  {project.highlight && (
+                    <div className="absolute top-2 right-2 z-30">
+                      <span className="inline-flex items-center px-2 py-1 rounded-full bg-indigo-900/60 backdrop-blur-sm text-indigo-200 text-xs border border-indigo-700/50">
+                        <FaFire className="mr-1 text-amber-500" size={10} />
+                        Featured
+                      </span>
+                    </div>
+                  )}
+                </div>
+                
+                {/* Project Content */}
+                <div className="p-5">
+                  <h3 className="text-xl font-bold text-white mb-2">
+                    {project.title}
+                  </h3>
+                  
+                  <p className="text-gray-400 text-sm mb-4 line-clamp-2">
+                    {project.description}
+                  </p>
+                  
+                  {/* Tags */}
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {project.tags.slice(0, 3).map((tag, i) => (
+                      <span 
+                        key={i} 
+                        className="px-2 py-0.5 text-xs font-medium bg-gray-700/80 text-indigo-300 rounded-full border border-gray-600"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                    {project.tags.length > 3 && (
+                      <span className="px-2 py-0.5 text-xs font-medium bg-gray-700/80 text-gray-400 rounded-full border border-gray-600">
+                        +{project.tags.length - 3}
+                      </span>
+                    )}
+                  </div>
+                  
+                  {/* Action Buttons */}
+                  <div className="flex items-center justify-between pt-3 border-t border-gray-700">
+                    <motion.button
+                      className="inline-flex items-center text-indigo-300 hover:text-indigo-200 text-xs font-medium"
+                      onClick={() => setActiveProject(activeProject === index ? null : index)}
+                      whileHover={{ x: 3 }}
+                      whileTap={{ scale: 0.97 }}
+                    >
+                      View Details
+                      <FaArrowRight className="ml-1.5" size={10} />
+                    </motion.button>
+                    
+                    <motion.a
+                      href={project.githubLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-2 rounded-full bg-gray-700 text-white hover:bg-indigo-600 transition-colors"
+                      whileHover={{ scale: 1.1, rotate: 5 }}
+                      whileTap={{ scale: 0.9 }}
+                    >
+                      <FaGithub size={14} />
+                    </motion.a>
+                  </div>
+                </div>
+                
+                {/* Expanded Project Details Modal */}
+                {activeProject === index && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+                    onClick={() => setActiveProject(null)}
+                  >
+                    <motion.div
+                      initial={{ scale: 0.9, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      exit={{ scale: 0.9, opacity: 0 }}
+                      className="bg-gray-900 rounded-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      {/* Project Image Header */}
+                      <div className="relative h-56 md:h-64">
+                        <img 
+                          src={project.image} 
+                          alt={project.title}
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent"></div>
+                        
+                        {/* Project Title Overlay */}
+                        <div className="absolute bottom-0 left-0 right-0 p-6">
+                          <div className="flex items-center text-indigo-300 text-sm mb-2">
+                            <FaCalendarAlt className="mr-2" size={12} />
+                            <span>{project.date}</span>
+                          </div>
+                          <h2 className="text-2xl md:text-3xl font-bold text-white">{project.title}</h2>
+                        </div>
+                        
+                        {/* Close Button */}
+                        <button 
+                          className="absolute top-4 right-4 w-8 h-8 rounded-full bg-gray-900 bg-opacity-50 text-white flex items-center justify-center hover:bg-opacity-70"
+                          onClick={() => setActiveProject(null)}
+                        >
+                          ✕
+                        </button>
+                      </div>
+                      
+                      <div className="p-6">
+                        {/* Description */}
+                        <div className="mb-6">
+                          <h3 className="text-lg font-semibold text-white mb-2">Project Overview</h3>
+                          <p className="text-gray-300">{project.longDescription}</p>
+                        </div>
+                        
+                        {/* Tags Section */}
+                        <div className="mb-6">
+                          <h3 className="text-lg font-semibold text-white mb-2">Technologies</h3>
+                          <div className="flex flex-wrap gap-2">
+                            {project.tags.map((tag, i) => (
+                              <span 
+                                key={i} 
+                                className="px-3 py-1 text-sm font-medium bg-gray-800 text-indigo-300 rounded-full border border-gray-700"
+                              >
+                                {tag}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                        
+                        {/* Features Section */}
+                        <div className="mb-6">
+                          <h3 className="text-lg font-semibold text-white mb-2">Key Features</h3>
+                          <ul className="grid grid-cols-1 gap-2">
+                            {project.features.map((feature, i) => (
+                              <li key={i} className="flex items-start">
+                                <span className="text-indigo-400 mr-2 mt-1">•</span>
+                                <span className="text-gray-300">{feature}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                        
+                        {/* Action Button */}
+                        <div className="flex justify-end gap-4 pt-4 border-t border-gray-700">
+                          <motion.a
+                            href={project.githubLink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="px-5 py-2.5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg font-medium hover:from-indigo-700 hover:to-purple-700 transition-colors flex items-center"
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                          >
+                            <FaGithub className="mr-2" size={16} />
+                            View on GitHub
+                          </motion.a>
+                        </div>
+                      </div>
+                    </motion.div>
+                  </motion.div>
+                )}
+              </motion.div>
+            ))}
+          </motion.div>
+        ) : (
+          <div className="text-center py-20">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+              className="inline-block mb-5"
+            >
+              <div className="w-16 h-16 mx-auto bg-gray-800 rounded-xl flex items-center justify-center border-2 border-gray-700 text-gray-500">
+                <FaLaptopCode size={30} />
+              </div>
+            </motion.div>
+            <h3 className="text-xl font-bold text-gray-300 mb-2">No Projects Found</h3>
+            <p className="text-gray-500">
+              Try adjusting your search or filter to find what you're looking for.
+            </p>
+            <motion.button
+              className="mt-4 px-4 py-2 bg-indigo-600 text-white rounded-lg font-medium hover:bg-indigo-700 transition-colors"
+              onClick={() => { setSearchQuery(''); setFilterTag('All'); }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Reset Filters
+            </motion.button>
+          </div>
+        )}
+        
+        {/* Footer Navigation */}
+        <div className="mt-16 text-center">
+          <Link
+            to="/"
+            className="inline-flex items-center px-6 py-3 text-sm font-medium rounded-full text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 shadow-lg hover:shadow-indigo-500/30 transition-all duration-300"
+          >
+            <FaArrowLeft className="mr-2" />
+            Return to Portfolio
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default AllProjects;

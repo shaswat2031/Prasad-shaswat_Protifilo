@@ -26,7 +26,7 @@ const Home = () => {
             className="block text-5xl md:text-6xl bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-indigo-500 mb-2"
             style={{ fontFamily: "'Roboto Slab', serif" }}
           >
-            HELLO WORLD! 
+            GREETINGS & WELCOME!
           </span>
           <span className="leading-tight block">
             I AM{" "}
@@ -51,14 +51,14 @@ const Home = () => {
         <div className="text-gray-300 text-center md:text-left mb-8 relative z-10">
           <div className="bg-gray-800 bg-opacity-80 p-6 rounded-lg shadow-md border-l-4 border-indigo-500">
             <p className="text-lg md:text-xl flex flex-col md:flex-row items-center md:items-start gap-2">
-              <span className="font-medium text-gray-300">I'm a dedicated</span>
+              <span className="font-medium text-gray-300">I'm a passionate</span>
               <span className="font-bold text-xl md:text-2xl bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-indigo-400">
                 Full Stack Developer ⚡
               </span>
             </p>
 
             <p className="mt-4 text-gray-400 leading-relaxed">
-              with expertise in modern web technologies including
+              specializing in cutting-edge web technologies including
               <span className="inline-flex gap-2 flex-wrap mt-2">
                 <span className="font-medium text-blue-300 bg-blue-900 bg-opacity-40 px-2 py-1 rounded-md shadow-sm">
                   React
@@ -78,24 +78,6 @@ const Home = () => {
         </div>
 
         {/* Social Links */}
-        <div className="flex justify-center md:justify-start space-x-6 mt-8">
-          <a
-            href="https://www.linkedin.com/in/shaswat-prasad-14b147266/?originalSubdomain=in"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="transform hover:scale-110 transition duration-300 bg-gray-800 p-3 rounded-full shadow-md hover:bg-indigo-800"
-          >
-            <FaLinkedin size={28} className="text-blue-400" />
-          </a>
-          <a
-            href="https://github.com/shaswat2031"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="transform hover:scale-110 transition duration-300 bg-gray-800 p-3 rounded-full shadow-md hover:bg-indigo-800"
-          >
-            <FaGithub size={28} className="text-white" />
-          </a>
-        </div>
 
         {/* Download Resume Button */}
         <div className="mt-8 flex justify-center md:justify-start">
@@ -119,13 +101,13 @@ const Home = () => {
             {/* Card 1: Availability & Skills Combined */}
             <div className="bg-gray-800 bg-opacity-80 p-5 rounded-lg shadow-md border-l-4 border-indigo-500 hover:shadow-lg transition duration-300">
               <h4 className="font-bold text-indigo-400 mb-2 flex items-center">
-                <span className="mr-2">🚀</span> Current Status & Skills
+                <span className="mr-2">🚀</span> Current Status & Expertise
               </h4>
               <p className="mb-3 text-gray-400">
-                <strong className="text-white">Available now:</strong> Seeking web development
-                internships or part-time roles starting January 2024. As a
-                full-stack JavaScript developer, I bring experience with React,
-                Node.js, and modern web technologies.
+                <strong className="text-white">Currently available:</strong> Seeking web development
+                internships or part-time opportunities commencing January 2024. As a
+                versatile full-stack JavaScript developer, I bring comprehensive experience with React,
+                Node.js, and contemporary web technologies.
               </p>
               <div className="flex flex-wrap gap-2 mt-3">
                 <span className="text-xs font-medium bg-blue-900 bg-opacity-40 text-blue-300 px-2 py-1 rounded">
@@ -155,17 +137,17 @@ const Home = () => {
                 <span className="mr-2">🎯</span> Professional Focus
               </h4>
               <p className="mb-3 text-gray-400">
-                Creating clean, efficient applications with modern JavaScript
-                frameworks, responsive design principles, and user-centered
-                interfaces. Currently expanding knowledge in TypeScript,
-                Next.js, and cloud services.
+                Crafting elegant, high-performance applications through modern JavaScript
+                frameworks, advanced responsive design principles, and user-centered
+                interfaces. Currently expanding expertise in TypeScript,
+                Next.js, and enterprise-grade cloud infrastructure.
               </p>
 
               {/* Connect Section - Integrated */}
               <div className="flex justify-between items-center mt-4 pt-3 border-t border-gray-700">
                 <div className="flex items-center text-indigo-400">
                   <span className="mr-2">✨</span>
-                  <span className="font-medium">Let's Connect</span>
+                  <span className="font-medium">Let's Collaborate</span>
                 </div>
                 <a
                   href="#contact"

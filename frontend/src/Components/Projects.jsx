@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { FaExternalLinkAlt, FaGithub, FaCalendarAlt, FaCode, FaTools, FaArrowRight, FaStar, FaLaptopCode, FaFire } from 'react-icons/fa';
 import universityConnectImage from '../Assets/university-connect.png';
 import inventoryImage from '../Assets/image.png';
-import ecommerceImage from '../Assets/Ecommerce.png';
 
 export const projects = [
   {

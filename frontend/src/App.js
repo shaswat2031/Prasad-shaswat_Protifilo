@@ -25,6 +25,13 @@ function App() {
   const location = useLocation();
 
   useEffect(() => {
+    // Disable scrolling during loading screen
+    if (isLoading) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+
     // Show the loading screen for 4 seconds
     const timer = setTimeout(() => {
       setIsLoading(false);
@@ -35,6 +42,13 @@ function App() {
       setIsButtonVisible(true);
     }, 5500);
 
+    return () => {
+      clearTimeout(timer);
+      clearTimeout(buttonTimer);
+    };
+  }, [isLoading]);
+
+  useEffect(() => {
     // Track scroll progress - improved calculation
     const handleScroll = () => {
       const totalHeight =
@@ -45,9 +59,6 @@ function App() {
           ? 0
           : Math.min(Math.max((window.scrollY / totalHeight) * 100, 0), 100);
       setScrollProgress(progress);
-
-      // Ensure scroll events aren't blocked
-      document.body.style.overflow = "auto";
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -55,12 +66,7 @@ function App() {
     // Initialize scroll position on component mount
     handleScroll();
 
-    // Ensure scrolling is enabled
-    document.body.style.overflow = "auto";
-
     return () => {
-      clearTimeout(timer);
-      clearTimeout(buttonTimer);
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);

@@ -43,11 +43,11 @@
     <!-- Resource Hints & Performance Optimization -->
     <link rel="apple-touch-icon" href="./logops.png" />
     <link rel="manifest" href="./manifest.json" />
-    <link rel="preconnect" href="https://fonts.googleapis.com ">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     
-    <!-- Removed incorrect preload directives -->
-    <!-- Only preload critical resources that will be used immediately -->
+    <!-- Remove problematic preload directives -->
+    <!-- Only preload the logo since it's immediately visible -->
     <link rel="preload" href="./logops.png" as="image" fetchpriority="high" />
     
     <meta name="theme-color" content="#4F46E5" media="(prefers-color-scheme: dark)" />
@@ -282,11 +282,10 @@
     <meta name="apple-mobile-web-app-title" content="Prasad Shaswat" />
     <meta name="mobile-web-app-capable" content="yes" />
     
-    <!-- Advanced Performance Optimization Tags -->
-    <link rel="preload" as="font" href="./fonts/main-font.woff2" type="font/woff2" crossorigin="anonymous" />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://prasadshaswat.tech blob:; connect-src 'self';">
+    <!-- Remove Advanced Performance Optimization Tags that cause warnings -->
+    <!-- Only keep essential and correctly formatted preloads -->
     
-    <!-- Added appropriate preconnect for performance -->
+    <!-- Add appropriate preconnect for performance -->
     <link rel="preconnect" href="https://www.google-analytics.com" />
   </head>
   <body itemscope itemtype="https://schema.org/WebPage">

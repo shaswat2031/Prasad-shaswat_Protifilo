@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import React, { useState, useCallback, memo, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   FaCalendarAlt,
   FaArrowRight,
@@ -26,11 +26,98 @@ import cdcCoordinatorImage from "../Assets/cdc.jpg";
 import cybersecurityImage from "../Assets/cybersecurity.jpg";
 import fullStackImage from "../Assets/bootcamp.jpg";
 
+// Simplified certificate card component
+const CertificateCard = memo(({ cert, index, onViewDetails }) => {
+  const getSkillIcon = (skill) => {
+    if (skill.includes("Problem")) return <FaBrain />;
+    if (skill.includes("Team")) return <FaUsers />;
+    if (skill.includes("UI/UX")) return <FaPalette />;
+    if (skill.includes("Prototyping")) return <FaCode />;
+    if (skill.includes("Healthcare")) return <FaMedkit />;
+    if (skill.includes("Network")) return <FaNetworkWired />;
+    if (skill.includes("Cyber")) return <FaShieldAlt />;
+    if (skill.includes("Event")) return <FaCalendarAlt />;
+    if (skill.includes("Leadership")) return <FaUsers />;
+    if (skill.includes("React")) return <FaCode />;
+    if (skill.includes("Node")) return <FaServer />;
+    return <FaLaptop />;
+  };
+
+  const getCertificateTypeIcon = (type) => {
+    switch (type) {
+      case "Competition":
+        return <FaAward className="text-yellow-500" />;
+      case "Design":
+        return <FaPalette className="text-purple-500" />;
+      case "Technical":
+        return <FaLaptopCode className="text-blue-500" />;
+      case "Leadership":
+        return <FaUsers className="text-green-500" />;
+      default:
+        return <FaCertificate className="text-gray-500" />;
+    }
+  };
+
+  return (
+    <motion.div
+      key={cert.id}
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.3, delay: index < 6 ? index * 0.05 : 0 }}
+      className="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 flex flex-col h-[450px]"
+    >
+      <div className="relative h-48 overflow-hidden flex-shrink-0">
+        <img
+          src={cert.image}
+          alt={cert.title}
+          className="w-full h-full object-cover"
+          loading="lazy"
+        />
+        <div className="absolute top-2 right-2 bg-gray-900 text-white text-xs px-2 py-1 rounded-full flex items-center">
+          {getCertificateTypeIcon(cert.type)}
+          <span className="ml-1">{cert.type}</span>
+        </div>
+      </div>
+      <div className="p-5 flex flex-col flex-grow">
+        <h3 className="text-xl font-bold text-white mb-2 line-clamp-2">
+          {cert.title}
+        </h3>
+        <div className="flex items-center text-gray-400 text-sm mb-3">
+          <span className="truncate">{cert.issuer}</span>
+          <span className="mx-2 flex-shrink-0">•</span>
+          <span className="flex items-center flex-shrink-0">
+            <FaCalendarAlt className="mr-1" /> {cert.date}
+          </span>
+        </div>
+        <div className="flex flex-wrap flex-grow mb-3">
+          {cert.skills.slice(0, 3).map((skill, i) => (
+            <span
+              key={i}
+              className="bg-gray-700 text-gray-300 rounded-full px-3 py-1 text-xs mr-2 mb-2 flex items-center"
+            >
+              {getSkillIcon(skill)}
+              <span className="ml-1 truncate max-w-[80px]">{skill}</span>
+            </span>
+          ))}
+        </div>
+        <button
+          onClick={() => onViewDetails(cert)}
+          className="flex items-center justify-center w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 transition-colors text-white rounded-md mt-auto"
+        >
+          <span>View Details</span>
+          <FaArrowRight className="ml-2" />
+        </button>
+      </div>
+    </motion.div>
+  );
+});
+
 const Certifications = () => {
   const [selectedCertification, setSelectedCertification] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false); // Changed to false to avoid unnecessary loading state
+  const sectionRef = useRef(null);
 
-  // Define certificates array before using it in useEffect
+  // Define certificates array
   const certificates = [
     {
       id: 1,
@@ -111,64 +198,19 @@ const Certifications = () => {
     },
   ];
 
-  // Fixed useEffect to reference the certificates array after it's defined
-  useEffect(() => {
-    // Create an array of all image urls
-    const imageUrls = certificates.map((cert) => cert.image);
-
-    // Preload all images
-    const preloadImages = async () => {
-      const promises = imageUrls.map((url) => {
-        return new Promise((resolve, reject) => {
-          const img = new Image();
-          img.onload = resolve;
-          img.onerror = reject;
-          img.src = url;
-        });
-      });
-
-      try {
-        await Promise.all(promises);
-        setIsLoading(false);
-      } catch (error) {
-        console.error("Error preloading images:", error);
-        setIsLoading(false); // Continue even if some images fail to load
-      }
-    };
-
-    preloadImages();
-
-    // Cleanup function to handle unmounting
-    return () => {
-      // Cancel any pending operations if component unmounts
-    };
-  }, []); // Added certificates as a dependency
-
-  const handleViewDetails = (cert) => {
+  // Simplified handlers with useCallback
+  const handleViewDetails = useCallback((cert) => {
     setSelectedCertification(cert);
-  };
+  }, []);
 
-  const handleCloseDetails = () => {
-    setSelectedCertification(null);
-  };
-
-  // Function to get appropriate icon for certificate type
-  const getCertificateTypeIcon = (type) => {
-    switch (type) {
-      case "Competition":
-        return <FaAward className="text-yellow-500" />;
-      case "Design":
-        return <FaPalette className="text-purple-500" />;
-      case "Technical":
-        return <FaLaptopCode className="text-blue-500" />;
-      case "Leadership":
-        return <FaUsers className="text-green-500" />;
-      default:
-        return <FaCertificate className="text-gray-500" />;
+  const handleCloseDetails = useCallback((e) => {
+    if (e) {
+      e.stopPropagation();
     }
-  };
+    setSelectedCertification(null);
+  }, []);
 
-  // Function to get appropriate icon for skill
+  // Icon getter functions
   const getSkillIcon = (skill) => {
     if (skill.includes("Problem")) return <FaBrain />;
     if (skill.includes("Team")) return <FaUsers />;
@@ -184,13 +226,28 @@ const Certifications = () => {
     return <FaLaptop />;
   };
 
+  const getCertificateTypeIcon = (type) => {
+    switch (type) {
+      case "Competition":
+        return <FaAward className="text-yellow-500" />;
+      case "Design":
+        return <FaPalette className="text-purple-500" />;
+      case "Technical":
+        return <FaLaptopCode className="text-blue-500" />;
+      case "Leadership":
+        return <FaUsers className="text-green-500" />;
+      default:
+        return <FaCertificate className="text-gray-500" />;
+    }
+  };
+
   return (
-    <section id="certifications" className="py-20 bg-gray-900">
+    <section id="certifications" className="py-20 bg-gray-900" ref={sectionRef}>
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.3 }}
           className="text-center mb-16"
         >
           <h2 className="text-4xl font-bold text-white mb-3">
@@ -202,163 +259,108 @@ const Certifications = () => {
           </p>
         </motion.div>
 
-        {isLoading ? (
-          <div className="flex justify-center items-center py-20">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {certificates.map((cert, index) => (
-              <motion.div
-                key={cert.id}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.3, delay: Math.min(index * 0.1, 1) }}
-                className="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 flex flex-col h-[450px]"
-              >
-                <div className="relative h-48 overflow-hidden flex-shrink-0">
-                  <img
-                    src={cert.image}
-                    alt={cert.title}
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                  />
-                  <div className="absolute top-2 right-2 bg-gray-900 text-white text-xs px-2 py-1 rounded-full flex items-center">
-                    {getCertificateTypeIcon(cert.type)}
-                    <span className="ml-1">{cert.type}</span>
-                  </div>
-                </div>
-                <div className="p-5 flex flex-col flex-grow">
-                  <h3 className="text-xl font-bold text-white mb-2 line-clamp-2">
-                    {cert.title}
-                  </h3>
-                  <div className="flex items-center text-gray-400 text-sm mb-3">
-                    <span className="truncate">{cert.issuer}</span>
-                    <span className="mx-2 flex-shrink-0">•</span>
-                    <span className="flex items-center flex-shrink-0">
-                      <FaCalendarAlt className="mr-1" /> {cert.date}
-                    </span>
-                  </div>{" "}
-                  <div className="flex flex-wrap flex-grow mb-3">
-                    {cert.skills.slice(0, 3).map((skill, i) => (
-                      <span
-                        key={i}
-                        className="bg-gray-700 text-gray-300 rounded-full px-3 py-1 text-xs mr-2 mb-2 flex items-center"
-                      >
-                        {getSkillIcon(skill)}
-                        <span className="ml-1 truncate max-w-[80px]">
-                          {skill}
-                        </span>
-                      </span>
-                    ))}
-                  </div>
-                  <button
-                    onClick={() => handleViewDetails(cert)}
-                    className="flex items-center justify-center w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 transition-colors text-white rounded-md mt-auto"
-                  >
-                    <span>View Details</span>
-                    <FaArrowRight className="ml-2" />
-                  </button>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        )}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {certificates.map((cert, index) => (
+            <CertificateCard
+              key={cert.id}
+              cert={cert}
+              index={index}
+              onViewDetails={handleViewDetails}
+            />
+          ))}
+        </div>
 
-        {/* Modal implementation with improvements */}
-        {selectedCertification && (
-          <div
-            className="fixed inset-0 z-50 overflow-y-auto"
-            aria-labelledby="modal-title"
-            role="dialog"
-            aria-modal="true"
-            onClick={handleCloseDetails} // Close when clicking outside
-          >
-            <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-              <div
-                className="fixed inset-0 bg-gray-900 bg-opacity-75 transition-opacity"
-                aria-hidden="true"
-              ></div>
-
-              {/* Modal panel */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.3 }}
-                className="inline-block align-bottom bg-gray-800 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-2xl sm:w-full"
-                onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside modal
-              >
-                <div className="relative">
-                  <div className="h-64 w-full overflow-hidden">
-                    <img
-                      src={selectedCertification.image}
-                      alt={selectedCertification.title}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <div className="px-6 py-5">
-                    <div className="flex justify-between items-start">
-                      <div>
-                        <h3 className="text-2xl font-bold text-white mb-2">
-                          {selectedCertification.title}
-                        </h3>
-                        <div className="flex items-center text-gray-400 mb-4">
-                          <span>{selectedCertification.issuer}</span>
-                          <span className="mx-2">•</span>
-                          <span className="flex items-center">
-                            <FaCalendarAlt className="mr-1" />{" "}
-                            {selectedCertification.date}
+        {/* Modal with AnimatePresence for better animations */}
+        <AnimatePresence>
+          {selectedCertification && (
+            <div
+              className="fixed inset-0 z-50 overflow-y-auto bg-gray-900 bg-opacity-75"
+              aria-labelledby="modal-title"
+              role="dialog"
+              aria-modal="true"
+              onClick={handleCloseDetails}
+            >
+              <div className="flex items-center justify-center min-h-screen p-4">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  transition={{ duration: 0.2 }}
+                  className="bg-gray-800 rounded-lg overflow-hidden shadow-xl max-w-2xl w-full"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <div className="relative">
+                    <div className="h-64 w-full overflow-hidden">
+                      <img
+                        src={selectedCertification.image}
+                        alt={selectedCertification.title}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div className="px-6 py-5">
+                      <div className="flex justify-between items-start">
+                        <div>
+                          <h3 className="text-2xl font-bold text-white mb-2">
+                            {selectedCertification.title}
+                          </h3>
+                          <div className="flex items-center text-gray-400 mb-4">
+                            <span>{selectedCertification.issuer}</span>
+                            <span className="mx-2">•</span>
+                            <span className="flex items-center">
+                              <FaCalendarAlt className="mr-1" />{" "}
+                              {selectedCertification.date}
+                            </span>
+                          </div>
+                        </div>
+                        <div className="bg-gray-900 text-white px-3 py-1 rounded-full flex items-center">
+                          {getCertificateTypeIcon(selectedCertification.type)}
+                          <span className="ml-1">
+                            {selectedCertification.type}
                           </span>
                         </div>
                       </div>
-                      <div className="bg-gray-900 text-white px-3 py-1 rounded-full flex items-center">
-                        {getCertificateTypeIcon(selectedCertification.type)}
-                        <span className="ml-1">
-                          {selectedCertification.type}
-                        </span>
+
+                      <div className="mb-4">
+                        <h4 className="text-lg font-semibold text-white mb-2">
+                          Skills
+                        </h4>
+                        <div className="flex flex-wrap">
+                          {selectedCertification.skills.map((skill, index) => (
+                            <span
+                              key={index}
+                              className="bg-gray-700 text-gray-300 rounded-full px-3 py-1 text-sm mr-2 mb-2 flex items-center"
+                            >
+                              {getSkillIcon(skill)}
+                              <span className="ml-1">{skill}</span>
+                            </span>
+                          ))}
+                        </div>
                       </div>
-                    </div>
 
-                    <div className="mb-4">
-                      <h4 className="text-lg font-semibold text-white mb-2">
-                        Skills
-                      </h4>
-                      <div className="flex flex-wrap">
-                        {selectedCertification.skills.map((skill, index) => (
-                          <span
-                            key={index}
-                            className="bg-gray-700 text-gray-300 rounded-full px-3 py-1 text-sm mr-2 mb-2 flex items-center"
-                          >
-                            {getSkillIcon(skill)}
-                            <span className="ml-1">{skill}</span>
-                          </span>
-                        ))}
+                      <div className="mb-6">
+                        <h4 className="text-lg font-semibold text-white mb-2">
+                          Description
+                        </h4>
+                        <p className="text-gray-300">
+                          {selectedCertification.description}
+                        </p>
                       </div>
-                    </div>
 
-                    <div className="mb-6">
-                      <h4 className="text-lg font-semibold text-white mb-2">
-                        Description
-                      </h4>
-                      <p className="text-gray-300">
-                        {selectedCertification.description}
-                      </p>
-                    </div>
-
-                    <div className="border-t border-gray-700 pt-4 flex justify-end">
-                      <button
-                        onClick={handleCloseDetails}
-                        className="py-2 px-5 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors"
-                      >
-                        Close
-                      </button>
+                      <div className="border-t border-gray-700 pt-4 flex justify-end">
+                        <button
+                          onClick={handleCloseDetails}
+                          className="py-2 px-5 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors"
+                        >
+                          Close
+                        </button>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </motion.div>
+                </motion.div>
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </AnimatePresence>
       </div>
     </section>
   );

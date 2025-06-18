@@ -1,4 +1,4 @@
-import React, { useState, useCallback, memo, useRef } from "react";
+import React, { useState, useCallback, memo, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   FaCalendarAlt,
@@ -116,6 +116,7 @@ const Certifications = () => {
   const [selectedCertification, setSelectedCertification] = useState(null);
   const [isLoading, setIsLoading] = useState(false); // Changed to false to avoid unnecessary loading state
   const sectionRef = useRef(null);
+  const previousOverflowStyle = useRef(null);
 
   // Define certificates array
   const certificates = [
@@ -197,6 +198,26 @@ const Certifications = () => {
         "Completed a comprehensive Full Stack Web Development course on Udemy, mastering both frontend and backend technologies. Developed proficiency in React for UI development, Node.js for server-side logic, and database management with MongoDB and Express.",
     },
   ];
+
+  // Effect to manage body overflow when modal is open
+  useEffect(() => {
+    if (selectedCertification) {
+      // Store current overflow style before changing it
+      previousOverflowStyle.current = document.body.style.overflow;
+      // Prevent scrolling on the body when modal is open
+      document.body.style.overflow = "hidden";
+    } else if (previousOverflowStyle.current !== null) {
+      // Restore previous overflow style when modal closes
+      document.body.style.overflow = previousOverflowStyle.current;
+    }
+
+    // Cleanup function to ensure overflow is restored when component unmounts
+    return () => {
+      if (previousOverflowStyle.current !== null) {
+        document.body.style.overflow = previousOverflowStyle.current;
+      }
+    };
+  }, [selectedCertification]);
 
   // Simplified handlers with useCallback
   const handleViewDetails = useCallback((cert) => {

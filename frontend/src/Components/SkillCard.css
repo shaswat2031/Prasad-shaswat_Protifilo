@@ -1,0 +1,199 @@
+.skill-outer {
+  width: 100%;
+  height: 230px;
+  border-radius: 10px;
+  padding: 1px;
+  background: radial-gradient(circle 230px at 0% 0%, #1a1a1a, #0c0d0d);
+  position: relative;
+  overflow: hidden;
+}
+
+.skill-dot {
+  width: 5px;
+  aspect-ratio: 1;
+  position: absolute;
+  background-color: #fff;
+  box-shadow: 0 0 10px #ffffff;
+  border-radius: 100px;
+  z-index: 2;
+  right: 10%;
+  top: 10%;
+  animation: moveSkillDot 6s linear infinite;
+}
+
+@keyframes moveSkillDot {
+  0%,
+  100% {
+    top: 10%;
+    right: 10%;
+  }
+  25% {
+    top: 10%;
+    right: calc(100% - 35px);
+  }
+  50% {
+    top: calc(100% - 30px);
+    right: calc(100% - 35px);
+  }
+  75% {
+    top: calc(100% - 30px);
+    right: 10%;
+  }
+}
+
+.skill-card {
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  border-radius: 9px;
+  border: solid 1px #202222;
+  background-size: 20px 20px;
+  background: radial-gradient(circle 280px at 0% 0%, #222222, #0c0d0d);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  flex-direction: column;
+  color: #fff;
+  padding: 20px;
+}
+
+.skill-ray {
+  width: 220px;
+  height: 45px;
+  border-radius: 100px;
+  position: absolute;
+  background-color: #c7c7c7;
+  opacity: 0.2;
+  box-shadow: 0 0 50px #fff;
+  filter: blur(10px);
+  transform-origin: 10%;
+  top: 0%;
+  left: 0;
+  transform: rotate(40deg);
+}
+
+.skill-icon {
+  font-size: 2.8rem; /* Reduced from 3.8rem for smaller icons */
+  margin-bottom: 15px; /* Slightly reduced margin */
+  position: relative;
+  z-index: 5;
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
+  transition: transform 0.3s ease;
+}
+
+.skill-name {
+  font-weight: 600;
+  font-size: 1rem; /* Reduced from 1.2rem */
+  background: linear-gradient(45deg, #444 10%, #fff 50%, #444 90%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  margin-bottom: 10px; /* Reduced from 15px */
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+
+/* Removed proficiency related styling */
+
+.skill-learning-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  background: rgba(79, 70, 229, 0.2);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.skill-pulse {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background-color: #6366f1;
+  border-radius: 50%;
+  position: relative;
+}
+
+.skill-pulse::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background-color: rgba(99, 102, 241, 0.7);
+  animation: pulse 1.5s ease-out infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+
+.skill-line {
+  position: absolute;
+  background-color: #2c2c2c;
+}
+
+.skill-topl {
+  top: 10%;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, #555 30%, #1d1f1f 70%);
+}
+
+.skill-bottoml {
+  bottom: 10%;
+  width: 100%;
+  height: 1px;
+}
+
+.skill-leftl {
+  left: 10%;
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(180deg, #555 30%, #222424 70%);
+}
+
+.skill-rightl {
+  right: 10%;
+  width: 1px;
+  height: 100%;
+}
+
+/* Hover effects */
+.skill-outer:hover .skill-icon {
+  transform: scale(1.15);
+}
+
+.skill-outer:hover .skill-ray {
+  filter: blur(15px);
+  opacity: 0.4;
+}
+
+/* For dark mode compatibility */
+:root {
+  --color-primary: #6366f1;
+  --color-secondary: #818cf8;
+}
+.skill-outer:hover .skill-icon {
+  transform: scale(1.1);
+}
+
+.skill-outer:hover .skill-ray {
+  filter: blur(15px);
+  opacity: 0.5;
+}
+
+/* For dark mode compatibility */
+:root {
+  --color-primary: #6366f1;
+  --color-secondary: #a855f7;
+}

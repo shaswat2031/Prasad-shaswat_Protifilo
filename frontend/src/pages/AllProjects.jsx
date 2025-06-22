@@ -6,6 +6,8 @@ import {
   FaFilter,
   FaTags,
 } from "react-icons/fa";
+import { IoArrowBack } from "react-icons/io5";
+import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import universityonnect from "../Assets/university-connect.png";
 import Protifilo from "../Assets/protifilo.png";
@@ -32,7 +34,11 @@ function AllProjects() {
         id: 1,
         title: "University Connect",
         description:
-          "A student-driven platform enabling users to create profiles, showcase skills, and connect for collaboration.",
+          "A student-driven platform enabling users to create profiles, showcase skills, and connect for collaboration. Features include real-time messaging, project collaboration tools, and skill endorsements to help students build their professional network within the university ecosystem.",
+        challenges:
+          "Implementing real-time communication and ensuring data privacy while maintaining an intuitive user experience.",
+        techStack:
+          "MERN Stack with Socket.io for real-time features and JWT for authentication",
         image: universityonnect,
         tags: [
           "React",
@@ -51,7 +57,12 @@ function AllProjects() {
       {
         id: 2,
         title: "Portfolio Website",
-        description: "Personal portfolio built with React and Tailwind CSS",
+        description:
+          "A dynamic personal portfolio showcasing my projects, skills, and professional journey. Built with React and Tailwind CSS, featuring smooth animations, responsive design, and interactive elements to create an engaging user experience.",
+        challenges:
+          "Creating a performance-optimized site with complex animations while maintaining accessibility standards.",
+        techStack:
+          "React, Tailwind CSS, Framer Motion for animations, and React Router for navigation",
         image: Protifilo,
         tags: [
           "React",
@@ -70,7 +81,11 @@ function AllProjects() {
         id: 3,
         title: "Inventory Management System",
         description:
-          "A personal project focused on authentication, inventory & sales management, and billing.",
+          "A comprehensive inventory management solution designed for small businesses. Features include product tracking, sales analytics, user authentication, automated billing, and low-stock alerts to streamline business operations.",
+        challenges:
+          "Building a scalable database structure while ensuring the system remained intuitive for non-technical users.",
+        techStack:
+          "Flask backend with Python, MongoDB for database, and a responsive frontend with Tailwind CSS",
         image: Inventory,
         tags: ["Flask", "Python", "MongoDB", "HTML", "tailwind CSS", "jinja2"],
         githubLink:
@@ -80,9 +95,13 @@ function AllProjects() {
       },
       {
         id: 4,
-        title: "Sloty",
+        title: "Sloty - Appointment Booking System",
         description:
-          "A web application for booking slots for various services, built with React and Node.js.",
+          "A comprehensive appointment booking platform for service-based businesses such as salons, clinics, and consultancies. Features include real-time availability, automated reminders, payment integration, and business analytics to optimize scheduling and reduce no-shows.",
+        challenges:
+          "Implementing a complex booking algorithm that handles timezone differences and prevents double bookings.",
+        techStack:
+          "MERN stack with Twilio API for notifications and custom calendar implementation",
         image: sloty,
         tags: [
           "React",
@@ -102,9 +121,13 @@ function AllProjects() {
       },
       {
         id: 5,
-        title: "Builtitwithme",
+        title: "BuiltItWithMe - Website Creation SaaS",
         description:
-          " A Saas where i create Websites for you, built with React and Node.js.",
+          "A Software as a Service (SaaS) platform that allows clients to request custom website development with an intuitive project management system. Features include requirement specification tools, milestone tracking, payment scheduling, and continuous deployment integration.",
+        challenges:
+          "Creating a scalable project management system that accommodates various client needs while maintaining a streamlined workflow.",
+        techStack:
+          "React frontend with Node.js backend, MongoDB for data storage, and Stripe for payment processing",
         image: built,
         tags: [
           "React",
@@ -123,9 +146,13 @@ function AllProjects() {
       },
       {
         id: 6,
-        title: "Github Profile Comparison",
+        title: "GitHub Profile Comparison Tool",
         description:
-          "A tool to compare GitHub profiles of developers. Our AI-powered platform analyzes GitHub profiles to provide meaningful insights on developer strengths, language preferences, and contribution patterns.",
+          "An AI-powered analytics platform that compares GitHub profiles to provide meaningful insights. The tool analyzes language preferences, contribution patterns, repository quality, and coding habits to help developers understand their strengths and areas for improvement.",
+        challenges:
+          "Integrating the Deepseek AI model with GitHub API data to generate meaningful comparative analysis while respecting API rate limits.",
+        techStack:
+          "Next.js for frontend and server components, Deepseek R1 AI model for analysis, and GitHub API for data collection",
         image: Githubprofile,
         tags: [
           "Next.js",
@@ -135,7 +162,7 @@ function AllProjects() {
         ],
         githubLink: "https://github.com/shaswat2031/github-profile-compar",
         liveLink: "https://github-profile-compar-vmeq.vercel.app/",
-        date: "2025-01-22",
+        date: "2025-06-22",
         featured: false,
       },
     ];
@@ -217,7 +244,18 @@ function AllProjects() {
   };
 
   return (
-    <div className="bg-gray-900 min-h-screen py-12 text-gray-200">
+    <div className="bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 min-h-screen py-12 text-gray-200">
+      {/* Back to Home Button */}
+      <div className="container mx-auto px-4 mb-8">
+        <Link
+          to="/"
+          className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 transition-colors"
+          aria-label="Back to homepage"
+        >
+          <IoArrowBack /> Back to Home
+        </Link>
+      </div>
+
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -225,22 +263,49 @@ function AllProjects() {
           transition={{ duration: 0.5 }}
           className="mb-12 text-center"
         >
-          <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-            My Projects
-          </h1>
-          <p className="text-gray-400 max-w-2xl mx-auto">
+          <div className="relative mb-6">
+            <div className="absolute inset-0 bg-blue-500 blur-3xl opacity-10 rounded-full transform -translate-y-1/2"></div>
+            <h1 className="text-5xl font-extrabold mb-4 bg-gradient-to-r from-blue-400 via-purple-400 to-indigo-400 bg-clip-text text-transparent relative z-10">
+              Project Gallery
+            </h1>
+          </div>
+          <p className="text-gray-400 max-w-3xl mx-auto text-lg">
             Explore my collection of projects that showcase my skills and
-            experience in web development.
+            experience in web development. Each project represents a unique
+            challenge and learning opportunity that has helped shape my journey
+            as a developer.
           </p>
+
+          <div className="flex flex-wrap justify-center gap-3 mt-6">
+            <div className="bg-gray-800/50 backdrop-blur-sm px-4 py-2 rounded-full flex items-center gap-2 border border-gray-700/50">
+              <span className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></span>
+              <span className="text-gray-300 text-sm">
+                {filteredProjects.length} Projects
+              </span>
+            </div>
+            <div className="bg-gray-800/50 backdrop-blur-sm px-4 py-2 rounded-full flex items-center gap-2 border border-gray-700/50">
+              <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+              <span className="text-gray-300 text-sm">
+                {projects.filter((p) => p.featured).length} Featured
+              </span>
+            </div>
+            <div className="bg-gray-800/50 backdrop-blur-sm px-4 py-2 rounded-full flex items-center gap-2 border border-gray-700/50">
+              <span className="w-2 h-2 bg-purple-400 rounded-full animate-pulse"></span>
+              <span className="text-gray-300 text-sm">
+                {allTags.length} Technologies
+              </span>
+            </div>
+          </div>
         </motion.div>
 
-        <div className="mb-10">
-          <div className="flex flex-col md:flex-row gap-4 max-w-4xl mx-auto">
+        {/* Search & Filter Section - Enhanced with glass morphism */}
+        <div className="mb-10 bg-gray-800/30 backdrop-blur-sm border border-gray-700/50 rounded-xl p-6 max-w-4xl mx-auto shadow-lg">
+          <div className="flex flex-col md:flex-row gap-4">
             <div className="flex-1 relative">
               <input
                 type="text"
                 placeholder="Search projects..."
-                className="w-full px-4 py-3 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 pl-10 bg-gray-800 text-gray-200 shadow-sm"
+                className="w-full px-4 py-3 rounded-lg border border-gray-700/70 focus:outline-none focus:ring-2 focus:ring-blue-500 pl-10 bg-gray-800/80 text-gray-200 shadow-sm"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 aria-label="Search projects"
@@ -280,8 +345,8 @@ function AllProjects() {
                             }
                             className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
                               selectedTag === tag
-                                ? "bg-blue-600 text-gray-200"
-                                : "bg-gray-700 text-gray-300 hover:bg-gray-600"
+                                ? "bg-blue-600/90 text-gray-100"
+                                : "bg-gray-700/70 text-gray-300 hover:bg-gray-600/70"
                             }`}
                             aria-label={`Filter by ${tag}`}
                           >
@@ -319,8 +384,9 @@ function AllProjects() {
             </div>
           </div>
 
+          {/* Active filters section */}
           {(searchQuery || selectedTag) && (
-            <div className="flex flex-wrap items-center gap-2 max-w-4xl mx-auto mt-4 text-sm">
+            <div className="flex flex-wrap items-center gap-2 mt-4 text-sm">
               <span className="text-gray-400">Active filters:</span>
               {searchQuery && (
                 <span className="bg-gray-700 text-blue-300 px-3 py-1 rounded-full flex items-center gap-1">
@@ -348,8 +414,30 @@ function AllProjects() {
               )}
             </div>
           )}
+
+          {/* Popular tags section */}
+          <div className="mt-4 pt-4 border-t border-gray-700/30">
+            <h3 className="text-sm text-gray-400 mb-2">Popular tags:</h3>
+            <div className="flex flex-wrap gap-2">
+              {allTags.slice(0, 8).map((tag) => (
+                <button
+                  key={tag}
+                  onClick={() => setSelectedTag(selectedTag === tag ? "" : tag)}
+                  className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
+                    selectedTag === tag
+                      ? "bg-blue-600/90 text-gray-100"
+                      : "bg-gray-700/70 text-gray-300 hover:bg-gray-600/70"
+                  }`}
+                  aria-label={`Filter by ${tag}`}
+                >
+                  {tag}
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
 
+        {/* Enhanced Project Grid */}
         <motion.div
           layout
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
@@ -364,8 +452,8 @@ function AllProjects() {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.9 }}
                   whileHover={{ y: -8, transition: { duration: 0.2 } }}
-                  className={`bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all border border-gray-700 ${
-                    project.featured ? "border-2 border-blue-500" : ""
+                  className={`bg-gray-800/40 backdrop-blur-sm rounded-xl overflow-hidden shadow-xl hover:shadow-blue-900/20 transition-all border border-gray-700/50 ${
+                    project.featured ? "ring-2 ring-blue-500/50" : ""
                   }`}
                   onClick={() =>
                     setActiveProject(
@@ -381,18 +469,23 @@ function AllProjects() {
                   } details`}
                 >
                   <div className="relative">
-                    <img
-                      src={project.image}
-                      alt={`Screenshot of ${project.title} project`}
-                      className="w-full h-52 object-cover"
-                      loading="lazy"
-                    />
+                    <div className="aspect-video overflow-hidden">
+                      <img
+                        src={project.image}
+                        alt={`Screenshot of ${project.title} project`}
+                        className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700"
+                        loading="lazy"
+                      />
+                    </div>
+
                     {project.featured && (
-                      <div className="absolute top-3 right-3 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">
+                      <div className="absolute top-3 right-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg shadow-blue-900/20">
                         Featured
                       </div>
                     )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 hover:opacity-100 transition-opacity flex items-end">
+
+                    {/* Project links overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-0 hover:opacity-100 transition-opacity flex items-end">
                       <div className="p-5 w-full">
                         <div className="flex flex-wrap justify-center gap-2">
                           <a
@@ -400,7 +493,7 @@ function AllProjects() {
                             target="_blank"
                             rel="noopener noreferrer"
                             onClick={(e) => e.stopPropagation()}
-                            className="inline-flex items-center gap-2 bg-gray-900 text-gray-200 px-4 py-2 rounded hover:bg-gray-800 transition-colors border border-gray-700"
+                            className="inline-flex items-center gap-2 bg-gray-900/90 backdrop-blur-sm text-gray-200 px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors border border-gray-700/50 shadow-lg"
                             aria-label={`View ${project.title} on GitHub`}
                           >
                             <FaGithub /> GitHub
@@ -411,7 +504,7 @@ function AllProjects() {
                               target="_blank"
                               rel="noopener noreferrer"
                               onClick={(e) => e.stopPropagation()}
-                              className="inline-flex items-center gap-2 bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors"
+                              className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-700 to-indigo-700 text-white px-4 py-2 rounded-lg hover:from-blue-600 hover:to-indigo-600 transition-all shadow-lg"
                               aria-label={`View ${project.title} live demo`}
                             >
                               <FaExternalLinkAlt /> Live Demo
@@ -427,7 +520,7 @@ function AllProjects() {
                       <h3 className="text-xl font-bold text-gray-200">
                         {project.title}
                       </h3>
-                      <span className="text-xs text-gray-400">
+                      <span className="text-xs text-gray-400 bg-gray-700/50 px-2 py-1 rounded-md">
                         {new Date(project.date).toLocaleDateString("en-US", {
                           year: "numeric",
                           month: "short",
@@ -443,13 +536,13 @@ function AllProjects() {
                       {project.tags.slice(0, 4).map((tag, index) => (
                         <span
                           key={index}
-                          className="bg-gray-700 text-blue-300 text-xs font-medium px-2.5 py-0.5 rounded-full"
+                          className="bg-gray-700/70 text-blue-300 text-xs font-medium px-2.5 py-0.5 rounded-full"
                         >
                           {tag}
                         </span>
                       ))}
                       {project.tags.length > 4 && (
-                        <span className="bg-gray-700 text-gray-300 text-xs font-medium px-2.5 py-0.5 rounded-full">
+                        <span className="bg-gray-700/70 text-gray-300 text-xs font-medium px-2.5 py-0.5 rounded-full">
                           +{project.tags.length - 4}
                         </span>
                       )}
@@ -463,18 +556,49 @@ function AllProjects() {
                           exit={{ opacity: 0, height: 0 }}
                           transition={{ duration: 0.2 }}
                         >
-                          <p className="text-gray-400 mb-4 border-t border-gray-700 pt-4 mt-2">
-                            {project.description}
-                          </p>
-                          <div className="flex flex-wrap gap-2 mb-2">
-                            {project.tags.map((tag, index) => (
-                              <span
-                                key={index}
-                                className="bg-gray-700 text-blue-300 text-xs font-medium px-2.5 py-0.5 rounded-full"
-                              >
-                                {tag}
-                              </span>
-                            ))}
+                          <div className="border-t border-gray-700/50 pt-4 mt-2 space-y-4">
+                            <div>
+                              <h4 className="text-sm font-semibold text-gray-300 mb-1">
+                                Description:
+                              </h4>
+                              <p className="text-gray-400">
+                                {project.description}
+                              </p>
+                            </div>
+
+                            <div>
+                              <h4 className="text-sm font-semibold text-gray-300 mb-1">
+                                Challenges:
+                              </h4>
+                              <p className="text-gray-400">
+                                {project.challenges}
+                              </p>
+                            </div>
+
+                            <div>
+                              <h4 className="text-sm font-semibold text-gray-300 mb-1">
+                                Tech Stack:
+                              </h4>
+                              <p className="text-gray-400">
+                                {project.techStack}
+                              </p>
+                            </div>
+
+                            <div>
+                              <h4 className="text-sm font-semibold text-gray-300 mb-1">
+                                All Technologies:
+                              </h4>
+                              <div className="flex flex-wrap gap-2 mb-2">
+                                {project.tags.map((tag, index) => (
+                                  <span
+                                    key={index}
+                                    className="bg-gray-700/70 text-blue-300 text-xs font-medium px-2.5 py-0.5 rounded-full"
+                                  >
+                                    {tag}
+                                  </span>
+                                ))}
+                              </div>
+                            </div>
                           </div>
                         </motion.div>
                       )}
@@ -520,7 +644,7 @@ function AllProjects() {
                 exit={{ opacity: 0 }}
                 className="col-span-full text-center py-16"
               >
-                <div className="bg-gray-800 rounded-lg p-8 shadow-md max-w-md mx-auto border border-gray-700">
+                <div className="bg-gray-800/40 backdrop-blur-sm rounded-lg p-8 shadow-xl max-w-md mx-auto border border-gray-700/50">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-16 w-16 text-gray-600 mx-auto mb-4"
@@ -568,6 +692,40 @@ function AllProjects() {
             )}
           </AnimatePresence>
         </motion.div>
+
+        {/* Footer section with stats */}
+        <div className="mt-20 pt-10 border-t border-gray-800/50 text-center">
+          <p className="text-gray-400 mb-6">
+            Thank you for exploring my projects!
+          </p>
+          <Link
+            to="/"
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-lg shadow-lg transition-all"
+          >
+            <IoArrowBack /> Back to Portfolio
+          </Link>
+
+          <div className="flex justify-center gap-8 mt-8">
+            <div className="text-center">
+              <div className="text-3xl font-bold text-blue-400">
+                {projects.length}
+              </div>
+              <div className="text-gray-500 text-sm">Total Projects</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-purple-400">
+                {allTags.length}
+              </div>
+              <div className="text-gray-500 text-sm">Technologies</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-indigo-400">
+                {projects.filter((p) => p.featured).length}
+              </div>
+              <div className="text-gray-500 text-sm">Featured</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

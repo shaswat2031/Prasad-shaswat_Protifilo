@@ -89,7 +89,7 @@ function AllProjects() {
           "Express",
           "MongoDB",
           "Tailwind CSS",
-          "Tiwlo",
+          "Twilio",
           "JWT",
           "Socket.io",
         ],
@@ -118,6 +118,23 @@ function AllProjects() {
         liveLink:
           "https://vercel.com/prasadshaswat123s-projects/built-it-withme",
         date: "2025-04-01",
+        featured: false,
+      },
+      {
+        id: 6,
+        title: "Github Profile Comparison",
+        description:
+          "A tool to compare GitHub profiles of developers. Our AI-powered platform analyzes GitHub profiles to provide meaningful insights on developer strengths, language preferences, and contribution patterns.",
+        image: "",
+        tags: [
+          "Next.js",
+          "Tailwind CSS",
+          "Deepseek R1 model API",
+          "GitHub API",
+        ],
+        githubLink: "https://github.com/shaswat2031/github-profile-compar",
+        liveLink: "https://github-profile-compar-vmeq.vercel.app/",
+        date: "2025-01-22",
         featured: false,
       },
     ];

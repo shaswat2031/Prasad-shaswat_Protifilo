@@ -10,6 +10,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import universityonnect from "../Assets/university-connect.png";
 import Protifilo from "../Assets/protifilo.png";
 import Inventory from "../Assets/image.png";
+import Githubprofile from "../Assets/githubprogile.png";
 import built from "../Assets/builtwithme.jpg";
 import sloty from "../Assets/sloty.png";
 
@@ -125,7 +126,7 @@ function AllProjects() {
         title: "Github Profile Comparison",
         description:
           "A tool to compare GitHub profiles of developers. Our AI-powered platform analyzes GitHub profiles to provide meaningful insights on developer strengths, language preferences, and contribution patterns.",
-        image: "",
+        image: { Githubprofile },
         tags: [
           "Next.js",
           "Tailwind CSS",

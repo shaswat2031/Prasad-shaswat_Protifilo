@@ -13,6 +13,7 @@ import universityonnect from "../Assets/university-connect.png";
 import Protifilo from "../Assets/protifilo.png";
 import Inventory from "../Assets/image.png";
 import Githubprofile from "../Assets/githubprogile.png";
+import ChatEcommerce from "../Assets/chatecommerce.png";
 import built from "../Assets/builtwithme.jpg";
 import sloty from "../Assets/sloty.png";
 
@@ -163,6 +164,29 @@ function AllProjects() {
         githubLink: "https://github.com/shaswat2031/github-profile-compar",
         liveLink: "https://github-profile-compar-vmeq.vercel.app/",
         date: "2025-06-22",
+        featured: false,
+      },
+      {
+        id: 7,
+        title: "E-commerce Chatbot Application",
+        description:
+          "A modern Flask-based e-commerce platform featuring an intelligent chatbot interface, comprehensive product management, user authentication, shopping cart functionality, and administrative tools. The AI-powered chatbot assists users in discovering products via natural language conversations for a seamless shopping experience.",
+        challenges:
+          "Integrating natural language understanding with product search, managing user sessions securely, and building a responsive, scalable shopping platform with a smooth chatbot interaction.",
+        techStack:
+          "Flask for backend, MongoDB for database, Flask-Login for authentication, Tailwind CSS for UI, and Python for chatbot logic.",
+        image: ChatEcommerce, // Replace with your image import variable
+        tags: [
+          "Flask",
+          "MongoDB",
+          "Tailwind CSS",
+          "Flask-Login",
+          "Python",
+          "Chatbot",
+        ],
+        githubLink: "https://github.com/shaswat2031/ChatEcommerce",
+        liveLink: "", // Add deployment link if available
+        date: "2025-05-20",
         featured: false,
       },
     ];

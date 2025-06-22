@@ -126,7 +126,7 @@ function AllProjects() {
         title: "Github Profile Comparison",
         description:
           "A tool to compare GitHub profiles of developers. Our AI-powered platform analyzes GitHub profiles to provide meaningful insights on developer strengths, language preferences, and contribution patterns.",
-        image: { Githubprofile },
+        image: Githubprofile,
         tags: [
           "Next.js",
           "Tailwind CSS",

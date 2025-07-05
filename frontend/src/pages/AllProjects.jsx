@@ -13,7 +13,7 @@ import universityonnect from "../Assets/university-connect.png";
 import Protifilo from "../Assets/protifilo.png";
 import Inventory from "../Assets/image.png";
 import Githubprofile from "../Assets/githubprogile.png";
-import ChatEcommerce from "../Assets/chatecommerce.png";
+import ChatEcommerce from "../Assets/chatimage.png";
 import built from "../Assets/builtwithme.jpg";
 import sloty from "../Assets/sloty.png";
 

@@ -20,7 +20,6 @@ import AllProjects from "./pages/AllProjects";
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [isPopupVisible, setIsPopupVisible] = useState(false);
-  const [isButtonVisible, setIsButtonVisible] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
   const location = useLocation();
 
@@ -37,14 +36,8 @@ function App() {
       setIsLoading(false);
     }, 4000);
 
-    // Delay for button animation
-    const buttonTimer = setTimeout(() => {
-      setIsButtonVisible(true);
-    }, 5500);
-
     return () => {
       clearTimeout(timer);
-      clearTimeout(buttonTimer);
     };
   }, [isLoading]);
 
@@ -218,7 +211,7 @@ function App() {
         <>
           {" "}
           {/* Navigation Bar - Full width at the top of the page */}
-          {location.pathname === "/" && <Navbar />}
+          <Navbar />
           {/* Main Content with Routes - removed Suspense */}
           <div className="w-full min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900">
             <Routes>
@@ -228,7 +221,7 @@ function App() {
 
             {/* Animated Floating Button - Only on homepage */}
             <AnimatePresence>
-              {isButtonVisible && location.pathname === "/" && (
+              {location.pathname === "/" && (
                 <motion.button
                   onClick={togglePopup}
                   className="fixed bottom-5 right-5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3 px-6 rounded-full shadow-lg shadow-indigo-900/20 hover:from-indigo-700 hover:to-purple-700 transition-all focus:outline-none flex items-center space-x-2 backdrop-blur-sm"

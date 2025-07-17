@@ -18,6 +18,8 @@ import {
   FaChevronRight,
   FaChevronDown,
   FaPercentage,
+  FaUniversity,
+  FaSchool,
 } from "react-icons/fa";
 
 const Education = () => {
@@ -29,47 +31,56 @@ const Education = () => {
       school: "Parul University",
       logo: ParulLogo,
       period: "2022 - 2026",
-      degree: "B.Tech. - CSE - PIT",
-      field: "Computer Science",
-      grade: "CGPA: 7.03 / 10",
-      board: "",
-      icon: <FaGraduationCap />,
+      degree: "Bachelor of Technology",
+      field: "Computer Science & Engineering",
+      grade: "CGPA: 7.03/10",
+      board: "PIT",
+      icon: <FaUniversity />,
+      color: "from-blue-600 to-indigo-600",
       details: [
-        { icon: <FaBookOpen />, content: "Data Structures, Web Development" },
-        { icon: <FaCode />, content: "Student Connection Platform" },
-        { icon: <FaAward />, content: "Problem-solving, Teamwork" },
+        { icon: <FaCode />, content: "Full Stack Web Development" },
+        { icon: <FaBookOpen />, content: "Data Structures & Algorithms" },
+        { icon: <FaUsers />, content: "Led team projects in web development" },
+        { icon: <FaAward />, content: "Hackathon participant" },
       ],
     },
     {
       id: "bhagwat",
-      school: "Bhagwat Vidyapith, Chhapra",
+      school: "Bhagwat Vidyapith",
+      location: "Chhapra",
       logo: BhagwatLogo,
-      period: "2022",
-      degree: "12th",
-      field: "Science",
+      period: "2020 - 2022",
+      degree: "Higher Secondary (12th)",
+      field: "Science & Mathematics",
       grade: "59.20%",
       board: "CBSE",
-      icon: <FaBookOpen />,
+      icon: <FaSchool />,
+      color: "from-purple-600 to-pink-600",
       details: [
-        { icon: <FaFlask />, content: "Physics, Math, Computer Science" },
-        { icon: <FaLightbulb />, content: "Discovered passion for coding" },
-        { icon: <FaTrophy />, content: "Basic coding competitions" },
+        { icon: <FaFlask />, content: "Physics, Chemistry, Mathematics" },
+        { icon: <FaLightbulb />, content: "Computer Science fundamentals" },
+        { icon: <FaCode />, content: "First programming experience" },
       ],
     },
     {
       id: "sungrace",
-      school: "Sungrace School, Surat",
+      school: "Sungrace School",
+      location: "Surat",
       logo: SungraceLogo,
-      period: "2020",
-      degree: "10th",
+      period: "Completed 2020",
+      degree: "Secondary School (10th)",
       field: "General Studies",
       grade: "56.66%",
       board: "GSEB",
-      icon: <FaUsers />,
+      icon: <FaBookOpen />,
+      color: "from-green-600 to-teal-600",
       details: [
-        { icon: <FaChalkboardTeacher />, content: "Math, Science, English" },
-        { icon: <FaCode />, content: "Started learning coding" },
-        { icon: <FaStar />, content: "School computer club member" },
+        {
+          icon: <FaChalkboardTeacher />,
+          content: "Core subjects with distinction",
+        },
+        { icon: <FaStar />, content: "Active in school technology club" },
+        { icon: <FaTrophy />, content: "Mathematics competition finalist" },
       ],
     },
   ];
@@ -77,159 +88,169 @@ const Education = () => {
   return (
     <section
       id="education"
-      className="py-16 bg-gradient-to-b from-gray-900 to-black text-gray-200"
+      className="py-20 bg-gradient-to-b from-gray-900 via-gray-800 to-black text-gray-200"
     >
-      <div className="max-w-4xl mx-auto px-4">
+      <div className="max-w-5xl mx-auto px-6">
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="text-center mb-10"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-center mb-16"
         >
-          <span className="inline-block p-3 bg-indigo-900/30 rounded-xl mb-3">
-            <FaGraduationCap className="text-indigo-400 text-2xl" />
-          </span>
-          <h2 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400">
-            Education
+          <h2 className="text-4xl font-bold mb-4">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">
+              Academic Journey
+            </span>
           </h2>
-          <div className="h-0.5 w-16 mx-auto bg-indigo-500/50 rounded mt-2"></div>
+          <p className="text-gray-400 max-w-2xl mx-auto">
+            My educational background has equipped me with both theoretical
+            knowledge and practical skills in computer science and software
+            development.
+          </p>
+          <div className="mt-6 flex justify-center">
+            <div className="h-1 w-20 bg-gradient-to-r from-blue-500 to-purple-500 rounded"></div>
+          </div>
         </motion.div>
 
-        <div className="relative">
-          {/* Vertical connecting line */}
-          <div className="absolute left-8 top-[32px] bottom-8 w-0.5 bg-indigo-500/20 hidden sm:block"></div>
-
-          {/* Timeline Items */}
-          <div className="space-y-6">
-            {educationData.map((item, index) => (
-              <EducationItem
-                key={item.id}
-                item={item}
-                index={index}
-                isExpanded={expandedItem === index}
-                onToggle={() =>
-                  setExpandedItem(expandedItem === index ? null : index)
-                }
-              />
-            ))}
-          </div>
+        <div className="grid gap-8">
+          {educationData.map((item, index) => (
+            <EducationCard
+              key={item.id}
+              item={item}
+              index={index}
+              isExpanded={expandedItem === index}
+              onToggle={() =>
+                setExpandedItem(expandedItem === index ? null : index)
+              }
+            />
+          ))}
         </div>
       </div>
     </section>
   );
 };
 
-const EducationItem = ({ item, index, isExpanded, onToggle }) => {
+const EducationCard = ({ item, index, isExpanded, onToggle }) => {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.1 }}
-      className="relative"
+      transition={{ delay: index * 0.15 }}
+      className="w-full"
     >
-      {/* Timeline bullet point */}
       <motion.div
-        whileHover={{ scale: 1.2 }}
-        className="absolute left-[18px] transform -translate-x-1/2 hidden sm:flex"
-      >
-        <div className="w-8 h-8 bg-gray-800 border-2 border-indigo-500 rounded-full flex items-center justify-center shadow-lg shadow-indigo-900/20 z-10">
-          <span className="text-indigo-400 text-sm">
-            {React.cloneElement(item.icon, { size: 14 })}
-          </span>
-        </div>
-      </motion.div>
-
-      {/* Card content */}
-      <motion.div
-        className={`ml-0 sm:ml-12 bg-gray-800/50 backdrop-filter backdrop-blur-sm rounded-xl border border-gray-700/50 overflow-hidden transition-all duration-300 ${
-          isExpanded ? "shadow-lg shadow-indigo-900/10" : ""
+        layoutId={`card-container-${item.id}`}
+        className={`bg-gray-800/60 backdrop-blur-sm border border-gray-700 rounded-xl overflow-hidden transition-all duration-300 hover:shadow-lg ${
+          isExpanded ? `shadow-lg shadow-${item.color.split(" ")[0]}/10` : ""
         }`}
-        layoutId={`card-${item.id}`}
-        whileHover={{ y: -2 }}
       >
         {/* Header */}
         <div
-          className={`p-4 flex items-center cursor-pointer ${
-            isExpanded
-              ? "bg-gradient-to-r from-indigo-900/30 to-transparent"
-              : ""
-          }`}
           onClick={onToggle}
+          className={`p-6 cursor-pointer ${
+            isExpanded
+              ? `bg-gradient-to-r ${item.color} bg-opacity-10`
+              : "hover:bg-gray-700/30"
+          }`}
         >
-          {/* Logo */}
-          <div className="rounded-lg p-2 bg-gray-900 border border-gray-700/70 shadow-inner mr-4">
-            <img
-              src={item.logo}
-              alt={item.school}
-              className="w-10 h-10 object-contain"
-            />
-          </div>
-
-          {/* Info */}
-          <div className="flex-1">
-            <div className="flex justify-between items-start">
-              <h3 className="text-lg font-bold text-white">{item.school}</h3>
-              <div className="text-xs text-gray-400 flex items-center gap-1">
-                <FaCalendarAlt size={10} />
-                <span>{item.period}</span>
+          <div className="flex items-center gap-5">
+            {/* Logo Area */}
+            <div
+              className={`flex-shrink-0 p-3 bg-gradient-to-br ${item.color} rounded-lg shadow-md`}
+            >
+              <div className="w-12 h-12 flex items-center justify-center bg-gray-900 rounded-md p-2">
+                <img
+                  src={item.logo}
+                  alt={item.school}
+                  className="w-full h-full object-contain"
+                />
               </div>
             </div>
 
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-0.5">
-              <div className="text-sm text-indigo-300">{item.degree}</div>
+            {/* Info Area */}
+            <div className="flex-1">
+              <div className="flex flex-wrap justify-between items-start gap-2">
+                <h3 className="text-xl font-bold text-white flex items-center gap-2">
+                  {item.school}
+                  {item.location && (
+                    <span className="text-sm font-normal text-gray-400">
+                      {item.location}
+                    </span>
+                  )}
+                </h3>
+                <div className="text-sm text-gray-300 flex items-center gap-2 bg-gray-700/50 px-3 py-1 rounded-full">
+                  <FaCalendarAlt size={14} />
+                  <span>{item.period}</span>
+                </div>
+              </div>
 
-              {item.board && (
-                <div className="text-xs text-gray-400">{item.board}</div>
+              <div className="mt-2 flex flex-wrap items-center gap-3">
+                <div className="text-lg text-gray-200 font-medium">
+                  {item.degree}
+                </div>
+
+                {item.board && (
+                  <div className="text-sm bg-gray-700/50 px-2 py-0.5 rounded-md text-gray-300">
+                    {item.board}
+                  </div>
+                )}
+
+                <div className="ml-auto text-sm font-medium bg-gray-900/80 px-3 py-1 rounded-full text-gray-200 flex items-center gap-2">
+                  <span
+                    className={`w-2 h-2 rounded-full bg-gradient-to-r ${item.color}`}
+                  ></span>
+                  {item.grade}
+                </div>
+              </div>
+            </div>
+
+            {/* Expand Icon */}
+            <motion.div
+              animate={{ rotate: isExpanded ? 90 : 0 }}
+              className={`text-gradient bg-clip-text text-transparent bg-gradient-to-r ${item.color}`}
+            >
+              {isExpanded ? (
+                <FaChevronDown size={18} />
+              ) : (
+                <FaChevronRight size={18} />
               )}
-
-              <div className="text-xs font-medium bg-indigo-900/30 px-2 py-0.5 rounded text-indigo-300 flex items-center gap-1">
-                <FaPercentage size={10} />
-                {item.grade}
-              </div>
-            </div>
+            </motion.div>
           </div>
-
-          {/* Expand Icon */}
-          <motion.div
-            animate={{ rotate: isExpanded ? 90 : 0 }}
-            className="text-indigo-400 ml-2"
-          >
-            {isExpanded ? (
-              <FaChevronDown size={14} />
-            ) : (
-              <FaChevronRight size={14} />
-            )}
-          </motion.div>
         </div>
 
-        {/* Expandable content */}
+        {/* Expandable Details */}
         <AnimatePresence>
           {isExpanded && (
             <motion.div
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.3 }}
               className="overflow-hidden"
             >
-              <div className="p-4 pt-0 border-t border-gray-700/30">
-                <div className="flex items-center mb-3">
-                  <span className="px-3 py-1 bg-indigo-900/20 text-indigo-300 rounded-full text-xs border border-indigo-800/20">
+              <div className="p-6 pt-0 border-t border-gray-700/30">
+                <div className="flex items-center mb-4">
+                  <span
+                    className={`px-4 py-1.5 bg-gradient-to-r ${item.color} bg-opacity-10 text-white rounded-full text-sm`}
+                  >
                     {item.field}
                   </span>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-3">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
                   {item.details.map((detail, i) => (
                     <motion.div
                       key={i}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: i * 0.1 }}
-                      className="flex items-start bg-gray-800/50 p-3 rounded-lg border border-gray-700/30"
+                      className="flex items-start p-4 rounded-lg bg-gray-800 border border-gray-700/50 hover:border-gray-600/50 transition-colors"
                     >
-                      <span className="text-indigo-400 mr-2 mt-0.5">
-                        {React.cloneElement(detail.icon, { size: 14 })}
+                      <span
+                        className={`text-gradient bg-clip-text text-transparent bg-gradient-to-r ${item.color} mr-3 mt-0.5`}
+                      >
+                        {React.cloneElement(detail.icon, { size: 16 })}
                       </span>
-                      <span className="text-xs text-gray-300">
+                      <span className="text-sm text-gray-300">
                         {detail.content}
                       </span>
                     </motion.div>
@@ -240,16 +261,6 @@ const EducationItem = ({ item, index, isExpanded, onToggle }) => {
           )}
         </AnimatePresence>
       </motion.div>
-
-      {/* Current indicator */}
-      {item.period.includes("Present") && (
-        <div className="absolute -right-1 top-4 sm:top-0">
-          <span className="inline-flex items-center px-1.5 py-0.5 rounded-full bg-green-900/30 text-green-400 text-[10px] border border-green-800/30">
-            <span className="w-1 h-1 bg-green-500 rounded-full mr-1 animate-pulse"></span>
-            Current
-          </span>
-        </div>
-      )}
     </motion.div>
   );
 };

@@ -10,7 +10,11 @@ import {
   FaExternalLinkAlt,
 } from "react-icons/fa";
 
-// Data for the projects, using high-quality placeholders.
+import universityConnect from "../Assets/university-connect.png";
+import FlaskInventory from "../Assets/inventory.png";
+import SlotlyBookingApp from "../Assets/sloty.png";
+
+// Data for the projects
 export const projects = [
   {
     title: "University Connect",
@@ -21,8 +25,8 @@ export const projects = [
     date: "Jan 2025 – Feb 2025",
     githubLink:
       "https://github.com/shaswat2031/Minor-Project-University-Connect.git",
-    liveLink: null, // Add live link if available
-    image: "https://placehold.co/600x400/1e1b4b/c4b5fd?text=University+Connect",
+    liveLink: null,
+    image: universityConnect,
     tags: ["React", "Node.js", "MongoDB", "Express", "JWT", "TailwindCSS"],
     highlight: true,
   },
@@ -35,7 +39,7 @@ export const projects = [
     date: "Feb 2025 – Present",
     githubLink: "https://github.com/shaswat2031/Flask-Inventory-Management",
     liveLink: null,
-    image: "https://placehold.co/600x400/0c4a6e/bae6fd?text=Inventory+System",
+    image: FlaskInventory,
     tags: ["Python", "Flask", "MySQL", "Bootstrap", "Jinja"],
     highlight: false,
   },
@@ -46,15 +50,14 @@ export const projects = [
     longDescription:
       "A comprehensive MERN stack booking application featuring real-time slot availability, a dedicated dashboard for vendors to manage their schedules, and automated SMS notifications using the Twilio API.",
     date: "March 2025 – April 2025",
-    githubLink: "https://github.com/shaswat2031/", // Placeholder link
+    githubLink: "https://github.com/shaswat2031/",
     liveLink: null,
-    image: "https://placehold.co/600x400/065f46/a7f3d0?text=Slotly+Booking",
+    image: SlotlyBookingApp,
     tags: ["React", "Node.js", "MongoDB", "Twilio", "Tailwind CSS"],
     highlight: false,
   },
 ];
 
-// Main Projects Component with a new design
 const Projects = () => {
   const [selectedId, setSelectedId] = useState(null);
 
@@ -63,7 +66,7 @@ const Projects = () => {
       id="projects"
       className="py-24 bg-gray-900 text-white relative overflow-hidden"
     >
-      {/* Background decorative elements */}
+      {/* Background Decorative Elements */}
       <div className="absolute inset-0 bg-grid-gray-800/20 [mask-image:linear-gradient(to_bottom,white_5%,transparent_95%)]"></div>
       <div className="absolute top-1/4 -left-24 w-72 h-72 bg-indigo-600 rounded-full filter blur-3xl opacity-10 animate-pulse"></div>
       <div className="absolute bottom-1/4 -right-24 w-72 h-72 bg-purple-600 rounded-full filter blur-3xl opacity-10 animate-pulse animation-delay-4000"></div>
@@ -156,7 +159,7 @@ const Projects = () => {
           ))}
         </motion.div>
 
-        {/* Call to Action Section */}
+        {/* Call to Action */}
         <motion.div
           className="mt-24 text-center"
           initial={{ opacity: 0, y: 30 }}
@@ -178,7 +181,7 @@ const Projects = () => {
                 Explore on GitHub
               </motion.a>
               <motion.a
-                href="/all-projects" // Placeholder link
+                href="/all-projects"
                 className="flex items-center px-6 py-3 text-base font-semibold rounded-full text-gray-300 hover:bg-gray-700/50 hover:text-white transition-colors duration-300"
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
@@ -191,7 +194,7 @@ const Projects = () => {
         </motion.div>
       </div>
 
-      {/* Modal for project details */}
+      {/* Modal */}
       <AnimatePresence>
         {selectedId !== null && (
           <motion.div
@@ -211,7 +214,7 @@ const Projects = () => {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               transition={{ type: "spring", stiffness: 200, damping: 25 }}
-              onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
+              onClick={(e) => e.stopPropagation()}
             >
               <div className="h-64 overflow-hidden">
                 <img

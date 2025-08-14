@@ -17,7 +17,6 @@ import {
   FaStar,
   FaChevronRight,
   FaChevronDown,
-  FaPercentage,
   FaUniversity,
   FaSchool,
 } from "react-icons/fa";
@@ -30,18 +29,24 @@ const Education = () => {
       id: "parul",
       school: "Parul University",
       logo: ParulLogo,
-      period: "2022 - 2026",
-      degree: "Bachelor of Technology",
-      field: "Computer Science & Engineering",
+      period: "2022 – 2026",
+      degree: "B.Tech in Computer Science & Engineering",
+      field: "Specialization in Full Stack Development",
       grade: "CGPA: 7.03/10",
       board: "PIT",
       icon: <FaUniversity />,
       color: "from-blue-600 to-indigo-600",
       details: [
-        { icon: <FaCode />, content: "Full Stack Web Development" },
-        { icon: <FaBookOpen />, content: "Data Structures & Algorithms" },
-        { icon: <FaUsers />, content: "Led team projects in web development" },
-        { icon: <FaAward />, content: "Hackathon participant" },
+        { icon: <FaCode />, content: "Built scalable full-stack web apps" },
+        {
+          icon: <FaBookOpen />,
+          content: "Proficient in Data Structures & Algorithms",
+        },
+        {
+          icon: <FaUsers />,
+          content: "Led collaborative development projects",
+        },
+        { icon: <FaAward />, content: "Hackathon finalist" },
       ],
     },
     {
@@ -49,17 +54,20 @@ const Education = () => {
       school: "Bhagwat Vidyapith",
       location: "Chhapra",
       logo: BhagwatLogo,
-      period: "2020 - 2022",
-      degree: "Higher Secondary (12th)",
-      field: "Science & Mathematics",
+      period: "2020 – 2022",
+      degree: "Higher Secondary (Science & Mathematics)",
+      field: "Physics, Chemistry, Mathematics, CS",
       grade: "59.20%",
       board: "CBSE",
       icon: <FaSchool />,
       color: "from-purple-600 to-pink-600",
       details: [
-        { icon: <FaFlask />, content: "Physics, Chemistry, Mathematics" },
-        { icon: <FaLightbulb />, content: "Computer Science fundamentals" },
-        { icon: <FaCode />, content: "First programming experience" },
+        { icon: <FaFlask />, content: "Strong foundation in core sciences" },
+        {
+          icon: <FaLightbulb />,
+          content: "Introduced to programming concepts",
+        },
+        { icon: <FaCode />, content: "Developed early coding skills" },
       ],
     },
     {
@@ -68,8 +76,8 @@ const Education = () => {
       location: "Surat",
       logo: SungraceLogo,
       period: "Completed 2020",
-      degree: "Secondary School (10th)",
-      field: "General Studies",
+      degree: "Secondary School (General Studies)",
+      field: "Science & Mathematics Focus",
       grade: "56.66%",
       board: "GSEB",
       icon: <FaBookOpen />,
@@ -77,10 +85,10 @@ const Education = () => {
       details: [
         {
           icon: <FaChalkboardTeacher />,
-          content: "Core subjects with distinction",
+          content: "Excelled in mathematics and sciences",
         },
-        { icon: <FaStar />, content: "Active in school technology club" },
-        { icon: <FaTrophy />, content: "Mathematics competition finalist" },
+        { icon: <FaStar />, content: "Active member of tech club" },
+        { icon: <FaTrophy />, content: "Math competition finalist" },
       ],
     },
   ];
@@ -96,18 +104,17 @@ const Education = () => {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl font-bold mb-4">
+          <h2 className="text-4xl font-extrabold mb-4 leading-tight">
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">
               Academic Journey
             </span>
           </h2>
           <p className="text-gray-400 max-w-2xl mx-auto">
-            My educational background has equipped me with both theoretical
-            knowledge and practical skills in computer science and software
-            development.
+            A timeline of my learning path — from building strong academic
+            fundamentals to mastering advanced technologies in Computer Science.
           </p>
           <div className="mt-6 flex justify-center">
-            <div className="h-1 w-20 bg-gradient-to-r from-blue-500 to-purple-500 rounded"></div>
+            <div className="h-1 w-20 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"></div>
           </div>
         </motion.div>
 
@@ -139,14 +146,18 @@ const EducationCard = ({ item, index, isExpanded, onToggle }) => {
     >
       <motion.div
         layoutId={`card-container-${item.id}`}
-        className={`bg-gray-800/60 backdrop-blur-sm border border-gray-700 rounded-xl overflow-hidden transition-all duration-300 hover:shadow-lg ${
-          isExpanded ? `shadow-lg shadow-${item.color.split(" ")[0]}/10` : ""
+        className={`bg-gray-800/60 backdrop-blur-md border border-gray-700 rounded-xl overflow-hidden transition-all duration-300 hover:shadow-xl hover:scale-[1.01] ${
+          isExpanded
+            ? `ring-2 ring-offset-2 ring-offset-gray-900 ring-${
+                item.color.split(" ")[0]
+              }`
+            : ""
         }`}
       >
         {/* Header */}
         <div
           onClick={onToggle}
-          className={`p-6 cursor-pointer ${
+          className={`p-6 cursor-pointer transition-colors ${
             isExpanded
               ? `bg-gradient-to-r ${item.color} bg-opacity-10`
               : "hover:bg-gray-700/30"
@@ -155,7 +166,7 @@ const EducationCard = ({ item, index, isExpanded, onToggle }) => {
           <div className="flex items-center gap-5">
             {/* Logo Area */}
             <div
-              className={`flex-shrink-0 p-3 bg-gradient-to-br ${item.color} rounded-lg shadow-md`}
+              className={`flex-shrink-0 p-3 bg-gradient-to-br ${item.color} rounded-lg shadow-lg`}
             >
               <div className="w-12 h-12 flex items-center justify-center bg-gray-900 rounded-md p-2">
                 <img
@@ -206,6 +217,7 @@ const EducationCard = ({ item, index, isExpanded, onToggle }) => {
             {/* Expand Icon */}
             <motion.div
               animate={{ rotate: isExpanded ? 90 : 0 }}
+              transition={{ duration: 0.2 }}
               className={`text-gradient bg-clip-text text-transparent bg-gradient-to-r ${item.color}`}
             >
               {isExpanded ? (
@@ -224,13 +236,13 @@ const EducationCard = ({ item, index, isExpanded, onToggle }) => {
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.3 }}
+              transition={{ duration: 0.35 }}
               className="overflow-hidden"
             >
               <div className="p-6 pt-0 border-t border-gray-700/30">
                 <div className="flex items-center mb-4">
                   <span
-                    className={`px-4 py-1.5 bg-gradient-to-r ${item.color} bg-opacity-10 text-white rounded-full text-sm`}
+                    className={`px-4 py-1.5 bg-gradient-to-r ${item.color} bg-opacity-10 text-white rounded-full text-sm font-medium`}
                   >
                     {item.field}
                   </span>
@@ -243,14 +255,14 @@ const EducationCard = ({ item, index, isExpanded, onToggle }) => {
                       initial={{ opacity: 0, x: -10 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: i * 0.1 }}
-                      className="flex items-start p-4 rounded-lg bg-gray-800 border border-gray-700/50 hover:border-gray-600/50 transition-colors"
+                      className="flex items-start p-4 rounded-lg bg-gray-800 border border-gray-700/50 hover:border-gray-500/50 transition-all"
                     >
                       <span
                         className={`text-gradient bg-clip-text text-transparent bg-gradient-to-r ${item.color} mr-3 mt-0.5`}
                       >
                         {React.cloneElement(detail.icon, { size: 16 })}
                       </span>
-                      <span className="text-sm text-gray-300">
+                      <span className="text-sm text-gray-300 leading-relaxed">
                         {detail.content}
                       </span>
                     </motion.div>

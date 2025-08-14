@@ -1,4 +1,4 @@
-import React, { useState, useCallback, memo, useEffect } from "react";
+import React, { useState, memo } from "react";
 import {
   motion,
   AnimatePresence,
@@ -24,53 +24,50 @@ import {
   FaStar,
 } from "react-icons/fa";
 
-// --- UTILITY FUNCTIONS ---
-// Centralized icon getters to avoid repetition.
+import hackthonImage from "../Assets/hackthon4.0.png";
+import figmaImage from "../Assets/Figma.png";
+import onmySiteImage from "../Assets/onmyhealth.jpg";
+import CiscoImagenetwork from "../Assets/cybersecurity.jpg";
+import cdcimage from "../Assets/cdc.jpg";
+import cyberbootcamp from "../Assets/cyber.jpg";
+import fullstackImage from "../Assets/bootcamp.jpg";
+import enterpenershipImage from "../Assets/enter.png";
+import days from "../Assets/30days.png";
+
+// --- ICON HELPERS ---
+const skillIconMap = [
+  { match: "problem", icon: <FaBrain className="text-teal-300" /> },
+  { match: "team", icon: <FaUsers className="text-orange-300" /> },
+  { match: "ui/ux", icon: <FaPalette className="text-pink-300" /> },
+  { match: "prototype", icon: <FaCode className="text-sky-300" /> },
+  { match: "health", icon: <FaMedkit className="text-red-300" /> },
+  { match: "network", icon: <FaNetworkWired className="text-green-300" /> },
+  { match: "cyber", icon: <FaShieldAlt className="text-indigo-300" /> },
+  { match: "event", icon: <FaCalendarAlt className="text-purple-300" /> },
+  { match: "leadership", icon: <FaUsers className="text-yellow-300" /> },
+  { match: "react", icon: <FaCode className="text-blue-300" /> },
+  { match: "node", icon: <FaServer className="text-lime-300" /> },
+  { match: "security", icon: <FaShieldAlt className="text-red-400" /> },
+];
 
 const getSkillIcon = (skill) => {
-  const size = "1em";
-  if (skill.includes("Problem"))
-    return <FaBrain size={size} className="text-teal-300" />;
-  if (skill.includes("Team"))
-    return <FaUsers size={size} className="text-orange-300" />;
-  if (skill.includes("UI/UX"))
-    return <FaPalette size={size} className="text-pink-300" />;
-  if (skill.includes("Prototyping"))
-    return <FaCode size={size} className="text-sky-300" />;
-  if (skill.includes("Healthcare"))
-    return <FaMedkit size={size} className="text-red-300" />;
-  if (skill.includes("Network"))
-    return <FaNetworkWired size={size} className="text-green-300" />;
-  if (skill.includes("Cyber"))
-    return <FaShieldAlt size={size} className="text-indigo-300" />;
-  if (skill.includes("Event"))
-    return <FaCalendarAlt size={size} className="text-purple-300" />;
-  if (skill.includes("Leadership"))
-    return <FaUsers size={size} className="text-yellow-300" />;
-  if (skill.includes("React"))
-    return <FaCode size={size} className="text-blue-300" />;
-  if (skill.includes("Node"))
-    return <FaServer size={size} className="text-lime-300" />;
-  return <FaLaptop size={size} className="text-gray-300" />;
+  const lower = skill.toLowerCase();
+  const found = skillIconMap.find(({ match }) => lower.includes(match));
+  return found ? found.icon : <FaLaptop className="text-gray-300" />;
 };
 
-const getCertificateTypeIcon = (type) => {
-  switch (type) {
-    case "Competition":
-      return <FaAward className="text-yellow-400" />;
-    case "Design":
-      return <FaPalette className="text-purple-400" />;
-    case "Technical":
-      return <FaLaptopCode className="text-sky-400" />;
-    case "Leadership":
-      return <FaUsers className="text-green-400" />;
-    default:
-      return <FaCertificate className="text-gray-400" />;
-  }
+const typeIconMap = {
+  Competition: <FaAward className="text-yellow-400" />,
+  Design: <FaPalette className="text-purple-400" />,
+  Technical: <FaLaptopCode className="text-sky-400" />,
+  Leadership: <FaUsers className="text-green-400" />,
+  "Web Development": <FaCode className="text-blue-400" />,
 };
+
+const getCertificateTypeIcon = (type) =>
+  typeIconMap[type] || <FaCertificate className="text-gray-400" />;
 
 // --- DATA ---
-// Using placeholders for images to ensure the code runs without local assets.
 const certificates = [
   {
     id: 1,
@@ -78,7 +75,7 @@ const certificates = [
     issuer: "Parul Institute of Innovation",
     date: "October 2023",
     type: "Competition",
-    image: "https://placehold.co/600x400/1a202c/9f7aea?text=Hackathon+4.0",
+    image: hackthonImage,
     skills: ["Problem Solving", "Team Collaboration", "Innovation"],
     description:
       "Collaborated in a high-pressure environment to develop innovative solutions to real-world problems, demonstrating rapid prototyping and creative problem-solving skills.",
@@ -89,7 +86,7 @@ const certificates = [
     issuer: "Udemy",
     date: "August 2023",
     type: "Design",
-    image: "https://placehold.co/600x400/1a202c/ed64a6?text=Figma+Design",
+    image: figmaImage,
     skills: ["UI/UX Design", "Prototyping", "Wireframing"],
     description:
       "Completed an intensive Figma course covering UI/UX principles, interactive prototyping, and design systems to create user-centric and accessible interfaces.",
@@ -100,7 +97,7 @@ const certificates = [
     issuer: "Parul University",
     date: "January 2024",
     type: "Competition",
-    image: "https://placehold.co/600x400/1a202c/f56565?text=Healthcare+Hack",
+    image: onmySiteImage,
     skills: ["Healthcare Tech", "Rapid Prototyping", "Problem Solving"],
     description:
       "Participated in a hackathon focused on creating technology that addresses real-world healthcare challenges, with an emphasis on accessibility and user-centered design.",
@@ -111,7 +108,7 @@ const certificates = [
     issuer: "Cisco",
     date: "November 2023",
     type: "Technical",
-    image: "https://placehold.co/600x400/1a202c/48bb78?text=Cisco+CCNA",
+    image: CiscoImagenetwork,
     skills: ["Network Architecture", "Security", "Protocols"],
     description:
       "Earned Cisco certification, demonstrating proficiency in network architecture, security protocols, and infrastructure management with hands-on experience.",
@@ -122,7 +119,7 @@ const certificates = [
     issuer: "Career Development Cell",
     date: "March 2024",
     type: "Leadership",
-    image: "https://placehold.co/600x400/1a202c/d6bcfa?text=CDC+Coordinator",
+    image: cdcimage,
     skills: ["Event Management", "Leadership", "Coordination"],
     description:
       "Served as a coordinator, managing team operations and stakeholder communication. Demonstrated leadership by supervising logistics and ensuring smooth event execution.",
@@ -133,7 +130,7 @@ const certificates = [
     issuer: "60-Day Intensive Program",
     date: "February 2024",
     type: "Technical",
-    image: "https://placehold.co/600x400/1a202c/667eea?text=Cybersecurity",
+    image: cyberbootcamp,
     skills: ["Cybersecurity", "Threat Detection", "Security"],
     description:
       "Completed a rigorous bootcamp covering penetration testing, vulnerability assessment, and security protocols, gaining hands-on experience with industry-standard tools.",
@@ -144,15 +141,48 @@ const certificates = [
     issuer: "Udemy",
     date: "December 2023",
     type: "Technical",
-    image: "https://placehold.co/600x400/1a202c/38b2ac?text=Full+Stack",
+    image: fullstackImage,
     skills: ["React", "Node.js", "MongoDB"],
     description:
       "Mastered both frontend and backend technologies through a comprehensive course, developing proficiency in the MERN stack for building modern web applications.",
   },
+  {
+    id: 8,
+    title: "Discovering Entrepreneurship",
+    issuer: "Cisco Networking Academy",
+    date: "May 2025",
+    type: "Technical",
+    image: enterpenershipImage,
+    skills: [
+      "Entrepreneurial Vision",
+      "Entrepreneurial Mindset",
+      "Business Opportunity Analysis",
+      "Competitive Analysis",
+      "Pitch Development",
+    ],
+    description:
+      "Completed the Discovering Entrepreneurship course by Cisco Networking Academy. Gained skills in entrepreneurial vision and mindset, business opportunity research, competitive analysis, and creating pitches tailored to different audiences.",
+  },
+  {
+    id: 9,
+    title: "Job Ready MERN Full-Stack Web Development Course",
+    issuer: "30 Days Coding",
+    date: "May 19, 2024",
+    type: "Web Development",
+    image: days,
+    skills: [
+      "MongoDB",
+      "Express.js",
+      "React.js",
+      "Node.js",
+      "Full-Stack Web Development",
+    ],
+    description:
+      "Completed the Job Ready MERN Full-Stack Web Development course offered by 30 Days Coding. Acquired hands-on experience in MongoDB, Express.js, React.js, and Node.js for building scalable, production-ready web applications.",
+  },
 ];
 
-// --- COMPONENTS ---
-
+// --- CARD COMPONENT ---
 const CertificateCard = memo(({ cert, onViewDetails }) => {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -165,31 +195,19 @@ const CertificateCard = memo(({ cert, onViewDetails }) => {
 
   const handleMouseMove = (e) => {
     const rect = e.currentTarget.getBoundingClientRect();
-    const width = rect.width;
-    const height = rect.height;
-    const mouseX = e.clientX - rect.left;
-    const mouseY = e.clientY - rect.top;
-    const xPct = mouseX / width - 0.5;
-    const yPct = mouseY / height - 0.5;
-    x.set(xPct);
-    y.set(yPct);
-  };
-
-  const handleMouseLeave = () => {
-    x.set(0);
-    y.set(0);
+    x.set((e.clientX - rect.left) / rect.width - 0.5);
+    y.set((e.clientY - rect.top) / rect.height - 0.5);
   };
 
   return (
     <motion.div
       onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{
-        rotateY,
-        rotateX,
-        transformStyle: "preserve-3d",
+      onMouseLeave={() => {
+        x.set(0);
+        y.set(0);
       }}
-      className="relative w-full h-[460px] cursor-pointer"
+      style={{ rotateY, rotateX, transformStyle: "preserve-3d" }}
+      className="relative w-full min-h-[460px] cursor-pointer hover:scale-[1.02] transition-transform duration-300"
       onClick={() => onViewDetails(cert)}
     >
       <div
@@ -201,14 +219,12 @@ const CertificateCard = memo(({ cert, onViewDetails }) => {
             src={cert.image}
             alt={cert.title}
             className="w-full h-full object-cover"
-            loading="lazy"
           />
           <div className="absolute top-2 right-2 bg-gray-900/50 text-white text-xs px-2 py-1 rounded-full flex items-center gap-1.5 backdrop-blur-sm border border-white/10">
             {getCertificateTypeIcon(cert.type)}
             <span>{cert.type}</span>
           </div>
         </div>
-
         <div className="flex flex-col flex-grow">
           <h3 className="text-xl font-bold text-gray-100 mb-1 line-clamp-2">
             {cert.title}
@@ -216,7 +232,7 @@ const CertificateCard = memo(({ cert, onViewDetails }) => {
           <div className="flex items-center text-gray-400 text-sm mb-4">
             <span className="truncate">{cert.issuer}</span>
             <span className="mx-2">•</span>
-            <span className="flex-shrink-0">{cert.date}</span>
+            <span>{cert.date}</span>
           </div>
           <div className="flex flex-wrap gap-2 mb-4">
             {cert.skills.slice(0, 3).map((skill) => (
@@ -241,125 +257,19 @@ const CertificateCard = memo(({ cert, onViewDetails }) => {
   );
 });
 
-const CertificateModal = ({ cert, onClose }) => {
-  useEffect(() => {
-    const handleEsc = (event) => {
-      if (event.key === "Escape") {
-        onClose();
-      }
-    };
-    window.addEventListener("keydown", handleEsc);
-
-    document.body.style.overflow = "hidden";
-
-    return () => {
-      window.removeEventListener("keydown", handleEsc);
-      document.body.style.overflow = "unset";
-    };
-  }, [onClose]);
-
-  return (
-    <motion.div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4"
-      onClick={onClose}
-    >
-      <motion.div
-        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-      />
-      <motion.div
-        className="relative bg-gray-800/80 backdrop-blur-xl rounded-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto border border-gray-700 shadow-2xl"
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        exit={{ opacity: 0, scale: 0.9 }}
-        transition={{ type: "spring", stiffness: 300, damping: 30 }}
-        onClick={(e) => e.stopPropagation()}
-      >
-        <div className="sticky top-0 right-0 p-2 z-10">
-          <button
-            onClick={onClose}
-            className="absolute top-4 right-4 bg-gray-900/50 hover:bg-gray-700/80 text-gray-300 rounded-full p-2 transition-colors"
-          >
-            <FaTimes />
-          </button>
-        </div>
-
-        <div className="p-4 sm:p-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="md:col-span-1">
-              <img
-                src={cert.image}
-                alt={cert.title}
-                className="w-full h-auto object-cover rounded-lg shadow-lg"
-              />
-            </div>
-            <div className="md:col-span-2">
-              <div className="flex items-center gap-2 mb-2">
-                {getCertificateTypeIcon(cert.type)}
-                <span className="text-indigo-400 font-semibold">
-                  {cert.type}
-                </span>
-              </div>
-              <h2 className="text-3xl font-extrabold text-white mb-2">
-                {cert.title}
-              </h2>
-              <div className="flex flex-wrap items-center text-gray-400 text-sm mb-6 gap-x-4 gap-y-1">
-                <span>
-                  Issued by:{" "}
-                  <strong className="text-gray-300">{cert.issuer}</strong>
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <FaCalendarAlt /> {cert.date}
-                </span>
-              </div>
-
-              <h3 className="text-lg font-bold text-white mb-3">Description</h3>
-              <p className="text-gray-300 mb-6">{cert.description}</p>
-
-              <h3 className="text-lg font-bold text-white mb-3">
-                Skills Gained
-              </h3>
-              <div className="flex flex-wrap gap-2">
-                {cert.skills.map((skill) => (
-                  <div
-                    key={skill}
-                    className="bg-gray-700/60 text-gray-200 text-sm rounded-full px-4 py-1.5 flex items-center gap-2 border border-gray-600"
-                  >
-                    {getSkillIcon(skill)}
-                    {skill}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </motion.div>
-    </motion.div>
-  );
-};
-
-const Certifications = () => {
+// --- MAIN COMPONENT ---
+export default function Certifications() {
   const [selectedCert, setSelectedCert] = useState(null);
-
-  const handleViewDetails = useCallback((cert) => {
-    setSelectedCert(cert);
-  }, []);
-
-  const handleCloseDetails = useCallback(() => {
-    setSelectedCert(null);
-  }, []);
 
   return (
     <section
       id="certifications"
-      className="relative py-24 sm:py-32 bg-gray-900 text-gray-200 overflow-hidden"
+      className="relative py-24 sm:py-32 bg-gray-900 text-gray-200"
     >
-      {/* Background Gradients */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="absolute -top-20 -left-40 w-96 h-96 bg-indigo-600/20 rounded-full filter blur-3xl animate-blob"></div>
-        <div className="absolute -bottom-20 -right-40 w-96 h-96 bg-purple-600/20 rounded-full filter blur-3xl animate-blob animation-delay-4000"></div>
+      {/* Gradient Background */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute -top-20 -left-40 w-96 h-96 bg-indigo-600/20 rounded-full blur-3xl animate-blob"></div>
+        <div className="absolute -bottom-20 -right-40 w-96 h-96 bg-purple-600/20 rounded-full blur-3xl animate-blob animation-delay-4000"></div>
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
@@ -373,7 +283,7 @@ const Certifications = () => {
           <div className="inline-block p-4 bg-gray-800/50 rounded-2xl border border-gray-700 mb-4">
             <FaStar className="text-yellow-400 text-3xl" />
           </div>
-          <h2 className="text-4xl sm:text-5xl font-extrabold text-white mb-4 tracking-tight">
+          <h2 className="text-4xl sm:text-5xl font-extrabold text-white mb-4">
             Certifications & Achievements
           </h2>
           <p className="text-lg text-gray-400 max-w-3xl mx-auto">
@@ -402,19 +312,95 @@ const Certifications = () => {
               }}
               style={{ perspective: "1000px" }}
             >
-              <CertificateCard cert={cert} onViewDetails={handleViewDetails} />
+              <CertificateCard cert={cert} onViewDetails={setSelectedCert} />
             </motion.div>
           ))}
         </motion.div>
       </div>
 
+      {/* MODAL */}
       <AnimatePresence>
         {selectedCert && (
-          <CertificateModal cert={selectedCert} onClose={handleCloseDetails} />
+          <motion.div
+            className="fixed inset-0 z-50 flex items-center justify-center p-4"
+            onClick={() => setSelectedCert(null)}
+          >
+            <motion.div
+              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            />
+            <motion.div
+              className="relative bg-gray-800/80 backdrop-blur-xl rounded-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto border border-gray-700 shadow-2xl"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                onClick={() => setSelectedCert(null)}
+                className="absolute top-4 right-4 bg-gray-900/50 hover:bg-gray-700/80 text-gray-300 rounded-full p-2 transition-colors"
+                aria-label="Close"
+              >
+                <FaTimes />
+              </button>
+              <div className="p-6 grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div className="md:col-span-1">
+                  <img
+                    src={selectedCert.image}
+                    alt={selectedCert.title}
+                    className="w-full rounded-lg shadow-lg object-cover"
+                  />
+                </div>
+                <div className="md:col-span-2">
+                  <div className="flex items-center gap-2 mb-2">
+                    {getCertificateTypeIcon(selectedCert.type)}
+                    <span className="text-indigo-400 font-semibold">
+                      {selectedCert.type}
+                    </span>
+                  </div>
+                  <h2 className="text-3xl font-extrabold text-white mb-2">
+                    {selectedCert.title}
+                  </h2>
+                  <div className="flex flex-wrap items-center text-gray-400 text-sm mb-6 gap-4">
+                    <span>
+                      Issued by:{" "}
+                      <strong className="text-gray-300">
+                        {selectedCert.issuer}
+                      </strong>
+                    </span>
+                    <span className="flex items-center gap-1.5">
+                      <FaCalendarAlt /> {selectedCert.date}
+                    </span>
+                  </div>
+                  <h3 className="text-lg font-bold text-white mb-3">
+                    Description
+                  </h3>
+                  <p className="text-gray-300 mb-6">
+                    {selectedCert.description}
+                  </p>
+                  <h3 className="text-lg font-bold text-white mb-3">
+                    Skills Gained
+                  </h3>
+                  <div className="flex flex-wrap gap-2">
+                    {selectedCert.skills.map((skill) => (
+                      <div
+                        key={skill}
+                        className="bg-gray-700/60 text-gray-200 text-sm rounded-full px-4 py-1.5 flex items-center gap-2 border border-gray-600"
+                      >
+                        {getSkillIcon(skill)}
+                        {skill}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
         )}
       </AnimatePresence>
     </section>
   );
-};
-
-export default Certifications;
+}

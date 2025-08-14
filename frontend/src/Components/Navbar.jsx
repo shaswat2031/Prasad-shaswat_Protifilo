@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { motion } from "framer-motion";
 import { Link as ScrollLink } from "react-scroll";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import {
   FaHome,
   FaGraduationCap,
@@ -15,71 +15,9 @@ import {
   FaTwitter,
 } from "react-icons/fa";
 
-// --- Placeholder Page Components ---
-const PageWrapper = ({ title, children }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    animate={{ opacity: 1, y: 0 }}
-    exit={{ opacity: 0, y: -20 }}
-    transition={{ duration: 0.5, ease: "easeInOut" }}
-    className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 min-h-[calc(100vh-8rem)]"
-  >
-    <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-4 tracking-tight">
-      {title}
-    </h1>
-    <div className="w-24 h-1.5 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full mb-8"></div>
-    <div className="text-gray-300 text-lg leading-relaxed">{children}</div>
-  </motion.div>
-);
-
-const AboutPage = () => (
-  <PageWrapper title="About Me">
-    Welcome! This is the main content area for the 'About' page. You can fill
-    this with your personal introduction, professional summary, and what drives
-    you.
-  </PageWrapper>
-);
-const EducationPage = () => (
-  <PageWrapper title="My Education">
-    Here you can detail your educational background, including degrees,
-    universities, and relevant coursework.
-  </PageWrapper>
-);
-const SkillsPage = () => (
-  <PageWrapper title="Technical Skills">
-    Showcase your technical abilities here. You can list programming languages,
-    frameworks, tools, and other skills.
-  </PageWrapper>
-);
-const ProjectsPage = () => (
-  <PageWrapper title="My Projects">
-    This section is for highlighting your key projects. Include descriptions,
-    technologies used, and links to live demos or source code.
-  </PageWrapper>
-);
-const ExtraPage = () => (
-  <PageWrapper title="Extracurriculars">
-    Talk about your activities outside of coding, such as leadership roles,
-    volunteer work, or personal hobbies.
-  </PageWrapper>
-);
-const CertificationsPage = () => (
-  <PageWrapper title="Certifications">
-    List any professional certifications or online course completions to
-    validate your skills.
-  </PageWrapper>
-);
-const ContactPage = () => (
-  <PageWrapper title="Contact Me">
-    Provide ways for visitors to get in touch with you, like a contact form or
-    links to your professional profiles.
-  </PageWrapper>
-);
-
-// --- Navbar Component ---
+// --- Logo Component ---
 const Logo = () => {
   const navigate = useNavigate();
-
   return (
     <motion.div
       className="flex items-center gap-2 cursor-pointer"
@@ -90,14 +28,8 @@ const Logo = () => {
         window.scrollTo({ top: 0, behavior: "smooth" });
       }}
     >
-      <svg
-        width="32"
-        height="32"
-        viewBox="0 0 200 200"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <circle cx="100" cy="100" r="100" fill="url(#paint0_linear_101_2)" />
+      <svg width="32" height="32" viewBox="0 0 200 200">
+        <circle cx="100" cy="100" r="100" fill="url(#paint0_linear)" />
         <text
           x="50"
           y="135"
@@ -109,14 +41,7 @@ const Logo = () => {
           SP
         </text>
         <defs>
-          <linearGradient
-            id="paint0_linear_101_2"
-            x1="0"
-            y1="0"
-            x2="200"
-            y2="200"
-            gradientUnits="userSpaceOnUse"
-          >
+          <linearGradient id="paint0_linear" x1="0" y1="0" x2="200" y2="200">
             <stop stopColor="#8A2BE2" />
             <stop offset="1" stopColor="#4F46E5" />
           </linearGradient>
@@ -134,61 +59,62 @@ const Navbar = () => {
 
   const navItems = useMemo(
     () => [
-      { id: "home", label: "About", icon: <FaHome />, path: "/" },
+      { id: "home", label: "About", icon: <FaHome />, type: "section" },
       {
         id: "education",
         label: "Education",
         icon: <FaGraduationCap />,
-        path: "/",
+        type: "section",
       },
-      { id: "skills", label: "Skills", icon: <FaLaptopCode />, path: "/" },
+      {
+        id: "skills",
+        label: "Skills",
+        icon: <FaLaptopCode />,
+        type: "section",
+      },
       {
         id: "projects",
         label: "Projects",
         icon: <FaProjectDiagram />,
-        path: "/",
+        type: "section",
       },
-      { id: "extra", label: "Extra", icon: <FaStar />, path: "/" },
+      { id: "extra", label: "Extra", icon: <FaStar />, type: "section" },
       {
         id: "certifications",
         label: "Certifications",
         icon: <FaCertificate />,
-        path: "/",
+        type: "section",
       },
-      { id: "contact", label: "Contact", icon: <FaEnvelope />, path: "/" },
+      {
+        id: "contact",
+        label: "Contact",
+        icon: <FaEnvelope />,
+        type: "section",
+      },
       {
         id: "all-projects",
         label: "All Projects",
         icon: <FaProjectDiagram />,
+        type: "page",
         path: "/all-projects",
       },
     ],
     []
   );
 
+  // Debounced scroll handler using requestAnimationFrame
   useEffect(() => {
-    const handleScroll = () => {
-      // Set isScrolled state based on window scroll position
-      setIsScrolled(window.scrollY > 50);
+    let ticking = false;
 
-      // Only check for active section on homepage
+    const updateActiveSection = () => {
       if (location.pathname === "/") {
-        // Find which section is currently in view
-        const sections = [
-          "home",
-          "education",
-          "skills",
-          "projects",
-          "extra",
-          "certifications",
-          "contact",
-        ];
-
+        const sections = navItems
+          .filter((item) => item.type === "section")
+          .map((s) => s.id);
         for (const section of sections) {
-          const element = document.getElementById(section);
-          if (element) {
-            const rect = element.getBoundingClientRect();
-            // If the element is in view (partially or fully)
+          const el = document.getElementById(section);
+          if (el) {
+            const rect = el.getBoundingClientRect();
             if (rect.top <= 100 && rect.bottom >= 100) {
               setActiveSection(section);
               break;
@@ -196,46 +122,45 @@ const Navbar = () => {
           }
         }
       }
+      setIsScrolled(window.scrollY > 50);
+      ticking = false;
+    };
+
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(updateActiveSection);
+        ticking = true;
+      }
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [location.pathname]);
+  }, [location.pathname, navItems]);
 
-  // Set active section when location changes
+  // Initial active section detection
   useEffect(() => {
-    if (location.pathname === "/") {
-      // On initial load, check which section is in view
-      const checkInitialSection = () => {
-        const sections = [
-          "home",
-          "education",
-          "skills",
-          "projects",
-          "extra",
-          "certifications",
-          "contact",
-        ];
-
+    const detectInitial = () => {
+      if (location.pathname === "/") {
+        const sections = navItems
+          .filter((item) => item.type === "section")
+          .map((s) => s.id);
         for (const section of sections) {
-          const element = document.getElementById(section);
-          if (element) {
-            const rect = element.getBoundingClientRect();
-            // If the element is in view (partially or fully)
+          const el = document.getElementById(section);
+          if (el) {
+            const rect = el.getBoundingClientRect();
             if (rect.top <= 100 && rect.bottom >= 100) {
               setActiveSection(section);
-              break;
+              return;
             }
           }
         }
-      };
-
-      // Run after a slight delay to ensure DOM is fully loaded
-      setTimeout(checkInitialSection, 300);
-    } else if (location.pathname === "/all-projects") {
-      setActiveSection("all-projects");
-    }
-  }, [location.pathname]);
+        requestAnimationFrame(detectInitial);
+      } else if (location.pathname === "/all-projects") {
+        setActiveSection("all-projects");
+      }
+    };
+    detectInitial();
+  }, [location.pathname, navItems]);
 
   const socialLinks = [
     {
@@ -257,7 +182,6 @@ const Navbar = () => {
 
   return (
     <>
-      {/* Spacer to prevent content from hiding behind fixed navbar */}
       <div className="h-24" />
 
       {/* Desktop Navbar */}
@@ -272,17 +196,15 @@ const Navbar = () => {
         <Logo />
         <div className="flex items-center gap-1 bg-gray-900/50 p-1 rounded-full border border-white/10">
           {navItems.map((item) =>
-            item.path === "/" ? (
-              // Use ScrollLink for sections on the homepage
+            item.type === "section" ? (
               <ScrollLink
                 key={item.id}
                 to={item.id}
-                spy={true}
                 smooth={true}
                 offset={-100}
                 duration={500}
                 onSetActive={() => setActiveSection(item.id)}
-                className={`relative px-4 py-1.5 text-sm rounded-full transition-colors cursor-pointer ${
+                className={`relative px-4 py-1.5 text-sm rounded-full cursor-pointer transition-colors ${
                   activeSection === item.id && location.pathname === "/"
                     ? "text-white"
                     : "text-gray-400 hover:text-white"
@@ -290,15 +212,10 @@ const Navbar = () => {
                 onClick={() => {
                   if (location.pathname !== "/") {
                     navigate("/");
-                    // We need a small delay to allow navigation to complete
                     setTimeout(() => {
-                      const element = document.getElementById(item.id);
-                      if (element) {
-                        element.scrollIntoView({
-                          behavior: "smooth",
-                          block: "start",
-                        });
-                      }
+                      document
+                        .getElementById(item.id)
+                        ?.scrollIntoView({ behavior: "smooth" });
                     }, 100);
                   }
                 }}
@@ -313,11 +230,10 @@ const Navbar = () => {
                 <span className="relative z-10">{item.label}</span>
               </ScrollLink>
             ) : (
-              // Use regular button with onClick for navigation to other pages
               <button
                 key={item.id}
                 onClick={() => navigate(item.path)}
-                className={`relative px-4 py-1.5 text-sm rounded-full transition-colors cursor-pointer ${
+                className={`relative px-4 py-1.5 text-sm rounded-full transition-colors ${
                   location.pathname === item.path
                     ? "text-white"
                     : "text-gray-400 hover:text-white"
@@ -356,17 +272,15 @@ const Navbar = () => {
       <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-gray-900/80 backdrop-blur-lg border-t border-gray-800">
         <div className="flex justify-around items-center h-16">
           {navItems.slice(0, 5).map((item) =>
-            item.path === "/" ? (
-              // Use ScrollLink for sections on the homepage
+            item.type === "section" ? (
               <ScrollLink
                 key={item.id}
                 to={item.id}
-                spy={true}
                 smooth={true}
                 offset={-100}
                 duration={500}
                 onSetActive={() => setActiveSection(item.id)}
-                className={`relative flex flex-col items-center gap-1 w-full h-full justify-center transition-colors cursor-pointer ${
+                className={`relative flex flex-col items-center gap-1 w-full h-full justify-center ${
                   activeSection === item.id && location.pathname === "/"
                     ? "text-indigo-400"
                     : "text-gray-500"
@@ -374,15 +288,10 @@ const Navbar = () => {
                 onClick={() => {
                   if (location.pathname !== "/") {
                     navigate("/");
-                    // We need a small delay to allow navigation to complete
                     setTimeout(() => {
-                      const element = document.getElementById(item.id);
-                      if (element) {
-                        element.scrollIntoView({
-                          behavior: "smooth",
-                          block: "start",
-                        });
-                      }
+                      document
+                        .getElementById(item.id)
+                        ?.scrollIntoView({ behavior: "smooth" });
                     }, 100);
                   }
                 }}
@@ -398,11 +307,10 @@ const Navbar = () => {
                 )}
               </ScrollLink>
             ) : (
-              // Use button with onClick for navigation to other pages
               <button
                 key={item.id}
                 onClick={() => navigate(item.path)}
-                className={`relative flex flex-col items-center gap-1 w-full h-full justify-center transition-colors cursor-pointer ${
+                className={`relative flex flex-col items-center gap-1 w-full h-full justify-center ${
                   location.pathname === item.path
                     ? "text-indigo-400"
                     : "text-gray-500"

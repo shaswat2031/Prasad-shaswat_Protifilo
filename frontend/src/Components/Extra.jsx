@@ -9,50 +9,48 @@ import {
 import { BiNetworkChart } from "react-icons/bi";
 import { HiOutlineLightBulb } from "react-icons/hi";
 
-// Data remains the same
 const activities = [
   {
     title: "Career Development Cell",
     role: "Tech Leader (2023 - 2025)",
     description:
-      "Led technical initiatives and organized large-scale events to foster student growth and technical skills development.",
+      "Directed impactful technical initiatives and delivered high-profile events that advanced student expertise and engagement.",
     icon: <FaUserTie className="text-2xl" />,
     color: "from-purple-500 to-indigo-500",
     achievements: [
-      "Managed team of 12 technical volunteers",
-      "Organized 5+ major tech events with over 3000 participants",
-      "Developed leadership and event management skills",
+      "Led and coordinated a 12-member technical volunteer team",
+      "Executed 5+ flagship tech events engaging over 3,000 attendees",
+      "Enhanced leadership, strategic planning, and event management capabilities",
     ],
   },
   {
     title: "Multilingual Proficiency",
     role: "Language Skills",
     description:
-      "Fluent communication across multiple languages enables effective collaboration in diverse environments.",
+      "Applied multilingual communication skills to bridge cultural gaps and strengthen collaboration across diverse groups.",
     icon: <FaLanguage className="text-2xl" />,
     color: "from-sky-500 to-cyan-500",
     achievements: [
-      "English - Professional proficiency",
-      "Hindi - Native fluency",
-      "Gujarati - Basic conversational",
+      "Achieved professional proficiency in English",
+      "Demonstrated native-level fluency in Hindi",
+      "Acquired conversational skills in Gujarati for effective local engagement",
     ],
   },
   {
     title: "Mentorship & Networking",
     role: "Community Leader",
     description:
-      "Built professional networks through events and provided guidance to junior developers, fostering a supportive community.",
+      "Cultivated professional networks and mentored aspiring developers, fostering career growth and community engagement.",
     icon: <BiNetworkChart className="text-2xl" />,
     color: "from-amber-500 to-orange-500",
     achievements: [
-      "Mentored 15+ junior developers on their career path",
-      "Attended 10+ industry networking events",
-      "Enhanced interpersonal and communication skills",
+      "Provided career mentorship to 15+ junior developers",
+      "Represented community at 10+ industry networking events",
+      "Strengthened interpersonal and public speaking expertise",
     ],
   },
 ];
 
-// Reusable 3D Interactive Card Component
 const ActivityCard = ({ activity }) => {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -104,26 +102,29 @@ const ActivityCard = ({ activity }) => {
           transform: "translateZ(75px)",
           transformStyle: "preserve-3d",
         }}
-        className="inset-4 grid place-content-center rounded-2xl bg-gray-900/70 p-6 shadow-lg border border-gray-700/50"
+        className="inset-4 grid place-content-center rounded-2xl bg-gray-900/70 p-8 shadow-lg border border-gray-700/50 space-y-4"
       >
         <div
           className={`absolute -top-4 -left-4 w-16 h-16 rounded-xl bg-gradient-to-r ${activity.color} flex items-center justify-center text-white shadow-lg`}
         >
           {activity.icon}
         </div>
-        <div className="text-right text-xs font-bold text-indigo-300 uppercase mb-10">
+        <div className="text-right text-xs font-bold text-indigo-300 uppercase mb-12">
           {activity.role}
         </div>
 
-        <h3 className="text-2xl font-bold text-gray-100 mb-2">
+        <h3 className="text-2xl font-bold text-gray-100 mb-3">
           {activity.title}
         </h3>
-        <p className="text-gray-400 mb-6 text-sm">{activity.description}</p>
+        <p className="text-gray-400 mb-8 text-sm">{activity.description}</p>
 
-        <ul className="space-y-2">
+        <ul className="space-y-3">
           {activity.achievements.map((achievement, i) => (
-            <li key={i} className="flex items-center text-gray-300 text-sm">
-              <FaChevronRight className="text-indigo-400 w-3 h-3 mr-3 flex-shrink-0" />
+            <li
+              key={i}
+              className="flex items-center text-gray-300 text-sm gap-4"
+            >
+              <FaChevronRight className="text-indigo-400 w-3 h-3 flex-shrink-0" />
               <span>{achievement}</span>
             </li>
           ))}
@@ -156,7 +157,7 @@ const Extra = () => {
   return (
     <section
       id="extra"
-      className="relative py-24 sm:py-32 bg-gray-900 text-gray-200 overflow-hidden"
+      className="relative py-28 sm:py-36 bg-gray-900 text-gray-200 overflow-hidden"
     >
       {/* Animated Aurora Background */}
       <div className="absolute inset-0 z-0 pointer-events-none">
@@ -177,7 +178,7 @@ const Extra = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <motion.div
-          className="text-center mb-16 sm:mb-20"
+          className="text-center mb-20 sm:mb-24"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.5 }}
@@ -219,7 +220,7 @@ const Extra = () => {
 
         {/* Interactive Cards Grid */}
         <motion.div
-          className="grid grid-cols-1 lg:grid-cols-3 gap-16 lg:gap-8"
+          className="grid grid-cols-1 lg:grid-cols-3 gap-20 lg:gap-12"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -238,20 +239,20 @@ const Extra = () => {
 
         {/* Growth Mindset Section */}
         <motion.div
-          className="mt-24 sm:mt-32 max-w-4xl mx-auto"
+          className="mt-28 sm:mt-36 max-w-4xl mx-auto"
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.5 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <div className="relative p-8 rounded-2xl bg-gray-800/50 border border-gray-700/50 backdrop-blur-sm overflow-hidden">
+          <div className="relative p-10 rounded-2xl bg-gray-800/50 border border-gray-700/50 backdrop-blur-sm overflow-hidden">
             <div className="absolute -inset-px rounded-2xl bg-gradient-to-r from-indigo-500 to-purple-500 opacity-20 blur-lg pointer-events-none"></div>
             <div className="flex flex-col md:flex-row items-center gap-8 text-center md:text-left">
               <div className="flex-shrink-0 w-20 h-20 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white shadow-lg">
                 <FaGraduationCap className="text-3xl" />
               </div>
               <div className="flex-1">
-                <h3 className="text-2xl font-bold text-white mb-3">
+                <h3 className="text-2xl font-bold text-white mb-4">
                   Commitment to Continuous Growth
                 </h3>
                 <p className="text-gray-300">

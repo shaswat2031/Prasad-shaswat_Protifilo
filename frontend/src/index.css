@@ -1,28 +1,32 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-/* Add this in your global CSS if needed */
+
+/* Global reset for margins, padding, and height */
 html,
 body,
 #root {
   height: 100%;
-  margin: 0;
-  padding: 0;
-  font-family: 'Roboto', sans-serif;  
-  overflow-y: auto !important; /* Force enable vertical scrolling */
+  width: 100%;
+  margin: 0 !important;
+  padding: 0 !important;
+  font-family: 'Roboto', sans-serif;
+  overflow-x: hidden !important; /* Prevent horizontal scroll */
+  overflow-y: auto !important; /* Allow vertical scroll */
+  background-color: #0f172a; /* Matches Tailwind slate-900 for full bg */
 }
 
-/* Fix for any elements that might be blocking scroll */
-body.overflow-hidden {
-  overflow: auto !important;
-}
-
-/* Ensure smooth scrolling behavior */
+/* Ensure smooth scrolling for anchor links */
 html {
   scroll-behavior: smooth;
 }
 
-/* Tailwind utility for bounce */
+/* Prevent Tailwind's .overflow-hidden from locking scroll unless needed */
+body.overflow-hidden {
+  overflow: auto !important;
+}
+
+/* Bounce animation */
 @keyframes bounce {
   0%, 100% {
     transform: translateY(0);
@@ -34,16 +38,18 @@ html {
 .animate-bounce {
   animation: bounce 2s infinite;
 }
-@keyframes fadeIn {
-  0% { opacity: 0; transform: scale(0.9); }
-  100% { opacity: 1; transform: scale(1); }
-}
 
+/* Fade-in animation */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
 .animate-fadeIn {
   animation: fadeIn 1.5s ease-out forwards;
 }
-
-
-
-
-

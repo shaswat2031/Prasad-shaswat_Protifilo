@@ -15,6 +15,8 @@ import Certifications from "./Components/Certifications";
 import ContactUs from "./Components/ContactUs";
 import Popup from "./Components/Popup";
 import AllProjects from "./pages/AllProjects";
+// ✅ PascalCase import
+import LeetCode from "./Components/leetcode.jsx";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -24,7 +26,7 @@ function App() {
 
   useEffect(() => {
     document.body.style.overflow = isLoading ? "hidden" : "auto";
-    document.body.style.margin = "0"; // removes default browser margin
+    document.body.style.margin = "0";
 
     const timer = setTimeout(() => {
       setIsLoading(false);
@@ -80,7 +82,11 @@ function App() {
         <Home />
       </section>
       <section id="education" className="w-full min-h-screen">
+        {/* ✅ fixed typo */}
         <Education />
+      </section>
+      <section id="leetcode" className="w-full min-h-screen">
+        <LeetCode username="prasadshaswat9265" /> {/* ✅ fixed usage */}
       </section>
       <section id="skills" className="w-full min-h-screen">
         <Skills />

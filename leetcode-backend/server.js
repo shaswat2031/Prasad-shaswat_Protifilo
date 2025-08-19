@@ -6,7 +6,12 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const PORT = 4000;
+const PORT = process.env.PORT || 4000;
+
+// ✅ Root route (so Render shows something at "/")
+app.get("/", (req, res) => {
+  res.send("✅ LeetCode Proxy Backend is running!");
+});
 
 // Endpoint to fetch LeetCode data
 app.post("/leetcode", async (req, res) => {

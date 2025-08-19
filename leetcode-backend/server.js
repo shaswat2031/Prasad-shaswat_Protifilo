@@ -1,29 +1,25 @@
 import express from "express";
 import fetch from "node-fetch";
 import cors from "cors";
+import path from "path";
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-const PORT = process.env.PORT || 4000;
+// ✅ Serve frontend build
+const __dirname = path.resolve();
+app.use(express.static(path.join(__dirname, "frontend/dist"))); // adjust if build folder is different
 
-// ✅ Root route (so Render shows something at "/")
-app.get("/", (req, res) => {
-  res.send("✅ LeetCode Proxy Backend is running!");
-});
-
-// Endpoint to fetch LeetCode data
+// ✅ Backend proxy
 app.post("/leetcode", async (req, res) => {
   const { query, variables } = req.body;
-
   try {
     const response = await fetch("https://leetcode.com/graphql", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ query, variables }),
     });
-
     const data = await response.json();
     res.json(data);
   } catch (err) {
@@ -32,6 +28,10 @@ app.post("/leetcode", async (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`Backend proxy running at http://localhost:${PORT}`);
+// ✅ Catch-all: send index.html for React Router
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "frontend/dist", "index.html"));
 });
+
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

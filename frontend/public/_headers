@@ -1,0 +1,2 @@
+/*
+  Content-Security-Policy: connect-src 'self' https://prasad-shaswat-protifilo-fcs8.onrender.com https://prasad-shaswat-protifilo.onrender.com;

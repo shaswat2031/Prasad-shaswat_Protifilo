@@ -2,14 +2,16 @@ import express from "express";
 import fetch from "node-fetch";
 import cors from "cors";
 import path from "path";
+import { fileURLToPath } from "url";
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
 // ✅ Serve frontend build
-const __dirname = path.resolve();
-app.use(express.static(path.join(__dirname, "frontend/dist"))); // adjust if build folder is different
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+app.use(express.static(path.join(__dirname, "../frontend/build"))); // adjust path to frontend build
 
 // ✅ Backend proxy
 app.post("/leetcode", async (req, res) => {
@@ -29,8 +31,8 @@ app.post("/leetcode", async (req, res) => {
 });
 
 // ✅ Catch-all: send index.html for React Router
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "frontend/dist", "index.html"));
+app.get("/*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../frontend/build", "index.html"));
 });
 
 const PORT = process.env.PORT || 4000;

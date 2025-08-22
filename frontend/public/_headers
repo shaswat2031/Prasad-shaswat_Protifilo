@@ -1,2 +1,2 @@
 /*
-  Content-Security-Policy: connect-src 'self' https://prasad-shaswat-protifilo-fcs8.onrender.com https://prasad-shaswat-protifilo.onrender.com;
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://prasad-shaswat-protifilo-fcs8.onrender.com https://prasad-shaswat-protifilo.onrender.com https://leetcode.com https://*.leetcode.com; object-src 'none'; base-uri 'self'; frame-ancestors 'none';

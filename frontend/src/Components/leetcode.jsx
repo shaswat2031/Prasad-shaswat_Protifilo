@@ -10,18 +10,43 @@ import {
   FaUser,
 } from "react-icons/fa";
 
-// 🔧 GraphQL fetch function
+// 🔧 GraphQL fetch function with fallback
 const fetchLeetCodeData = async (query, variables) => {
-  const res = await fetch(
-    "https://prasad-shaswat-protifilo.onrender.com/leetcode",
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ query, variables }),
-    }
-  );
+  const apiUrls = [
+    process.env.REACT_APP_API_URL || "https://prasad-shaswat-protifilo.onrender.com",
+    "https://prasad-shaswat-protifilo-fcs8.onrender.com" // fallback URL
+  ];
 
-  return res.json();
+  for (const apiUrl of apiUrls) {
+    try {
+      console.log(`Trying to fetch from: ${apiUrl}/leetcode`);
+      const res = await fetch(`${apiUrl}/leetcode`, {
+        method: "POST",
+        headers: { 
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+        },
+        mode: 'cors',
+        credentials: 'omit',
+        body: JSON.stringify({ query, variables }),
+      });
+
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+
+      const data = await res.json();
+      console.log(`Successfully fetched from: ${apiUrl}/leetcode`);
+      return data;
+    } catch (error) {
+      console.error(`Fetch error from ${apiUrl}:`, error);
+      // Continue to next URL if this one fails
+      if (apiUrl === apiUrls[apiUrls.length - 1]) {
+        // If this was the last URL, throw the error
+        throw new Error(`All API endpoints failed. Last error: ${error.message}`);
+      }
+    }
+  }
 };
 
 const LeetCodeProfile = ({

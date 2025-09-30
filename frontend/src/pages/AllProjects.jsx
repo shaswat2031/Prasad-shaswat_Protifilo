@@ -16,6 +16,7 @@ import Githubprofile from "../Assets/githubprogile.png";
 import ChatEcommerce from "../Assets/chatimage.png";
 import built from "../Assets/builtwithme.jpg";
 import sloty from "../Assets/sloty.png";
+import Chat from "../Assets/chat.png";
 
 function AllProjects() {
   const [projects, setProjects] = useState([]);
@@ -189,6 +190,19 @@ function AllProjects() {
         date: "2025-05-20",
         featured: false,
       },
+      {
+        id: 8,
+        title :"Chat _ APP",
+        description :"A real-time chat application built with the MERN stack and Stream, enabling users to create accounts, join chat rooms, and exchange messages instantly. Features include user authentication, multiple chat rooms, and a responsive design for seamless communication across devices.",
+        challenges :"Implementing real-time messaging with Stream, ensuring secure user authentication, and creating a responsive UI for an optimal chat experience.",
+        techStack : "Stream API , NExtJs,TailwindCSS,Clerk for authentication",
+        image : Chat,
+        tags : ["NextJs","TailwindCSS","Stream API","Clerk","Real-time Chat"],
+        githubLink :"https://github.com/shaswat2031/chat",
+        liveLink: "",
+        date: "2025-09-30",
+        featured: false,
+      }
     ];
 
     setProjects(dummyProjects);

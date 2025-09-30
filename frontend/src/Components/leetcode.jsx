@@ -131,8 +131,9 @@ const LeetCodeProfile = ({
 
   if (sections.includes("profile") && !profile) {
     return (
-      <div className="text-center text-gray-400 py-10">
-        Loading LeetCode profile...
+      <div className="text-center text-gray-300 py-16 flex flex-col items-center justify-center">
+        <div className="w-16 h-16 mb-4 border-4 border-yellow-500 border-t-transparent rounded-full animate-spin"></div>
+        <p className="text-lg font-medium">Loading LeetCode profile...</p>
       </div>
     );
   }
@@ -199,31 +200,52 @@ const LeetCodeProfile = ({
   return (
     <section
       id="leetcode"
-      className="py-20 bg-gradient-to-b from-gray-900 via-gray-800 to-black text-gray-200"
+      className="py-24 bg-gradient-to-b from-gray-950 to-gray-900 text-gray-100"
     >
-      <div className="max-w-5xl mx-auto px-6">
+      <div className="max-w-5xl mx-auto px-6 relative z-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-16"
+          transition={{ duration: 0.6 }}
+          className="text-center mb-20"
         >
-          <h2 className="text-4xl font-extrabold mb-4 leading-tight">
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 to-orange-500">
+          <motion.h2 
+            className="text-5xl font-extrabold mb-6 leading-tight"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.2, duration: 0.5 }}
+          >
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-yellow-300 to-orange-600">
               LeetCode Stats
             </span>
-          </h2>
-          <p className="text-gray-400 max-w-2xl mx-auto">
+          </motion.h2>
+          <motion.p 
+            className="text-gray-300 max-w-2xl mx-auto text-lg"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4, duration: 0.5 }}
+          >
             Tracking my coding journey — problems solved, submissions, and
             contest performance.
-          </p>
-          <div className="mt-6 flex justify-center">
-            <div className="h-1 w-20 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-full"></div>
-          </div>
+          </motion.p>
+          <motion.div 
+            className="mt-8 flex justify-center"
+            initial={{ opacity: 0, width: 0 }}
+            animate={{ opacity: 1, width: "auto" }}
+            transition={{ delay: 0.6, duration: 0.5 }}
+          >
+            <div className="h-1.5 w-24 bg-gradient-to-r from-yellow-400 to-orange-600 rounded-full"></div>
+          </motion.div>
         </motion.div>
 
         {/* Cards */}
-        <div className="grid gap-8">
+        <motion.div 
+          className="grid gap-10"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.3, duration: 0.7 }}
+        >
           {dataCards.map((item, index) => (
             <DataCard
               key={item.id}
@@ -233,7 +255,7 @@ const LeetCodeProfile = ({
               onToggle={() => handleExpand(index, item.id)}
             />
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
@@ -248,38 +270,41 @@ const DataCard = ({ item, index, isExpanded, onToggle }) => {
       transition={{ delay: index * 0.15 }}
       className="w-full"
     >
-      <motion.div className="bg-gray-800/60 backdrop-blur-md border border-gray-700 rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-xl hover:scale-[1.01]">
+      <motion.div 
+        className="bg-gray-800/70 backdrop-blur-xl border border-gray-700 rounded-2xl overflow-hidden transition-all duration-300 shadow-lg hover:shadow-2xl hover:scale-[1.01]"
+        whileHover={{ boxShadow: `0 0 20px 2px rgba(${isExpanded ? '245, 158, 11' : '75, 85, 99'}, 0.2)` }}
+      >
         {/* Header */}
         <div
           onClick={onToggle}
-          className={`p-6 cursor-pointer transition-colors ${
+          className={`p-7 cursor-pointer transition-all duration-300 ${
             isExpanded
               ? `bg-gradient-to-r ${item.color} bg-opacity-10`
-              : "hover:bg-gray-700/30"
+              : "hover:bg-gray-700/40"
           }`}
         >
-          <div className="flex items-center gap-5">
+          <div className="flex items-center gap-6">
             <div
-              className={`flex-shrink-0 p-3 bg-gradient-to-br ${item.color} rounded-lg shadow-lg`}
+              className={`flex-shrink-0 p-3.5 bg-gradient-to-br ${item.color} rounded-xl shadow-xl`}
             >
-              <div className="w-12 h-12 flex items-center justify-center bg-gray-900 rounded-md p-2 text-white">
-                {item.icon}
+              <div className="w-12 h-12 flex items-center justify-center bg-gray-900/80 backdrop-blur-lg rounded-lg p-2.5 text-white">
+                {React.cloneElement(item.icon, { size: 24 })}
               </div>
             </div>
             <div className="flex-1">
-              <h3 className="text-xl font-bold text-white flex items-center gap-2">
+              <h3 className="text-2xl font-bold text-white flex items-center gap-2">
                 {item.title}
               </h3>
             </div>
             <motion.div
               animate={{ rotate: isExpanded ? 90 : 0 }}
-              transition={{ duration: 0.2 }}
+              transition={{ duration: 0.3, type: "spring", stiffness: 200 }}
               className={`text-gradient bg-clip-text text-transparent bg-gradient-to-r ${item.color}`}
             >
               {isExpanded ? (
-                <FaChevronDown size={18} />
+                <FaChevronDown size={20} />
               ) : (
-                <FaChevronRight size={18} />
+                <FaChevronRight size={20} />
               )}
             </motion.div>
           </div>
@@ -292,25 +317,26 @@ const DataCard = ({ item, index, isExpanded, onToggle }) => {
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.35 }}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
               className="overflow-hidden"
             >
-              <div className="p-6 pt-0 border-t border-gray-700/30">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+              <div className="px-7 pb-7 pt-2 border-t border-gray-700/40">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-5">
                   {item.details.map((detail, i) => (
                     <motion.div
                       key={i}
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={{ opacity: 1, x: 0 }}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: i * 0.1 }}
-                      className="flex items-start p-4 rounded-lg bg-gray-800 border border-gray-700/50 hover:border-gray-500/50 transition-all"
+                      className="flex items-start p-5 rounded-xl bg-gray-800/80 backdrop-blur-sm border border-gray-700/60 hover:border-gray-500/80 transition-all duration-300 hover:shadow-md group"
+                      whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
                     >
                       <span
-                        className={`text-gradient bg-clip-text text-transparent bg-gradient-to-r ${item.color} mr-3 mt-0.5`}
+                        className={`text-gradient bg-clip-text text-transparent bg-gradient-to-r ${item.color} mr-4 mt-0.5 group-hover:scale-110 transition-transform duration-300`}
                       >
-                        {React.cloneElement(detail.icon, { size: 16 })}
+                        {React.cloneElement(detail.icon, { size: 18 })}
                       </span>
-                      <span className="text-sm text-gray-300 leading-relaxed">
+                      <span className="text-base text-gray-200 leading-relaxed font-medium">
                         {detail.content}
                       </span>
                     </motion.div>

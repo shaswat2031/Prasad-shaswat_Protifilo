@@ -192,16 +192,16 @@ function AllProjects() {
       },
       {
         id: 8,
-        title :"Chat _ APP",
+        title :"Chat App",
         description :"A real-time chat application built with the MERN stack and Stream, enabling users to create accounts, join chat rooms, and exchange messages instantly. Features include user authentication, multiple chat rooms, and a responsive design for seamless communication across devices.",
         challenges :"Implementing real-time messaging with Stream, ensuring secure user authentication, and creating a responsive UI for an optimal chat experience.",
-        techStack : "Stream API , NExtJs,TailwindCSS,Clerk for authentication",
+        techStack : "Web Socket React NodejS",
         image : Chat,
         tags : ["NextJs","TailwindCSS","Stream API","Clerk","Real-time Chat"],
-        githubLink :"https://github.com/shaswat2031/chat",
-        liveLink: "",
+        githubLink :"https://github.com/shaswat2031/Chat-App_",
+        liveLink: "https://chat-app-y7zs.vercel.app/",
         date: "2025-09-30",
-        featured: false,
+        featured: true,
       }
     ];
 

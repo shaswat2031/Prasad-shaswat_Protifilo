@@ -33,6 +33,7 @@ import cyberbootcamp from "../Assets/cyber.jpg";
 import fullstackImage from "../Assets/bootcamp.jpg";
 import enterpenershipImage from "../Assets/enter.png";
 import days from "../Assets/30days.png";
+import oracle from "../Assets/oracle.png"
 
 // --- ICON HELPERS ---
 const skillIconMap = [
@@ -180,6 +181,25 @@ const certificates = [
     description:
       "Completed the Job Ready MERN Full-Stack Web Development course offered by 30 Days Coding. Acquired hands-on experience in MongoDB, Express.js, React.js, and Node.js for building scalable, production-ready web applications.",
   },
+  {
+  id: 11,
+  title: "Oracle Cloud Infrastructure 2025 Certified AI Foundations Associate",
+  issuer: "Oracle",
+  date: "October 27, 2025",
+  type: "Cloud & AI",
+  image: oracle,
+  skills: [
+    "Oracle Cloud Infrastructure (OCI)",
+    "Artificial Intelligence Fundamentals",
+    "Cloud Computing Concepts",
+    "Machine Learning Basics",
+    "Data Management in OCI"
+  ],
+  description:
+    "Achieved the Oracle Cloud Infrastructure 2025 Certified AI Foundations Associate certification, demonstrating foundational knowledge in Oracle Cloud services, AI concepts, and machine learning integration within OCI environments."
+}
+
+  
 ];
 
 // --- CARD COMPONENT ---

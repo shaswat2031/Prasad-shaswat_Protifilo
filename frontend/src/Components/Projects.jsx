@@ -11,7 +11,7 @@ import {
 } from "react-icons/fa";
 
 import universityConnect from "../Assets/university-connect.png";
-import FlaskInventory from "../Assets/inventory.png";
+import unolinks from "../Assets/unolinks.png";
 import SlotlyBookingApp from "../Assets/sloty.png";
 
 // Data for the projects
@@ -38,7 +38,7 @@ export const projects = [
     date: "OCT 2025 – Present",
     githubLink: null,
     liveLink: "https://unolinks.prasadshaswat.app/",
-    image: null,
+    image: unolinks,
     tags: ["React", "Tailwind CSS", "Web App", "Personal Branding"],
     highlight: false,
   },

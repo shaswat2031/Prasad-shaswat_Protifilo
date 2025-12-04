@@ -56,6 +56,20 @@ export const projects = [
     tags: ["React", "Node.js", "MongoDB", "Twilio", "Tailwind CSS"],
     highlight: false,
   },
+  {
+  title: "UnoLinks",
+  description:
+    "One link for everything you love — a vintage-inspired bio link platform.",
+  longDescription:
+    "UnoLinks is a personal bio-link platform that allows users to bring all their content into a single beautifully crafted, vintage-inspired profile. Users can showcase social links, portfolios, and important resources through one customizable link with a clean and responsive UI.",
+  date: "2025 – Present",
+  githubLink: null,
+  liveLink: "https://unolinks.prasadshaswat.app/",
+  image: UnoLinksImage, // make sure this variable is imported
+  tags: ["React", "Tailwind CSS", "Web App", "Personal Branding"],
+  highlight: true,
+},
+
 ];
 
 const Projects = () => {

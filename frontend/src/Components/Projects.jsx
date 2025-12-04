@@ -31,16 +31,15 @@ export const projects = [
     highlight: true,
   },
   {
-    title: "Flask Inventory Management",
+    title: "Unolinks",
     description:
-      "A robust system for small businesses to manage inventory, sales, and billing.",
-    longDescription:
-      "Features secure login/logout with hashed passwords, user-specific access control, dynamic inventory and sales tracking, and automated PDF invoice generation. Built with Flask and MySQL.",
-    date: "Feb 2025 – Present",
-    githubLink: "https://github.com/shaswat2031/Flask-Inventory-Management",
-    liveLink: null,
-    image: FlaskInventory,
-    tags: ["Python", "Flask", "MySQL", "Bootstrap", "Jinja"],
+      "One link for everything you love — a vintage-inspired bio link platform.",
+    longDescription:"UnoLinks is a personal bio-link platform that allows users to bring all their content into a single beautifully crafted, vintage-inspired profile. Users can showcase social links, portfolios, and important resources through one customizable link with a clean and responsive UI.",
+    date: "OCT 2025 – Present",
+    githubLink: null,
+    liveLink: "https://unolinks.prasadshaswat.app/",
+    image: null,
+    tags: ["React", "Tailwind CSS", "Web App", "Personal Branding"],
     highlight: false,
   },
   {
@@ -56,19 +55,7 @@ export const projects = [
     tags: ["React", "Node.js", "MongoDB", "Twilio", "Tailwind CSS"],
     highlight: false,
   },
-  {
-  title: "UnoLinks",
-  description:
-    "One link for everything you love — a vintage-inspired bio link platform.",
-  longDescription:
-    "UnoLinks is a personal bio-link platform that allows users to bring all their content into a single beautifully crafted, vintage-inspired profile. Users can showcase social links, portfolios, and important resources through one customizable link with a clean and responsive UI.",
-  date: "2025 – Present",
-  githubLink: null,
-  liveLink: "https://unolinks.prasadshaswat.app/",
-  image: UnoLinksImage, // make sure this variable is imported
-  tags: ["React", "Tailwind CSS", "Web App", "Personal Branding"],
-  highlight: true,
-},
+  
 
 ];
 

@@ -7,11 +7,8 @@ import {
   FaGithub,
   FaTwitter,
   FaMapMarkerAlt,
-  FaInstagram,
-  FaTimes,
-  FaRocket,
 } from "react-icons/fa";
-import { SiHashnode, SiLeetcode, SiSnapchat } from "react-icons/si";
+import { SiHashnode, SiLeetcode } from "react-icons/si";
 
 // --- DATA ---
 // Centralized data for all contact links
@@ -49,14 +46,6 @@ const contactLinks = [
     shadow: "hover:shadow-green-500/50",
   },
   {
-    id: "instagram",
-    icon: <FaInstagram />,
-    label: "Instagram",
-    href: "https://www.instagram.com/prasad_shaswat",
-    color: "hover:text-pink-400",
-    shadow: "hover:shadow-pink-500/50",
-  },
-  {
     id: "leetcode",
     icon: <SiLeetcode />,
     label: "LeetCode",
@@ -72,20 +61,12 @@ const contactLinks = [
     color: "hover:text-purple-400",
     shadow: "hover:shadow-purple-500/50",
   },
-  {
-    id: "snapchat",
-    icon: <SiSnapchat />,
-    label: "Snapchat",
-    href: "#", // Special handling for modal
-    color: "hover:text-yellow-300",
-    shadow: "hover:shadow-yellow-300/50",
-  },
 ];
 
 // --- COMPONENTS ---
 
 // Component for each orbiting icon
-const OrbitalIcon = ({ link, angle, radius, onHover, onSnapchatClick }) => {
+const OrbitalIcon = ({ link, angle, radius, onHover }) => {
   const [x, setX] = useState(0);
   const [y, setY] = useState(0);
 
@@ -93,13 +74,6 @@ const OrbitalIcon = ({ link, angle, radius, onHover, onSnapchatClick }) => {
     setX(Math.cos(angle) * radius);
     setY(Math.sin(angle) * radius);
   }, [angle, radius]);
-
-  const handleClick = (e) => {
-    if (link.id === "snapchat") {
-      e.preventDefault();
-      onSnapchatClick();
-    }
-  };
 
   return (
     <motion.div
@@ -112,7 +86,6 @@ const OrbitalIcon = ({ link, angle, radius, onHover, onSnapchatClick }) => {
         href={link.href}
         target="_blank"
         rel="noopener noreferrer"
-        onClick={handleClick}
         onMouseEnter={() => onHover(link.id)}
         onMouseLeave={() => onHover(null)}
         className={`relative w-16 h-16 rounded-full bg-gray-800/50 border border-gray-700/80 flex items-center justify-center text-gray-400 text-3xl transition-colors duration-300 ${link.color}`}
@@ -140,48 +113,9 @@ const OrbitalIcon = ({ link, angle, radius, onHover, onSnapchatClick }) => {
   );
 };
 
-// Modal for Snapchat QR Code
-const SnapchatModal = ({ onClose }) => (
-  <motion.div
-    className="fixed inset-0 z-50 flex items-center justify-center p-4"
-    onClick={onClose}
-  >
-    <motion.div
-      className="absolute inset-0 bg-black/70 backdrop-blur-sm"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-    />
-    <motion.div
-      className="relative bg-gray-800 rounded-2xl p-8 border border-yellow-500/30 shadow-2xl flex flex-col items-center gap-4"
-      initial={{ opacity: 0, scale: 0.8 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.8 }}
-      onClick={(e) => e.stopPropagation()}
-    >
-      <button
-        onClick={onClose}
-        className="absolute top-3 right-3 text-gray-400 hover:text-white transition-colors"
-      >
-        <FaTimes size={20} />
-      </button>
-      <h3 className="text-2xl font-bold text-yellow-300">Scan to Connect!</h3>
-      <div className="w-48 h-48 bg-white p-2 rounded-lg">
-        <img
-          src="https://placehold.co/200x200/000000/FFFFFF?text=Snap+QR"
-          alt="Snapchat QR Code"
-          className="w-full h-full object-cover"
-        />
-      </div>
-      <p className="text-gray-400">@prasad_shaswat</p>
-    </motion.div>
-  </motion.div>
-);
-
 // Main Contact Component
 const ContactUs = () => {
   const [hoveredId, setHoveredId] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [radius, setRadius] = useState(220);
 
   useEffect(() => {
@@ -244,7 +178,6 @@ const ContactUs = () => {
               angle={angle}
               radius={radius}
               onHover={setHoveredId}
-              onSnapchatClick={() => setIsModalOpen(true)}
             />
           );
         })}
@@ -293,10 +226,6 @@ const ContactUs = () => {
           <span>prasadshaswat9265@gmail.com</span>
         </a>
       </motion.div>
-
-      <AnimatePresence>
-        {isModalOpen && <SnapchatModal onClose={() => setIsModalOpen(false)} />}
-      </AnimatePresence>
     </section>
   );
 };

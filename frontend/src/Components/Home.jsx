@@ -74,31 +74,31 @@ const Home = () => {
     return (
         <section
             id="home"
-            className="w-full min-h-screen bg-portfolio-dark flex items-center justify-center"
+            className="w-full min-h-screen bg-portfolio-dark flex items-center justify-center overflow-hidden relative"
         >
             {/* Ambient gradient blobs */}
-            <div className="absolute top-0 right-0 w-96 h-96 bg-portfolio-primary rounded-full opacity-20 blur-3xl animate-pulse"></div>
-            <div className="absolute bottom-0 left-0 w-96 h-96 bg-portfolio-secondary rounded-full opacity-20 blur-3xl animate-pulse"></div>
+            <div className="absolute top-0 right-0 w-64 h-64 md:w-96 md:h-96 bg-portfolio-primary rounded-full opacity-20 blur-3xl animate-pulse"></div>
+            <div className="absolute bottom-0 left-0 w-64 h-64 md:w-96 md:h-96 bg-portfolio-secondary rounded-full opacity-20 blur-3xl animate-pulse"></div>
 
-            <div className="container mx-auto px-6 md:px-8 lg:px-12 relative z-10">
-                <div className="flex flex-col lg:flex-row items-center gap-12">
+            <div className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 relative z-10 py-20 lg:py-0">
+                <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
                     {/* Left Column */}
                     <motion.div
-                        className="flex-1 fade-in"
+                        className="flex-1 fade-in w-full text-center lg:text-left"
                         initial={{ opacity: 0, x: -30 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.7 }}
                     >
-                        <h1 className="text-5xl md:text-6xl font-bold text-gray-100 leading-tight mb-4">
+                        <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-100 leading-tight mb-4">
                             <span className="block bg-clip-text text-transparent bg-gradient-to-r from-portfolio-accent to-portfolio-primary falling-text">
                                 Hi, I'm
                             </span>
-                            <span className="block bold-text">Prasad Shaswat</span>
+                            <span className="block bold-text mt-2 sm:mt-0">Prasad Shaswat</span>
                         </h1>
 
-                        <div className="text-2xl md:text-3xl font-medium text-gray-300 mb-6 h-16 typing-text">
+                        <div className="text-xl sm:text-2xl md:text-3xl font-medium text-gray-300 mb-6 h-12 sm:h-16 typing-text flex justify-center lg:justify-start">
                             <span className="inline-flex items-center">
-                                <span className="w-4 h-4 bg-portfolio-primary rounded-full mr-3 animate-pulse"></span>
+                                <span className="w-3 h-3 sm:w-4 sm:h-4 bg-portfolio-primary rounded-full mr-3 animate-pulse"></span>
                                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-portfolio-primary to-portfolio-secondary">
                                     {displayText}
                                     <span className="ml-1 animate-pulse">|</span>
@@ -111,7 +111,7 @@ const Home = () => {
                                 initial={{ opacity: 0, y: 10 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.5 }}
-                                className="text-gray-400 max-w-xl mb-8"
+                                className="text-gray-400 max-w-xl mb-8 mx-auto lg:mx-0 text-base sm:text-lg leading-relaxed"
                             >
                                 A results-driven Full-Stack Developer experienced in the MERN
                                 stack and Flask, focused on creating scalable web applications and
@@ -124,12 +124,12 @@ const Home = () => {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.3, duration: 0.7 }}
-                            className="flex flex-wrap gap-3 mb-10"
+                            className="flex flex-wrap justify-center lg:justify-start gap-3 mb-10"
                         >
                             {techStack.map((tech, idx) => (
                                 <span
                                     key={idx}
-                                    className="tech-item flex items-center gap-2 px-4 py-2 rounded-full bg-portfolio-dark/50 border border-gray-700/50 text-sm text-gray-300 transition-all"
+                                    className="tech-item flex items-center gap-2 px-3 sm:px-4 py-2 rounded-full bg-portfolio-dark/50 border border-gray-700/50 text-xs sm:text-sm text-gray-300 transition-all hover:border-portfolio-primary hover:text-white"
                                     style={{ transitionDelay: `${idx * 50}ms` }}
                                 >
                                     {tech.icon} {tech.name}
@@ -142,15 +142,15 @@ const Home = () => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.5, duration: 0.5 }}
-                            className="flex flex-col sm:flex-row gap-5 mb-10"
+                            className="flex flex-col sm:flex-row gap-5 mb-10 justify-center lg:justify-start w-full sm:w-auto"
                         >
                             <a
                                 href="https://drive.google.com/file/d/1XR7BQtjUL1MoJ3E4VC7SJySzOKeeCU4k/view?usp=sharing"
                                 download="PrasadShaswat_Resume.pdf"
-                                className="group relative px-8 py-4 bg-gradient-to-r from-portfolio-accent to-portfolio-primary text-white font-semibold rounded-xl shadow-[0_10px_40px_-10px_rgba(39,111,191,0.5)] hover:shadow-[0_20px_40px_-10px_rgba(39,111,191,0.6)] transform hover:-translate-y-1 transition-all duration-300 overflow-hidden"
+                                className="group relative px-8 py-4 bg-gradient-to-r from-portfolio-accent to-portfolio-primary text-white font-semibold rounded-xl shadow-[0_10px_40px_-10px_rgba(39,111,191,0.5)] hover:shadow-[0_20px_40px_-10px_rgba(39,111,191,0.6)] transform hover:-translate-y-1 transition-all duration-300 overflow-hidden text-center"
                             >
                                 <div className="absolute inset-0 bg-white/20 group-hover:bg-white/30 transition-colors duration-300" />
-                                <span className="relative flex items-center gap-3 text-lg tracking-wide">
+                                <span className="relative flex items-center justify-center gap-3 text-lg tracking-wide">
                                     <FaDownload className="group-hover:translate-y-1 transition-transform duration-300" size={18} />
                                     Download CV
                                 </span>
@@ -163,7 +163,7 @@ const Home = () => {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.7, duration: 0.5 }}
-                            className="flex gap-4 text-gray-400"
+                            className="flex justify-center lg:justify-start gap-4 text-gray-400"
                         >
                             <a
                                 href="https://github.com/shaswat2031"
@@ -193,10 +193,10 @@ const Home = () => {
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.7, delay: 0.2 }}
                     >
-                        <div className="relative group flex justify-center items-center lg:h-[28rem]">
+                        <div className="relative group flex justify-center items-center">
                             {/* Rotating Gradient Border */}
                             <div className="rounded-full p-[3px] bg-gradient-to-r from-portfolio-accent via-portfolio-primary to-portfolio-secondary animate-spin-slow">
-                                <div className="w-72 h-72 md:w-96 md:h-96 rounded-full bg-portfolio-dark p-1 photo-hover">
+                                <div className="w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 bg-portfolio-dark p-1 photo-hover shrink-0">
                                     <img
                                         src={myselfImage}
                                         alt="Prasad Shaswat"

@@ -101,33 +101,33 @@ const Education = () => {
   return (
     <section
       id="education"
-      className="py-24 bg-portfolio-dark text-gray-200 relative"
+      className="py-16 md:py-24 bg-portfolio-dark text-gray-200 relative overflow-hidden"
     >
       {/* Abstract background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-20">
-        <div className="absolute top-40 left-10 w-72 h-72 bg-portfolio-primary rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
-        <div className="absolute top-60 right-10 w-72 h-72 bg-portfolio-secondary rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
-        <div className="absolute bottom-40 left-1/2 w-72 h-72 bg-portfolio-accent rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
+        <div className="absolute top-40 left-10 w-48 h-48 md:w-72 md:h-72 bg-portfolio-primary rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+        <div className="absolute top-60 right-10 w-48 h-48 md:w-72 md:h-72 bg-portfolio-secondary rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+        <div className="absolute bottom-40 left-1/2 w-48 h-48 md:w-72 md:h-72 bg-portfolio-accent rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
       </div>
 
-      <div className="max-w-5xl mx-auto px-6 relative">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 relative">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-16"
+          className="text-center mb-10 md:mb-16"
         >
           <div className="inline-flex items-center justify-center gap-2 mb-3 px-4 py-2 rounded-full bg-portfolio-primary/10 text-portfolio-primary text-sm font-medium">
             <GraduationCap size={16} />
             <span>Education & Learning</span>
           </div>
 
-          <h2 className="text-5xl font-bold mb-5 leading-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-5 leading-tight">
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-portfolio-accent via-portfolio-primary to-portfolio-secondary">
               Academic Journey
             </span>
           </h2>
 
-          <p className="text-gray-400 max-w-2xl mx-auto text-lg">
+          <p className="text-gray-400 max-w-2xl mx-auto text-base sm:text-lg">
             A timeline of my learning path — from building strong academic
             fundamentals to mastering advanced technologies in Computer Science.
           </p>
@@ -137,7 +137,7 @@ const Education = () => {
           </div>
         </motion.div>
 
-        <div className="grid gap-8">
+        <div className="grid gap-6 md:gap-8">
           {educationData.map((item, index) => (
             <EducationCard
               key={item.id}
@@ -166,9 +166,9 @@ const EducationCard = ({ item, index, isExpanded, onToggle }) => {
       <motion.div
         layoutId={`card-container-${item.id}`}
         className={`bg-portfolio-dark/40 backdrop-blur-lg border border-gray-700/50 rounded-xl overflow-hidden transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-[1.01] ${isExpanded
-            ? `ring-2 ring-offset-2 ring-offset-portfolio-dark ring-${item.color.split(" ")[0].replace("from-", "")
-            }` // Adjusted to handle tailwind class extraction roughly or just rely on manual
-            : ""
+          ? `ring-2 ring-offset-2 ring-offset-portfolio-dark ring-${item.color.split(" ")[0].replace("from-", "")
+          }`
+          : ""
           }`}
         style={{
           boxShadow: isExpanded
@@ -179,54 +179,71 @@ const EducationCard = ({ item, index, isExpanded, onToggle }) => {
         {/* Header */}
         <div
           onClick={onToggle}
-          className={`p-6 cursor-pointer transition-colors group ${isExpanded
-              ? `${item.bgAccent}`
-              : "hover:bg-portfolio-dark/60"
+          className={`p-4 sm:p-6 cursor-pointer transition-colors group ${isExpanded
+            ? `${item.bgAccent}`
+            : "hover:bg-portfolio-dark/60"
             }`}
         >
-          <div className="flex items-center gap-5">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-5">
             {/* Logo Area */}
-            <div
-              className={`flex-shrink-0 p-3 bg-gradient-to-br ${item.color} rounded-xl shadow-lg transform transition-transform group-hover:scale-105`}
-            >
-              <div className="w-12 h-12 flex items-center justify-center bg-portfolio-dark/90 backdrop-blur-sm rounded-lg p-2">
-                <img
-                  src={item.logo}
-                  alt={item.school}
-                  className="w-full h-full object-contain"
-                />
+            <div className="flex justify-between w-full sm:w-auto items-center">
+              <div
+                className={`flex-shrink-0 p-3 bg-gradient-to-br ${item.color} rounded-xl shadow-lg transform transition-transform group-hover:scale-105`}
+              >
+                <div className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center bg-portfolio-dark/90 backdrop-blur-sm rounded-lg p-2">
+                  <img
+                    src={item.logo}
+                    alt={item.school}
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+              </div>
+
+              {/* Expand Icon for Mobile (Shown next to logo if needed, or keep at bottom/right) */}
+              <div className="sm:hidden block">
+                <motion.div
+                  animate={{ rotate: isExpanded ? 90 : 0 }}
+                  transition={{ duration: 0.2 }}
+                  className={`text-gradient bg-clip-text text-transparent bg-gradient-to-r ${item.color} p-2 rounded-full`}
+                >
+                  {isExpanded ? (
+                    <FaChevronDown size={18} />
+                  ) : (
+                    <FaChevronRight size={18} />
+                  )}
+                </motion.div>
               </div>
             </div>
 
             {/* Info Area */}
-            <div className="flex-1">
-              <div className="flex flex-wrap justify-between items-start gap-2">
-                <h3 className="text-xl font-bold text-white flex items-center gap-2 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-gray-100 group-hover:to-white transition-all duration-300">
+            <div className="flex-1 w-full">
+              <div className="flex flex-col sm:flex-row justify-between items-start gap-2">
+                <h3 className="text-lg sm:text-xl font-bold text-white flex flex-wrap items-center gap-2 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-gray-100 group-hover:to-white transition-all duration-300">
                   {item.school}
                   {item.location && (
-                    <span className="text-sm font-normal text-gray-400 bg-gray-800/70 px-2 py-0.5 rounded-md">
+                    <span className="text-xs sm:text-sm font-normal text-gray-400 bg-gray-800/70 px-2 py-0.5 rounded-md">
                       {item.location}
                     </span>
                   )}
                 </h3>
-                <div className="text-sm text-gray-300 flex items-center gap-2 bg-portfolio-dark/60 backdrop-blur-md px-3 py-1 rounded-full shadow-sm">
+                <div className="text-xs sm:text-sm text-gray-300 flex items-center gap-2 bg-portfolio-dark/60 backdrop-blur-md px-3 py-1 rounded-full shadow-sm mt-1 sm:mt-0">
                   <FaCalendarAlt size={14} className="text-gray-400" />
                   <span>{item.period}</span>
                 </div>
               </div>
 
               <div className="mt-3 flex flex-wrap items-center gap-3">
-                <div className="text-lg text-gray-200 font-medium bg-gradient-to-r from-white/90 to-gray-300/90 bg-clip-text text-transparent">
+                <div className="text-base sm:text-lg text-gray-200 font-medium bg-gradient-to-r from-white/90 to-gray-300/90 bg-clip-text text-transparent w-full sm:w-auto">
                   {item.degree}
                 </div>
 
                 {item.board && (
-                  <div className="text-sm bg-portfolio-dark/60 backdrop-blur-sm px-2 py-0.5 rounded-md text-gray-300 border border-gray-700/30">
+                  <div className="text-xs sm:text-sm bg-portfolio-dark/60 backdrop-blur-sm px-2 py-0.5 rounded-md text-gray-300 border border-gray-700/30">
                     {item.board}
                   </div>
                 )}
 
-                <div className="ml-auto text-sm font-medium bg-portfolio-dark/80 backdrop-blur-md px-4 py-1.5 rounded-full text-gray-200 flex items-center gap-2 shadow-inner">
+                <div className="sm:ml-auto text-xs sm:text-sm font-medium bg-portfolio-dark/80 backdrop-blur-md px-4 py-1.5 rounded-full text-gray-200 flex items-center gap-2 shadow-inner mt-2 sm:mt-0">
                   <span
                     className={`w-2 h-2 rounded-full bg-gradient-to-r ${item.color} animate-pulse`}
                   ></span>
@@ -235,11 +252,11 @@ const EducationCard = ({ item, index, isExpanded, onToggle }) => {
               </div>
             </div>
 
-            {/* Expand Icon */}
+            {/* Expand Icon Desktop */}
             <motion.div
               animate={{ rotate: isExpanded ? 90 : 0 }}
               transition={{ duration: 0.2 }}
-              className={`text-gradient bg-clip-text text-transparent bg-gradient-to-r ${item.color} p-2 rounded-full ${isExpanded ? '' : 'group-hover:bg-portfolio-dark/60'}`}
+              className={`hidden sm:block text-gradient bg-clip-text text-transparent bg-gradient-to-r ${item.color} p-2 rounded-full ${isExpanded ? '' : 'group-hover:bg-portfolio-dark/60'}`}
             >
               {isExpanded ? (
                 <FaChevronDown size={18} />

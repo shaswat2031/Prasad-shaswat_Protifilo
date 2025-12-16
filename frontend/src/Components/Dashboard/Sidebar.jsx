@@ -4,7 +4,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 
 import myselfImage from "../../Assets/shaswat2.png"
 
-const Sidebar = () => {
+const Sidebar = ({ isOpen, onClose }) => {
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -18,8 +18,13 @@ const Sidebar = () => {
         { icon: Terminal, label: 'ALL PROJECTS', path: '/all-projects' },
     ];
 
+    const handleNavigation = (path) => {
+        navigate(path);
+        if (onClose) onClose();
+    };
+
     return (
-        <div className="w-64 bg-portfolio-bg h-screen flex flex-col p-4 fixed left-0 top-0 overflow-y-auto z-20 shadow-[4px_0_24px_rgba(0,0,0,0.02)] border-r border-portfolio-primary/10">
+        <div className={`w-64 bg-portfolio-bg h-screen flex flex-col p-4 fixed left-0 top-0 overflow-y-auto z-40 shadow-[4px_0_24px_rgba(0,0,0,0.02)] border-r border-portfolio-primary/10 transform transition-transform duration-300 ease-in-out md:translate-x-0 ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}>
             <div className="mb-8 px-4 py-2">
                 <h2 className="text-2xl font-serif italic font-bold text-portfolio-dark">PS portfolio.</h2>
             </div>
@@ -28,7 +33,7 @@ const Sidebar = () => {
                 {menuItems.map((item) => (
                     <button
                         key={item.label}
-                        onClick={() => navigate(item.path)}
+                        onClick={() => handleNavigation(item.path)}
                         className={`w-full flex items-center gap-3 px-5 py-3.5 rounded-2xl text-sm font-bold tracking-wide transition-all duration-300 ${location.pathname === item.path
                             ? 'bg-portfolio-primary text-white shadow-lg shadow-portfolio-primary/30 scale-[1.02]'
                             : 'text-gray-500 hover:bg-white hover:text-portfolio-secondary hover:pl-6'

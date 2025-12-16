@@ -14,10 +14,30 @@ import AllProjects from "../../pages/AllProjects";
 
 const DashboardLayout = () => {
     const location = useLocation();
+    const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
+
+    // Import icons for mobile menu
+    const { Menu, X } = require('lucide-react');
 
     return (
-        <div className="flex w-full min-h-screen bg-portfolio-bg font-sans">
-            <Sidebar />
+        <div className="flex w-full min-h-screen bg-portfolio-bg font-sans relative">
+            {/* Mobile Sidebar Overlay */}
+            {isSidebarOpen && (
+                <div
+                    className="fixed inset-0 bg-black/50 z-30 md:hidden backdrop-blur-sm"
+                    onClick={() => setIsSidebarOpen(false)}
+                />
+            )}
+
+            {/* Mobile Menu Button */}
+            <button
+                onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+                className="fixed top-4 right-4 z-40 p-2 bg-portfolio-primary text-white rounded-lg shadow-lg md:hidden hover:bg-portfolio-primary/90 transition-colors"
+            >
+                {isSidebarOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+
+            <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
 
             <div className="flex-1 w-full md:ml-64">
                 <AnimatePresence mode="wait">

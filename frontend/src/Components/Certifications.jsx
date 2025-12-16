@@ -182,24 +182,24 @@ const certificates = [
       "Completed the Job Ready MERN Full-Stack Web Development course offered by 30 Days Coding. Acquired hands-on experience in MongoDB, Express.js, React.js, and Node.js for building scalable, production-ready web applications.",
   },
   {
-  id: 11,
-  title: "Oracle Cloud Infrastructure 2025 Certified AI Foundations Associate",
-  issuer: "Oracle",
-  date: "October 27, 2025",
-  type: "Cloud & AI",
-  image: oracle,
-  skills: [
-    "Oracle Cloud Infrastructure (OCI)",
-    "Artificial Intelligence Fundamentals",
-    "Cloud Computing Concepts",
-    "Machine Learning Basics",
-    "Data Management in OCI"
-  ],
-  description:
-    "Achieved the Oracle Cloud Infrastructure 2025 Certified AI Foundations Associate certification, demonstrating foundational knowledge in Oracle Cloud services, AI concepts, and machine learning integration within OCI environments."
-}
+    id: 11,
+    title: "Oracle Cloud Infrastructure 2025 Certified AI Foundations Associate",
+    issuer: "Oracle",
+    date: "October 27, 2025",
+    type: "Cloud & AI",
+    image: oracle,
+    skills: [
+      "Oracle Cloud Infrastructure (OCI)",
+      "Artificial Intelligence Fundamentals",
+      "Cloud Computing Concepts",
+      "Machine Learning Basics",
+      "Data Management in OCI"
+    ],
+    description:
+      "Achieved the Oracle Cloud Infrastructure 2025 Certified AI Foundations Associate certification, demonstrating foundational knowledge in Oracle Cloud services, AI concepts, and machine learning integration within OCI environments."
+  }
 
-  
+
 ];
 
 // --- CARD COMPONENT ---
@@ -232,7 +232,7 @@ const CertificateCard = memo(({ cert, onViewDetails }) => {
     >
       <div
         style={{ transform: "translateZ(75px)", transformStyle: "preserve-3d" }}
-        className="absolute inset-0 bg-gray-800/70 backdrop-blur-md rounded-2xl border border-gray-700 p-6 flex flex-col"
+        className="absolute inset-0 bg-portfolio-dark/70 backdrop-blur-md rounded-2xl border border-gray-700 p-6 flex flex-col"
       >
         <div className="relative h-48 w-full mb-4 rounded-lg overflow-hidden flex-shrink-0">
           <img
@@ -258,14 +258,14 @@ const CertificateCard = memo(({ cert, onViewDetails }) => {
             {cert.skills.slice(0, 3).map((skill) => (
               <div
                 key={skill}
-                className="bg-gray-700/50 text-gray-300 text-xs rounded-full px-3 py-1 flex items-center gap-2 border border-gray-600"
+                className="bg-portfolio-dark/80 text-gray-300 text-xs rounded-full px-3 py-1 flex items-center gap-2 border border-gray-600"
               >
                 {getSkillIcon(skill)}
                 {skill}
               </div>
             ))}
           </div>
-          <div className="mt-auto text-center text-indigo-400 font-semibold group">
+          <div className="mt-auto text-center text-portfolio-primary font-semibold group">
             View Details{" "}
             <motion.span className="inline-block group-hover:translate-x-1 transition-transform">
               →
@@ -284,12 +284,12 @@ export default function Certifications() {
   return (
     <section
       id="certifications"
-      className="relative py-24 sm:py-32 bg-gray-900 text-gray-200"
+      className="relative py-24 sm:py-32 bg-portfolio-dark text-gray-200"
     >
       {/* Gradient Background */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute -top-20 -left-40 w-96 h-96 bg-indigo-600/20 rounded-full blur-3xl animate-blob"></div>
-        <div className="absolute -bottom-20 -right-40 w-96 h-96 bg-purple-600/20 rounded-full blur-3xl animate-blob animation-delay-4000"></div>
+        <div className="absolute -top-20 -left-40 w-96 h-96 bg-portfolio-primary/20 rounded-full blur-3xl animate-blob"></div>
+        <div className="absolute -bottom-20 -right-40 w-96 h-96 bg-portfolio-secondary/20 rounded-full blur-3xl animate-blob animation-delay-4000"></div>
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
@@ -300,7 +300,7 @@ export default function Certifications() {
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <div className="inline-block p-4 bg-gray-800/50 rounded-2xl border border-gray-700 mb-4">
+          <div className="inline-block p-4 bg-portfolio-dark/50 rounded-2xl border border-gray-700 mb-4">
             <FaStar className="text-yellow-400 text-3xl" />
           </div>
           <h2 className="text-4xl sm:text-5xl font-extrabold text-white mb-4">
@@ -352,7 +352,7 @@ export default function Certifications() {
               exit={{ opacity: 0 }}
             />
             <motion.div
-              className="relative bg-gray-800/80 backdrop-blur-xl rounded-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto border border-gray-700 shadow-2xl"
+              className="relative bg-portfolio-dark/80 backdrop-blur-xl rounded-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto border border-gray-700 shadow-2xl"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
@@ -361,7 +361,7 @@ export default function Certifications() {
             >
               <button
                 onClick={() => setSelectedCert(null)}
-                className="absolute top-4 right-4 bg-gray-900/50 hover:bg-gray-700/80 text-gray-300 rounded-full p-2 transition-colors"
+                className="absolute top-4 right-4 bg-portfolio-dark/50 hover:bg-portfolio-dark/80 text-gray-300 rounded-full p-2 transition-colors"
                 aria-label="Close"
               >
                 <FaTimes />
@@ -377,7 +377,7 @@ export default function Certifications() {
                 <div className="md:col-span-2">
                   <div className="flex items-center gap-2 mb-2">
                     {getCertificateTypeIcon(selectedCert.type)}
-                    <span className="text-indigo-400 font-semibold">
+                    <span className="text-portfolio-primary font-semibold">
                       {selectedCert.type}
                     </span>
                   </div>

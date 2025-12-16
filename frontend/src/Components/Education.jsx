@@ -36,8 +36,8 @@ const Education = () => {
       grade: "CGPA: 7.03/10",
       board: "PIT",
       icon: <FaUniversity />,
-      color: "from-sky-400 to-indigo-500",
-      bgAccent: "bg-indigo-500/10",
+      color: "from-portfolio-accent to-portfolio-primary",
+      bgAccent: "bg-portfolio-accent/10",
       details: [
         { icon: <FaCode />, content: "Built scalable full-stack web apps" },
         {
@@ -62,8 +62,9 @@ const Education = () => {
       grade: "59.20%",
       board: "CBSE",
       icon: <FaSchool />,
-      color: "from-violet-400 to-fuchsia-500",
-      bgAccent: "bg-fuchsia-500/10",
+      color: "from-portfolio-primary to-portfolio-intro", // intro is roughly secondary/primary mix, let's use primary to secondary
+      color: "from-portfolio-primary to-portfolio-secondary",
+      bgAccent: "bg-portfolio-primary/10",
       details: [
         { icon: <FaFlask />, content: "Strong foundation in core sciences" },
         {
@@ -84,8 +85,8 @@ const Education = () => {
       grade: "56.66%",
       board: "GSEB",
       icon: <FaBookOpen />,
-      color: "from-emerald-400 to-teal-500",
-      bgAccent: "bg-teal-500/10",
+      color: "from-portfolio-secondary to-portfolio-accent",
+      bgAccent: "bg-portfolio-secondary/10",
       details: [
         {
           icon: <FaChalkboardTeacher />,
@@ -100,13 +101,13 @@ const Education = () => {
   return (
     <section
       id="education"
-      className="py-24 bg-gradient-to-b from-gray-900 via-gray-800 to-black text-gray-200 relative"
+      className="py-24 bg-portfolio-dark text-gray-200 relative"
     >
       {/* Abstract background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-20">
-        <div className="absolute top-40 left-10 w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
-        <div className="absolute top-60 right-10 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
-        <div className="absolute bottom-40 left-1/2 w-72 h-72 bg-pink-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
+        <div className="absolute top-40 left-10 w-72 h-72 bg-portfolio-primary rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+        <div className="absolute top-60 right-10 w-72 h-72 bg-portfolio-secondary rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+        <div className="absolute bottom-40 left-1/2 w-72 h-72 bg-portfolio-accent rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
       </div>
 
       <div className="max-w-5xl mx-auto px-6 relative">
@@ -115,13 +116,13 @@ const Education = () => {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-16"
         >
-          <div className="inline-flex items-center justify-center gap-2 mb-3 px-4 py-2 rounded-full bg-indigo-500/10 text-indigo-300 text-sm font-medium">
+          <div className="inline-flex items-center justify-center gap-2 mb-3 px-4 py-2 rounded-full bg-portfolio-primary/10 text-portfolio-primary text-sm font-medium">
             <GraduationCap size={16} />
             <span>Education & Learning</span>
           </div>
 
           <h2 className="text-5xl font-bold mb-5 leading-tight">
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-portfolio-accent via-portfolio-primary to-portfolio-secondary">
               Academic Journey
             </span>
           </h2>
@@ -132,7 +133,7 @@ const Education = () => {
           </p>
 
           <div className="mt-8 flex justify-center">
-            <div className="h-1 w-20 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-full"></div>
+            <div className="h-1 w-20 bg-gradient-to-r from-portfolio-accent via-portfolio-primary to-portfolio-secondary rounded-full"></div>
           </div>
         </motion.div>
 
@@ -164,34 +165,31 @@ const EducationCard = ({ item, index, isExpanded, onToggle }) => {
     >
       <motion.div
         layoutId={`card-container-${item.id}`}
-        className={`bg-gray-800/40 backdrop-blur-lg border border-gray-700/50 rounded-xl overflow-hidden transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-[1.01] ${
-          isExpanded
-            ? `ring-2 ring-offset-2 ring-offset-gray-900 ring-${
-                item.color.split(" ")[0]
-              }`
+        className={`bg-portfolio-dark/40 backdrop-blur-lg border border-gray-700/50 rounded-xl overflow-hidden transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-[1.01] ${isExpanded
+            ? `ring-2 ring-offset-2 ring-offset-portfolio-dark ring-${item.color.split(" ")[0].replace("from-", "")
+            }` // Adjusted to handle tailwind class extraction roughly or just rely on manual
             : ""
-        }`}
+          }`}
         style={{
-          boxShadow: isExpanded 
-            ? `0 10px 30px -10px rgba(0, 0, 0, 0.5), 0 0 15px -3px rgba(79, 70, 229, 0.3)` 
+          boxShadow: isExpanded
+            ? `0 10px 30px -10px rgba(0, 0, 0, 0.5), 0 0 15px -3px rgba(79, 70, 229, 0.3)`
             : ''
         }}
       >
         {/* Header */}
         <div
           onClick={onToggle}
-          className={`p-6 cursor-pointer transition-colors group ${
-            isExpanded
+          className={`p-6 cursor-pointer transition-colors group ${isExpanded
               ? `${item.bgAccent}`
-              : "hover:bg-gray-700/30"
-          }`}
+              : "hover:bg-portfolio-dark/60"
+            }`}
         >
           <div className="flex items-center gap-5">
             {/* Logo Area */}
             <div
               className={`flex-shrink-0 p-3 bg-gradient-to-br ${item.color} rounded-xl shadow-lg transform transition-transform group-hover:scale-105`}
             >
-              <div className="w-12 h-12 flex items-center justify-center bg-gray-900/90 backdrop-blur-sm rounded-lg p-2">
+              <div className="w-12 h-12 flex items-center justify-center bg-portfolio-dark/90 backdrop-blur-sm rounded-lg p-2">
                 <img
                   src={item.logo}
                   alt={item.school}
@@ -211,7 +209,7 @@ const EducationCard = ({ item, index, isExpanded, onToggle }) => {
                     </span>
                   )}
                 </h3>
-                <div className="text-sm text-gray-300 flex items-center gap-2 bg-gray-800/60 backdrop-blur-md px-3 py-1 rounded-full shadow-sm">
+                <div className="text-sm text-gray-300 flex items-center gap-2 bg-portfolio-dark/60 backdrop-blur-md px-3 py-1 rounded-full shadow-sm">
                   <FaCalendarAlt size={14} className="text-gray-400" />
                   <span>{item.period}</span>
                 </div>
@@ -223,12 +221,12 @@ const EducationCard = ({ item, index, isExpanded, onToggle }) => {
                 </div>
 
                 {item.board && (
-                  <div className="text-sm bg-gray-800/60 backdrop-blur-sm px-2 py-0.5 rounded-md text-gray-300 border border-gray-700/30">
+                  <div className="text-sm bg-portfolio-dark/60 backdrop-blur-sm px-2 py-0.5 rounded-md text-gray-300 border border-gray-700/30">
                     {item.board}
                   </div>
                 )}
 
-                <div className="ml-auto text-sm font-medium bg-gray-900/80 backdrop-blur-md px-4 py-1.5 rounded-full text-gray-200 flex items-center gap-2 shadow-inner">
+                <div className="ml-auto text-sm font-medium bg-portfolio-dark/80 backdrop-blur-md px-4 py-1.5 rounded-full text-gray-200 flex items-center gap-2 shadow-inner">
                   <span
                     className={`w-2 h-2 rounded-full bg-gradient-to-r ${item.color} animate-pulse`}
                   ></span>
@@ -241,7 +239,7 @@ const EducationCard = ({ item, index, isExpanded, onToggle }) => {
             <motion.div
               animate={{ rotate: isExpanded ? 90 : 0 }}
               transition={{ duration: 0.2 }}
-              className={`text-gradient bg-clip-text text-transparent bg-gradient-to-r ${item.color} p-2 rounded-full ${isExpanded ? '' : 'group-hover:bg-gray-800/60'}`}
+              className={`text-gradient bg-clip-text text-transparent bg-gradient-to-r ${item.color} p-2 rounded-full ${isExpanded ? '' : 'group-hover:bg-portfolio-dark/60'}`}
             >
               {isExpanded ? (
                 <FaChevronDown size={18} />
@@ -279,7 +277,7 @@ const EducationCard = ({ item, index, isExpanded, onToggle }) => {
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: i * 0.1 }}
-                      className="flex items-start p-4 rounded-xl bg-gray-800/60 backdrop-blur-sm border border-gray-700/50 hover:border-gray-600/70 transition-all hover:shadow-md group"
+                      className="flex items-start p-4 rounded-xl bg-portfolio-dark/60 backdrop-blur-sm border border-gray-700/50 hover:border-gray-600/70 transition-all hover:shadow-md group"
                     >
                       <div
                         className={`p-2 rounded-lg mr-3 bg-gradient-to-r ${item.color} bg-opacity-20 group-hover:bg-opacity-30 transition-all`}

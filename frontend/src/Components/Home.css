@@ -1,74 +1,99 @@
 /* Add these styles to your CSS file or in a <style> tag in your component */
 
 @keyframes fall {
-    from {
-        transform: translateY(-100%);
-        opacity: 0;
-    }
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
 
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 .falling-text {
-    display: inline-block;
-    animation: fall 3s ease-in-out forwards;
-    /* Adjust duration and easing */
-    color: orange;
-    /* Set text color to orange */
+  display: inline-block;
+  animation: fall 3s ease-in-out forwards;
+  /* Adjust duration and easing */
+  color: #749C75;
+  /* Set text color to portfolio-primary */
 }
 
 .bold-text {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 /* Type animation styles */
 .typing-text {
-    display: inline-block;
-    position: relative;
-    color: #ea580c; /* orange-600 */
-    font-weight: 600;
-    min-width: 12ch;
-    border-right: 2px solid transparent;
+  display: inline-block;
+  position: relative;
+  color: #749C75;
+  /* portfolio-primary */
+  font-weight: 600;
+  min-width: 12ch;
+  border-right: 2px solid transparent;
 }
 
 .typing {
-    overflow: hidden;
-    white-space: nowrap;
-    border-right: 2px solid #ea580c;
-    animation: typing 5s steps(40) infinite,
-               blink-caret 0.5s step-end infinite;
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 2px solid #749C75;
+  animation: typing 5s steps(40) infinite,
+    blink-caret 0.5s step-end infinite;
 }
 
 .deleting {
-    animation: deleting 2s steps(30) infinite,
-               blink-caret 0.75s step-end infinite;
+  animation: deleting 2s steps(30) infinite,
+    blink-caret 0.75s step-end infinite;
 }
 
 @keyframes typing {
-    from { width: 0 }
-    to { width: 100% }
+  from {
+    width: 0
+  }
+
+  to {
+    width: 100%
+  }
 }
 
 @keyframes deleting {
-    from { width: 100% }
-    to { width: 0 }
+  from {
+    width: 100%
+  }
+
+  to {
+    width: 0
+  }
 }
 
 @keyframes blink-caret {
-    from, to { border-color: transparent }
-    50% { border-color: #ea580c }
+
+  from,
+  to {
+    border-color: transparent
+  }
+
+  50% {
+    border-color: #749C75
+  }
 }
 
 .fade-in {
-    animation: fadeIn 0.5s ease-in-out;
+  animation: fadeIn 0.5s ease-in-out;
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Refined animations for the floating icons */
@@ -76,9 +101,11 @@
   0% {
     transform: translateY(0px) rotate(0deg);
   }
+
   50% {
     transform: translateY(-10px) rotate(5deg);
   }
+
   100% {
     transform: translateY(0px) rotate(0deg);
   }
@@ -88,9 +115,11 @@
   0% {
     transform: translateY(0px) rotate(0deg);
   }
+
   50% {
     transform: translateY(-8px) rotate(-5deg);
   }
+
   100% {
     transform: translateY(0px) rotate(0deg);
   }

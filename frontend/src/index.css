@@ -13,7 +13,8 @@ body,
   font-family: 'Roboto', sans-serif;
   overflow-x: hidden !important; /* Prevent horizontal scroll */
   overflow-y: auto !important; /* Allow vertical scroll */
-  background-color: #0f172a; /* Matches Tailwind slate-900 for full bg */
+  background-color: #F6F4F3; /* Portfolio BG */
+  color: #183059; /* Portfolio Dark Text */
 }
 
 /* Ensure smooth scrolling for anchor links */

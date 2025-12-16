@@ -34,7 +34,7 @@ export const projects = [
     title: "Unolinks",
     description:
       "One link for everything you love — a vintage-inspired bio link platform.",
-    longDescription:"UnoLinks is a personal bio-link platform that allows users to bring all their content into a single beautifully crafted, vintage-inspired profile. Users can showcase social links, portfolios, and important resources through one customizable link with a clean and responsive UI.",
+    longDescription: "UnoLinks is a personal bio-link platform that allows users to bring all their content into a single beautifully crafted, vintage-inspired profile. Users can showcase social links, portfolios, and important resources through one customizable link with a clean and responsive UI.",
     date: "OCT 2025 – Present",
     githubLink: null,
     liveLink: "https://unolinks.prasadshaswat.app/",
@@ -55,7 +55,7 @@ export const projects = [
     tags: ["React", "Node.js", "MongoDB", "Twilio", "Tailwind CSS"],
     highlight: false,
   },
-  
+
 
 ];
 
@@ -65,12 +65,12 @@ const Projects = () => {
   return (
     <section
       id="projects"
-      className="py-24 bg-gray-900 text-white relative overflow-hidden"
+      className="py-24 bg-portfolio-dark text-white relative overflow-hidden"
     >
       {/* Background Decorative Elements */}
       <div className="absolute inset-0 bg-grid-gray-800/20 [mask-image:linear-gradient(to_bottom,white_5%,transparent_95%)]"></div>
-      <div className="absolute top-1/4 -left-24 w-72 h-72 bg-indigo-600 rounded-full filter blur-3xl opacity-10 animate-pulse"></div>
-      <div className="absolute bottom-1/4 -right-24 w-72 h-72 bg-purple-600 rounded-full filter blur-3xl opacity-10 animate-pulse animation-delay-4000"></div>
+      <div className="absolute top-1/4 -left-24 w-72 h-72 bg-portfolio-primary rounded-full filter blur-3xl opacity-10 animate-pulse"></div>
+      <div className="absolute bottom-1/4 -right-24 w-72 h-72 bg-portfolio-secondary rounded-full filter blur-3xl opacity-10 animate-pulse animation-delay-4000"></div>
 
       <div className="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
         {/* Section Header */}
@@ -82,16 +82,16 @@ const Projects = () => {
           transition={{ duration: 0.6 }}
         >
           <div className="inline-block mb-4">
-            <div className="relative w-16 h-16 mx-auto bg-gray-800 rounded-xl flex items-center justify-center border-2 border-indigo-700 shadow-lg shadow-indigo-900/20">
-              <FaLaptopCode className="text-indigo-400 text-3xl" />
+            <div className="relative w-16 h-16 mx-auto bg-portfolio-dark rounded-xl flex items-center justify-center border-2 border-portfolio-primary shadow-lg shadow-portfolio-primary/20">
+              <FaLaptopCode className="text-portfolio-primary text-3xl" />
             </div>
           </div>
           <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-3">
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-portfolio-primary to-portfolio-secondary">
               My Creative Portfolio
             </span>
           </h2>
-          <div className="h-1 w-24 mx-auto bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full mb-4"></div>
+          <div className="h-1 w-24 mx-auto bg-gradient-to-r from-portfolio-primary to-portfolio-secondary rounded-full mb-4"></div>
           <p className="text-gray-400 max-w-2xl mx-auto text-lg">
             A selection of projects that showcase my passion for building modern
             web applications.
@@ -111,7 +111,7 @@ const Projects = () => {
               key={index}
               layoutId={`card-${index}`}
               onClick={() => setSelectedId(index)}
-              className="bg-gray-800/40 backdrop-blur-lg rounded-2xl overflow-hidden border border-gray-700/80 cursor-pointer group relative"
+              className="bg-portfolio-dark/40 backdrop-blur-lg rounded-2xl overflow-hidden border border-gray-700/80 cursor-pointer group relative"
               variants={{
                 hidden: { y: 20, opacity: 0 },
                 visible: { y: 0, opacity: 1 },
@@ -135,8 +135,8 @@ const Projects = () => {
                     {project.title}
                   </h3>
                   {project.highlight && (
-                    <span className="inline-flex items-center px-2.5 py-1 rounded-full bg-indigo-900/60 text-indigo-200 text-xs font-bold border border-indigo-700/50">
-                      <FaFire className="mr-1.5 text-amber-400" size={12} />
+                    <span className="inline-flex items-center px-2.5 py-1 rounded-full bg-portfolio-primary/20 text-portfolio-primary text-xs font-bold border border-portfolio-primary/50">
+                      <FaFire className="mr-1.5 text-portfolio-secondary" size={12} />
                       Featured
                     </span>
                   )}
@@ -148,51 +148,20 @@ const Projects = () => {
                   {project.tags.slice(0, 4).map((tag) => (
                     <span
                       key={tag}
-                      className="px-3 py-1 text-xs font-semibold bg-gray-700/80 text-indigo-300 rounded-full border border-gray-600"
+                      className="px-3 py-1 text-xs font-semibold bg-portfolio-dark/80 text-portfolio-accent rounded-full border border-gray-600"
                     >
                       {tag}
                     </span>
                   ))}
                 </div>
               </div>
-              <div className="absolute inset-0 border-2 border-transparent group-hover:border-indigo-500 rounded-2xl transition-all duration-300 pointer-events-none"></div>
+              <div className="absolute inset-0 border-2 border-transparent group-hover:border-portfolio-primary rounded-2xl transition-all duration-300 pointer-events-none"></div>
             </motion.div>
           ))}
         </motion.div>
 
         {/* Call to Action */}
-        <motion.div
-          className="mt-24 text-center"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.3, duration: 0.6 }}
-        >
-          <div className="relative inline-block bg-gray-800/60 backdrop-blur-md border border-gray-700 rounded-full p-2 shadow-lg">
-            <div className="flex items-center gap-2">
-              <motion.a
-                href="https://github.com/shaswat2031"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center px-6 py-3 text-base font-semibold rounded-full text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:shadow-indigo-500/40 shadow-lg transition-all duration-300"
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <FaGithub className="mr-2.5" />
-                Explore on GitHub
-              </motion.a>
-              <motion.a
-                href="/all-projects"
-                className="flex items-center px-6 py-3 text-base font-semibold rounded-full text-gray-300 hover:bg-gray-700/50 hover:text-white transition-colors duration-300"
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                View All Projects
-                <FaArrowRight className="ml-2.5" size={14} />
-              </motion.a>
-            </div>
-          </div>
-        </motion.div>
+
       </div>
 
       {/* Modal */}
@@ -210,7 +179,7 @@ const Projects = () => {
               exit={{ opacity: 0 }}
             />
             <motion.div
-              className="relative w-full max-w-3xl bg-gray-800 rounded-2xl overflow-hidden border border-gray-700 shadow-2xl"
+              className="relative w-full max-w-3xl bg-portfolio-dark rounded-2xl overflow-hidden border border-gray-700 shadow-2xl"
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
@@ -228,7 +197,7 @@ const Projects = () => {
                 <h2 className="text-3xl font-bold text-white mb-2">
                   {projects[selectedId].title}
                 </h2>
-                <p className="text-indigo-300 text-sm mb-4">
+                <p className="text-portfolio-accent text-sm mb-4">
                   <FaCalendarAlt className="inline mr-2" />
                   {projects[selectedId].date}
                 </p>
@@ -236,7 +205,7 @@ const Projects = () => {
                   {projects[selectedId].longDescription}
                 </p>
                 <h4 className="font-bold text-white mb-3 flex items-center">
-                  <FaTools className="mr-2 text-indigo-400" />
+                  <FaTools className="mr-2 text-portfolio-primary" />
                   Key Features
                 </h4>
                 <ul className="space-y-2 mb-6">
@@ -245,7 +214,7 @@ const Projects = () => {
                       key={tag}
                       className="text-sm text-gray-400 flex items-start"
                     >
-                      <span className="text-indigo-400 mr-2 mt-1">▹</span>
+                      <span className="text-portfolio-primary mr-2 mt-1">▹</span>
                       {tag}
                     </li>
                   ))}
@@ -255,7 +224,7 @@ const Projects = () => {
                     href={projects[selectedId].githubLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center w-full px-4 py-3 text-sm font-semibold rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 transition-colors"
+                    className="flex items-center justify-center w-full px-4 py-3 text-sm font-semibold rounded-lg text-white bg-portfolio-primary hover:bg-portfolio-primary/80 transition-colors"
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.98 }}
                   >

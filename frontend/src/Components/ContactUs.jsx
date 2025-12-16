@@ -88,7 +88,7 @@ const OrbitalIcon = ({ link, angle, radius, onHover }) => {
         rel="noopener noreferrer"
         onMouseEnter={() => onHover(link.id)}
         onMouseLeave={() => onHover(null)}
-        className={`relative w-16 h-16 rounded-full bg-gray-800/50 border border-gray-700/80 flex items-center justify-center text-gray-400 text-3xl transition-colors duration-300 ${link.color}`}
+        className={`relative w-16 h-16 rounded-full bg-portfolio-dark/50 border border-portfolio-primary/30 flex items-center justify-center text-gray-400 text-3xl transition-colors duration-300 ${link.color}`}
         whileHover={{ scale: 1.2, boxShadow: `0 0 20px var(--shadow-color)` }}
         style={{
           "--shadow-color": link.shadow
@@ -134,12 +134,12 @@ const ContactUs = () => {
   return (
     <section
       id="contact"
-      className="relative min-h-screen bg-gray-900 text-gray-200 flex flex-col items-center justify-center py-24 px-4 overflow-hidden"
+      className="relative min-h-screen bg-portfolio-dark text-gray-200 flex flex-col items-center justify-center py-24 px-4 overflow-hidden"
     >
       <div className="absolute inset-0 z-0">
         <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,_rgba(128,0,128,0.1)_0%,_rgba(0,0,0,0)_50%)]"></div>
         <motion.div
-          className="absolute top-1/2 left-1/2 w-[50vw] h-[50vh] bg-indigo-600/10 rounded-full filter blur-3xl"
+          className="absolute top-1/2 left-1/2 w-[50vw] h-[50vh] bg-portfolio-primary/10 rounded-full filter blur-3xl"
           animate={{ scale: [1, 1.2, 1], rotate: [0, 90, 0] }}
           transition={{ duration: 20, repeat: Infinity, repeatType: "reverse" }}
         />
@@ -153,7 +153,7 @@ const ContactUs = () => {
           transition={{ duration: 0.5 }}
         >
           Let's Build Something{" "}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-500">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-portfolio-primary to-portfolio-secondary">
             Amazing
           </span>
           .
@@ -182,20 +182,20 @@ const ContactUs = () => {
           );
         })}
         <motion.div
-          className="w-40 h-40 md:w-56 md:w-56 rounded-full bg-gray-800 flex items-center justify-center border-2 border-indigo-500/30 transition-all duration-500"
+          className="w-40 h-40 md:w-56 md:w-56 rounded-full bg-portfolio-dark flex items-center justify-center border-2 border-portfolio-primary/30 transition-all duration-500"
           animate={{
             borderColor: hoveredId
               ? contactLinks
-                  .find((l) => l.id === hoveredId)
-                  ?.color.replace("hover:text-", "var(--tw-color-")
-                  .replace(")", ")")
-              : "rgba(99, 102, 241, 0.3)",
+                .find((l) => l.id === hoveredId)
+                ?.color.replace("hover:text-", "var(--tw-color-")
+                .replace(")", ")")
+              : "rgba(116, 156, 117, 0.3)",
             boxShadow: hoveredId
               ? `0 0 40px ${contactLinks
-                  .find((l) => l.id === hoveredId)
-                  ?.color.replace("hover:text-", "var(--tw-color-")
-                  .replace(")", ")")}`
-              : "0 0 20px rgba(99, 102, 241, 0.2)",
+                .find((l) => l.id === hoveredId)
+                ?.color.replace("hover:text-", "var(--tw-color-")
+                .replace(")", ")")}`
+              : "0 0 20px rgba(116, 156, 117, 0.2)",
           }}
         >
           <div className="text-center">
@@ -208,21 +208,21 @@ const ContactUs = () => {
       </div>
 
       <motion.div
-        className="relative z-10 flex flex-col md:flex-row items-center gap-4 md:gap-8 text-gray-400 bg-gray-800/50 backdrop-blur-sm px-6 py-4 rounded-lg border border-gray-700"
+        className="relative z-10 flex flex-col md:flex-row items-center gap-4 md:gap-8 text-gray-400 bg-portfolio-dark/50 backdrop-blur-sm px-6 py-4 rounded-lg border border-gray-700"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.8 }}
       >
         <div className="flex items-center gap-2">
-          <FaMapMarkerAlt className="text-indigo-400" />
+          <FaMapMarkerAlt className="text-portfolio-primary" />
           <span>Vadodara, Gujarat</span>
         </div>
         <div className="hidden md:block h-6 w-px bg-gray-700"></div>
         <a
           href="mailto:prasadshaswat9265@gmail.com"
-          className="flex items-center gap-2 hover:text-indigo-300 transition-colors"
+          className="flex items-center gap-2 hover:text-portfolio-primary transition-colors"
         >
-          <FaEnvelope className="text-indigo-400" />
+          <FaEnvelope className="text-portfolio-primary" />
           <span>prasadshaswat9265@gmail.com</span>
         </a>
       </motion.div>

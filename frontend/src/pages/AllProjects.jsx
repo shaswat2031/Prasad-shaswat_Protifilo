@@ -192,13 +192,13 @@ function AllProjects() {
       },
       {
         id: 8,
-        title :"Chat App",
-        description :"A real-time chat application built with the MERN stack and Stream, enabling users to create accounts, join chat rooms, and exchange messages instantly. Features include user authentication, multiple chat rooms, and a responsive design for seamless communication across devices.",
-        challenges :"Implementing real-time messaging with Stream, ensuring secure user authentication, and creating a responsive UI for an optimal chat experience.",
-        techStack : "Web Socket React NodejS",
-        image : Chat,
-        tags : ["NextJs","TailwindCSS","Stream API","Clerk","Real-time Chat"],
-        githubLink :"https://github.com/shaswat2031/Chat-App_",
+        title: "Chat App",
+        description: "A real-time chat application built with the MERN stack and Stream, enabling users to create accounts, join chat rooms, and exchange messages instantly. Features include user authentication, multiple chat rooms, and a responsive design for seamless communication across devices.",
+        challenges: "Implementing real-time messaging with Stream, ensuring secure user authentication, and creating a responsive UI for an optimal chat experience.",
+        techStack: "Web Socket React NodejS",
+        image: Chat,
+        tags: ["NextJs", "TailwindCSS", "Stream API", "Clerk", "Real-time Chat"],
+        githubLink: "https://github.com/shaswat2031/Chat-App_",
         liveLink: "https://chat-app-y7zs.vercel.app/",
         date: "2025-09-30",
         featured: true,
@@ -282,12 +282,12 @@ function AllProjects() {
   };
 
   return (
-    <div className="bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 min-h-screen py-12 text-gray-200">
+    <div className="bg-portfolio-dark min-h-screen py-12 text-gray-200">
       {/* Back to Home Button */}
       <div className="container mx-auto px-4 mb-8">
         <Link
           to="/"
-          className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 transition-colors"
+          className="inline-flex items-center gap-2 text-portfolio-accent hover:text-portfolio-primary transition-colors"
           aria-label="Back to homepage"
         >
           <IoArrowBack /> Back to Home
@@ -302,8 +302,8 @@ function AllProjects() {
           className="mb-12 text-center"
         >
           <div className="relative mb-6">
-            <div className="absolute inset-0 bg-blue-500 blur-3xl opacity-10 rounded-full transform -translate-y-1/2"></div>
-            <h1 className="text-5xl font-extrabold mb-4 bg-gradient-to-r from-blue-400 via-purple-400 to-indigo-400 bg-clip-text text-transparent relative z-10">
+            <div className="absolute inset-0 bg-portfolio-accent blur-3xl opacity-10 rounded-full transform -translate-y-1/2"></div>
+            <h1 className="text-5xl font-extrabold mb-4 bg-gradient-to-r from-portfolio-accent via-portfolio-primary to-portfolio-secondary bg-clip-text text-transparent relative z-10">
               Project Gallery
             </h1>
           </div>
@@ -315,20 +315,20 @@ function AllProjects() {
           </p>
 
           <div className="flex flex-wrap justify-center gap-3 mt-6">
-            <div className="bg-gray-800/50 backdrop-blur-sm px-4 py-2 rounded-full flex items-center gap-2 border border-gray-700/50">
-              <span className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></span>
+            <div className="bg-portfolio-dark/50 backdrop-blur-sm px-4 py-2 rounded-full flex items-center gap-2 border border-gray-700/50">
+              <span className="w-2 h-2 bg-portfolio-accent rounded-full animate-pulse"></span>
               <span className="text-gray-300 text-sm">
                 {filteredProjects.length} Projects
               </span>
             </div>
-            <div className="bg-gray-800/50 backdrop-blur-sm px-4 py-2 rounded-full flex items-center gap-2 border border-gray-700/50">
-              <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+            <div className="bg-portfolio-dark/50 backdrop-blur-sm px-4 py-2 rounded-full flex items-center gap-2 border border-gray-700/50">
+              <span className="w-2 h-2 bg-portfolio-primary rounded-full animate-pulse"></span>
               <span className="text-gray-300 text-sm">
                 {projects.filter((p) => p.featured).length} Featured
               </span>
             </div>
-            <div className="bg-gray-800/50 backdrop-blur-sm px-4 py-2 rounded-full flex items-center gap-2 border border-gray-700/50">
-              <span className="w-2 h-2 bg-purple-400 rounded-full animate-pulse"></span>
+            <div className="bg-portfolio-dark/50 backdrop-blur-sm px-4 py-2 rounded-full flex items-center gap-2 border border-gray-700/50">
+              <span className="w-2 h-2 bg-portfolio-secondary rounded-full animate-pulse"></span>
               <span className="text-gray-300 text-sm">
                 {allTags.length} Technologies
               </span>
@@ -337,13 +337,13 @@ function AllProjects() {
         </motion.div>
 
         {/* Search & Filter Section - Enhanced with glass morphism */}
-        <div className="mb-10 bg-gray-800/30 backdrop-blur-sm border border-gray-700/50 rounded-xl p-6 max-w-4xl mx-auto shadow-lg">
+        <div className="mb-10 bg-portfolio-dark/40 backdrop-blur-sm border border-gray-700/50 rounded-xl p-6 max-w-4xl mx-auto shadow-lg">
           <div className="flex flex-col md:flex-row gap-4">
             <div className="flex-1 relative">
               <input
                 type="text"
                 placeholder="Search projects..."
-                className="w-full px-4 py-3 rounded-lg border border-gray-700/70 focus:outline-none focus:ring-2 focus:ring-blue-500 pl-10 bg-gray-800/80 text-gray-200 shadow-sm"
+                className="w-full px-4 py-3 rounded-lg border border-gray-700/70 focus:outline-none focus:ring-2 focus:ring-portfolio-accent pl-10 bg-portfolio-dark/80 text-gray-200 shadow-sm"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 aria-label="Search projects"
@@ -354,7 +354,7 @@ function AllProjects() {
             <div className="relative" ref={filterRef}>
               <button
                 onClick={() => setShowFilters(!showFilters)}
-                className="flex items-center gap-2 px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg hover:bg-gray-700 shadow-sm transition-colors text-gray-200"
+                className="flex items-center gap-2 px-4 py-3 bg-portfolio-dark border border-gray-700 rounded-lg hover:bg-portfolio-dark/80 shadow-sm transition-colors text-gray-200"
                 aria-expanded={showFilters}
                 aria-haspopup="true"
                 aria-label="Filter projects"
@@ -368,7 +368,7 @@ function AllProjects() {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 10 }}
-                    className="absolute right-0 mt-2 w-64 bg-gray-800 rounded-lg shadow-lg z-10 border border-gray-700"
+                    className="absolute right-0 mt-2 w-64 bg-portfolio-dark rounded-lg shadow-lg z-10 border border-gray-700"
                   >
                     <div className="p-4">
                       <h3 className="font-medium text-gray-300 mb-3 flex items-center gap-2">
@@ -381,11 +381,10 @@ function AllProjects() {
                             onClick={() =>
                               setSelectedTag(selectedTag === tag ? "" : tag)
                             }
-                            className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
-                              selectedTag === tag
-                                ? "bg-blue-600/90 text-gray-100"
+                            className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${selectedTag === tag
+                                ? "bg-portfolio-accent/90 text-white"
                                 : "bg-gray-700/70 text-gray-300 hover:bg-gray-600/70"
-                            }`}
+                              }`}
                             aria-label={`Filter by ${tag}`}
                           >
                             {tag}
@@ -410,7 +409,7 @@ function AllProjects() {
 
                       <button
                         onClick={resetFilters}
-                        className="w-full mt-4 text-sm text-blue-400 hover:text-blue-300 flex justify-center items-center gap-1"
+                        className="w-full mt-4 text-sm text-portfolio-accent hover:text-portfolio-primary flex justify-center items-center gap-1"
                         aria-label="Reset filters"
                       >
                         Reset Filters
@@ -427,11 +426,11 @@ function AllProjects() {
             <div className="flex flex-wrap items-center gap-2 mt-4 text-sm">
               <span className="text-gray-400">Active filters:</span>
               {searchQuery && (
-                <span className="bg-gray-700 text-blue-300 px-3 py-1 rounded-full flex items-center gap-1">
+                <span className="bg-gray-700 text-portfolio-accent px-3 py-1 rounded-full flex items-center gap-1">
                   Search: {searchQuery}
                   <button
                     onClick={() => setSearchQuery("")}
-                    className="ml-1 hover:text-blue-200"
+                    className="ml-1 hover:text-white"
                     aria-label="Clear search"
                   >
                     ×
@@ -439,11 +438,11 @@ function AllProjects() {
                 </span>
               )}
               {selectedTag && (
-                <span className="bg-gray-700 text-blue-300 px-3 py-1 rounded-full flex items-center gap-1">
+                <span className="bg-gray-700 text-portfolio-accent px-3 py-1 rounded-full flex items-center gap-1">
                   Tag: {selectedTag}
                   <button
                     onClick={() => setSelectedTag("")}
-                    className="ml-1 hover:text-blue-200"
+                    className="ml-1 hover:text-white"
                     aria-label="Clear tag filter"
                   >
                     ×
@@ -461,11 +460,10 @@ function AllProjects() {
                 <button
                   key={tag}
                   onClick={() => setSelectedTag(selectedTag === tag ? "" : tag)}
-                  className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
-                    selectedTag === tag
-                      ? "bg-blue-600/90 text-gray-100"
+                  className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${selectedTag === tag
+                      ? "bg-portfolio-accent/90 text-white"
                       : "bg-gray-700/70 text-gray-300 hover:bg-gray-600/70"
-                  }`}
+                    }`}
                   aria-label={`Filter by ${tag}`}
                 >
                   {tag}
@@ -490,9 +488,8 @@ function AllProjects() {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.9 }}
                   whileHover={{ y: -8, transition: { duration: 0.2 } }}
-                  className={`bg-gray-800/40 backdrop-blur-sm rounded-xl overflow-hidden shadow-xl hover:shadow-blue-900/20 transition-all border border-gray-700/50 ${
-                    project.featured ? "ring-2 ring-blue-500/50" : ""
-                  }`}
+                  className={`bg-portfolio-dark/40 backdrop-blur-sm rounded-xl overflow-hidden shadow-xl hover:shadow-portfolio-accent/20 transition-all border border-gray-700/50 ${project.featured ? "ring-2 ring-portfolio-accent/50" : ""
+                    }`}
                   onClick={() =>
                     setActiveProject(
                       activeProject === project.id ? null : project.id
@@ -502,9 +499,8 @@ function AllProjects() {
                   tabIndex="0"
                   role="button"
                   aria-expanded={activeProject === project.id}
-                  aria-label={`Project: ${project.title}. Click to ${
-                    activeProject === project.id ? "collapse" : "expand"
-                  } details`}
+                  aria-label={`Project: ${project.title}. Click to ${activeProject === project.id ? "collapse" : "expand"
+                    } details`}
                 >
                   <div className="relative">
                     <div className="aspect-video overflow-hidden">
@@ -517,7 +513,7 @@ function AllProjects() {
                     </div>
 
                     {project.featured && (
-                      <div className="absolute top-3 right-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg shadow-blue-900/20">
+                      <div className="absolute top-3 right-3 bg-gradient-to-r from-portfolio-accent to-portfolio-primary text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg shadow-portfolio-dark/20">
                         Featured
                       </div>
                     )}
@@ -542,7 +538,7 @@ function AllProjects() {
                               target="_blank"
                               rel="noopener noreferrer"
                               onClick={(e) => e.stopPropagation()}
-                              className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-700 to-indigo-700 text-white px-4 py-2 rounded-lg hover:from-blue-600 hover:to-indigo-600 transition-all shadow-lg"
+                              className="inline-flex items-center gap-2 bg-gradient-to-r from-portfolio-accent to-portfolio-primary text-white px-4 py-2 rounded-lg hover:from-portfolio-accent/80 hover:to-portfolio-primary/80 transition-all shadow-lg"
                               aria-label={`View ${project.title} live demo`}
                             >
                               <FaExternalLinkAlt /> Live Demo
@@ -574,7 +570,7 @@ function AllProjects() {
                       {project.tags.slice(0, 4).map((tag, index) => (
                         <span
                           key={index}
-                          className="bg-gray-700/70 text-blue-300 text-xs font-medium px-2.5 py-0.5 rounded-full"
+                          className="bg-gray-700/70 text-portfolio-accent text-xs font-medium px-2.5 py-0.5 rounded-full"
                         >
                           {tag}
                         </span>
@@ -630,7 +626,7 @@ function AllProjects() {
                                 {project.tags.map((tag, index) => (
                                   <span
                                     key={index}
-                                    className="bg-gray-700/70 text-blue-300 text-xs font-medium px-2.5 py-0.5 rounded-full"
+                                    className="bg-gray-700/70 text-portfolio-accent text-xs font-medium px-2.5 py-0.5 rounded-full"
                                   >
                                     {tag}
                                   </span>
@@ -643,23 +639,21 @@ function AllProjects() {
                     </AnimatePresence>
 
                     <button
-                      className="text-blue-400 hover:text-blue-300 text-sm flex items-center gap-1 mt-2"
+                      className="text-portfolio-accent hover:text-portfolio-primary text-sm flex items-center gap-1 mt-2"
                       onClick={(e) => {
                         e.stopPropagation();
                         setActiveProject(
                           activeProject === project.id ? null : project.id
                         );
                       }}
-                      aria-label={`${
-                        activeProject === project.id ? "Show less" : "Show more"
-                      } about ${project.title}`}
+                      aria-label={`${activeProject === project.id ? "Show less" : "Show more"
+                        } about ${project.title}`}
                     >
                       {activeProject === project.id ? "Show less" : "Show more"}
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        className={`h-4 w-4 transition-transform ${
-                          activeProject === project.id ? "rotate-180" : ""
-                        }`}
+                        className={`h-4 w-4 transition-transform ${activeProject === project.id ? "rotate-180" : ""
+                          }`}
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
@@ -682,7 +676,7 @@ function AllProjects() {
                 exit={{ opacity: 0 }}
                 className="col-span-full text-center py-16"
               >
-                <div className="bg-gray-800/40 backdrop-blur-sm rounded-lg p-8 shadow-xl max-w-md mx-auto border border-gray-700/50">
+                <div className="bg-portfolio-dark/40 backdrop-blur-sm rounded-lg p-8 shadow-xl max-w-md mx-auto border border-gray-700/50">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-16 w-16 text-gray-600 mx-auto mb-4"
@@ -706,7 +700,7 @@ function AllProjects() {
                   </p>
                   <button
                     onClick={resetFilters}
-                    className="text-blue-400 hover:text-blue-300 font-medium flex items-center gap-2 mx-auto"
+                    className="text-portfolio-accent hover:text-portfolio-primary font-medium flex items-center gap-2 mx-auto"
                     aria-label="Reset all filters"
                   >
                     <svg
@@ -738,26 +732,26 @@ function AllProjects() {
           </p>
           <Link
             to="/"
-            className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-lg shadow-lg transition-all"
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-portfolio-accent to-portfolio-primary hover:from-portfolio-accent/90 hover:to-portfolio-primary/90 text-white rounded-lg shadow-lg transition-all"
           >
             <IoArrowBack /> Back to Portfolio
           </Link>
 
           <div className="flex justify-center gap-8 mt-8">
             <div className="text-center">
-              <div className="text-3xl font-bold text-blue-400">
+              <div className="text-3xl font-bold text-portfolio-accent">
                 {projects.length}
               </div>
               <div className="text-gray-500 text-sm">Total Projects</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-purple-400">
+              <div className="text-3xl font-bold text-portfolio-secondary">
                 {allTags.length}
               </div>
               <div className="text-gray-500 text-sm">Technologies</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-indigo-400">
+              <div className="text-3xl font-bold text-portfolio-primary">
                 {projects.filter((p) => p.featured).length}
               </div>
               <div className="text-gray-500 text-sm">Featured</div>

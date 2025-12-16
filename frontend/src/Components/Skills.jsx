@@ -321,11 +321,11 @@ const Skills = () => {
   return (
     <section
       id="skills"
-      className="py-24 bg-gray-900 text-white min-h-screen relative overflow-hidden"
+      className="py-24 bg-portfolio-dark text-white min-h-screen relative overflow-hidden"
     >
       {/* Background glow effects for aesthetic appeal */}
-      <div className="absolute top-1/4 -left-24 w-72 h-72 bg-indigo-600 rounded-full filter blur-3xl opacity-10 animate-pulse"></div>
-      <div className="absolute bottom-1/4 -right-24 w-72 h-72 bg-purple-600 rounded-full filter blur-3xl opacity-10 animate-pulse animation-delay-4000"></div>
+      <div className="absolute top-1/4 -left-24 w-72 h-72 bg-portfolio-primary rounded-full filter blur-3xl opacity-10"></div>
+      <div className="absolute bottom-1/4 -right-24 w-72 h-72 bg-portfolio-secondary rounded-full filter blur-3xl opacity-10"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
@@ -338,19 +338,19 @@ const Skills = () => {
         >
           <div className="inline-block mb-6">
             <div className="relative">
-              <div className="absolute inset-0 bg-indigo-600 rounded-xl blur-md opacity-40"></div>
-              <div className="relative w-16 h-16 mx-auto bg-gray-800 rounded-xl flex items-center justify-center border-2 border-indigo-500/50 shadow-lg shadow-indigo-900/20">
-                <FaLaptopCode className="text-indigo-400 text-3xl" />
+              <div className="absolute inset-0 bg-portfolio-primary rounded-xl blur-md opacity-40"></div>
+              <div className="relative w-16 h-16 mx-auto bg-portfolio-dark/50 rounded-xl flex items-center justify-center border-2 border-portfolio-primary/50 shadow-lg shadow-portfolio-primary/20">
+                <FaLaptopCode className="text-portfolio-primary text-3xl" />
               </div>
             </div>
           </div>
           <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-portfolio-primary to-portfolio-secondary">
               Technical Expertise
             </span>
           </h2>
           <motion.div
-            className="h-1 w-24 mx-auto bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full mb-5"
+            className="h-1 w-24 mx-auto bg-gradient-to-r from-portfolio-primary to-portfolio-secondary rounded-full mb-5"
             initial={{ scaleX: 0 }}
             whileInView={{ scaleX: 1 }}
             viewport={{ once: true }}
@@ -373,11 +373,10 @@ const Skills = () => {
           {categories.map((category) => (
             <motion.button
               key={category.id}
-              className={`relative px-4 py-2 rounded-lg flex items-center gap-2 text-sm transition-all duration-300 font-semibold ${
-                activeCategory === category.id
-                  ? "text-white bg-gradient-to-r from-indigo-600 to-purple-600 shadow-lg shadow-indigo-900/40"
-                  : "text-gray-300 bg-gray-800/60 hover:bg-gray-700/60 border border-gray-700 hover:border-gray-600"
-              }`}
+              className={`relative px-4 py-2 rounded-lg flex items-center gap-2 text-sm transition-all duration-300 font-semibold ${activeCategory === category.id
+                ? "text-white bg-gradient-to-r from-portfolio-primary to-portfolio-secondary shadow-lg shadow-portfolio-primary/40"
+                : "text-gray-300 bg-portfolio-dark/60 hover:bg-portfolio-dark/80 border border-gray-700 hover:border-gray-500"
+                }`}
               onClick={() => setActiveCategory(category.id)}
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
@@ -398,7 +397,7 @@ const Skills = () => {
           {filteredSkills.map((skill) => (
             <motion.div
               key={skill.id}
-              className="bg-gray-800/50 border border-gray-700 rounded-xl p-5 flex flex-col items-center justify-center text-center shadow-md transition-all duration-300 h-48 hover:border-indigo-500/50 hover:shadow-indigo-900/20 backdrop-blur-sm"
+              className="bg-portfolio-dark/50 border border-gray-700 rounded-xl p-5 flex flex-col items-center justify-center text-center shadow-md transition-all duration-300 h-48 hover:border-portfolio-primary/50 hover:shadow-portfolio-primary/20 backdrop-blur-sm"
               variants={itemVariants}
               whileHover="hover"
               onHoverStart={() => setHoveredSkill(skill.id)}
@@ -427,7 +426,7 @@ const Skills = () => {
 
               {/* Learning Indicator */}
               {skill.learning && (
-                <div className="absolute top-2 right-2 px-2 py-0.5 bg-purple-900/50 text-purple-300 rounded-full text-xs font-medium border border-purple-800/50">
+                <div className="absolute top-2 right-2 px-2 py-0.5 bg-portfolio-secondary/50 text-white rounded-full text-xs font-medium border border-portfolio-secondary/50">
                   Learning
                 </div>
               )}

@@ -298,22 +298,22 @@ export default function Certifications() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.5 }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-16"
+          className="text-center mb-10 md:mb-16"
         >
-          <div className="inline-block p-4 bg-portfolio-dark/50 rounded-2xl border border-gray-700 mb-4">
-            <FaStar className="text-yellow-400 text-3xl" />
+          <div className="inline-block p-3 md:p-4 bg-portfolio-dark/50 rounded-2xl border border-gray-700 mb-4">
+            <FaStar className="text-yellow-400 text-2xl md:text-3xl" />
           </div>
-          <h2 className="text-4xl sm:text-5xl font-extrabold text-white mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white mb-4">
             Certifications & Achievements
           </h2>
-          <p className="text-lg text-gray-400 max-w-3xl mx-auto">
+          <p className="text-base md:text-lg text-gray-400 max-w-3xl mx-auto">
             A curated collection of my professional development milestones and
             key recognitions.
           </p>
         </motion.div>
 
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-24"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-x-12 md:gap-y-24"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
@@ -352,7 +352,7 @@ export default function Certifications() {
               exit={{ opacity: 0 }}
             />
             <motion.div
-              className="relative bg-portfolio-dark/80 backdrop-blur-xl rounded-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto border border-gray-700 shadow-2xl"
+              className="relative bg-portfolio-dark/80 backdrop-blur-xl rounded-2xl w-full max-w-3xl max-h-[85vh] overflow-y-auto border border-gray-700 shadow-2xl"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
@@ -361,18 +361,20 @@ export default function Certifications() {
             >
               <button
                 onClick={() => setSelectedCert(null)}
-                className="absolute top-4 right-4 bg-portfolio-dark/50 hover:bg-portfolio-dark/80 text-gray-300 rounded-full p-2 transition-colors"
+                className="absolute top-4 right-4 bg-portfolio-dark/50 hover:bg-portfolio-dark/80 text-gray-300 rounded-full p-2 transition-colors z-10"
                 aria-label="Close"
               >
                 <FaTimes />
               </button>
-              <div className="p-6 grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="p-4 md:p-6 grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
                 <div className="md:col-span-1">
-                  <img
-                    src={selectedCert.image}
-                    alt={selectedCert.title}
-                    className="w-full rounded-lg shadow-lg object-cover"
-                  />
+                  <div className="h-48 md:h-auto overflow-hidden rounded-lg">
+                    <img
+                      src={selectedCert.image}
+                      alt={selectedCert.title}
+                      className="w-full h-full object-cover md:object-contain rounded-lg shadow-lg"
+                    />
+                  </div>
                 </div>
                 <div className="md:col-span-2">
                   <div className="flex items-center gap-2 mb-2">
@@ -381,10 +383,10 @@ export default function Certifications() {
                       {selectedCert.type}
                     </span>
                   </div>
-                  <h2 className="text-3xl font-extrabold text-white mb-2">
+                  <h2 className="text-2xl md:text-3xl font-extrabold text-white mb-2">
                     {selectedCert.title}
                   </h2>
-                  <div className="flex flex-wrap items-center text-gray-400 text-sm mb-6 gap-4">
+                  <div className="flex flex-wrap items-center text-gray-400 text-sm mb-6 gap-2 md:gap-4">
                     <span>
                       Issued by:{" "}
                       <strong className="text-gray-300">
@@ -398,7 +400,7 @@ export default function Certifications() {
                   <h3 className="text-lg font-bold text-white mb-3">
                     Description
                   </h3>
-                  <p className="text-gray-300 mb-6">
+                  <p className="text-gray-300 mb-6 text-sm md:text-base">
                     {selectedCert.description}
                   </p>
                   <h3 className="text-lg font-bold text-white mb-3">
@@ -408,7 +410,7 @@ export default function Certifications() {
                     {selectedCert.skills.map((skill) => (
                       <div
                         key={skill}
-                        className="bg-gray-700/60 text-gray-200 text-sm rounded-full px-4 py-1.5 flex items-center gap-2 border border-gray-600"
+                        className="bg-gray-700/60 text-gray-200 text-xs md:text-sm rounded-full px-3 md:px-4 py-1.5 flex items-center gap-2 border border-gray-600"
                       >
                         {getSkillIcon(skill)}
                         {skill}

@@ -145,9 +145,9 @@ const ContactUs = () => {
         />
       </div>
 
-      <div className="relative z-10 text-center mb-16 md:mb-0">
+      <div className="relative z-10 text-center mb-10 md:mb-0">
         <motion.h2
-          className="text-4xl md:text-6xl font-extrabold text-white tracking-tighter mb-4"
+          className="text-3xl sm:text-4xl md:text-6xl font-extrabold text-white tracking-tighter mb-4"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
@@ -159,7 +159,7 @@ const ContactUs = () => {
           .
         </motion.h2>
         <motion.p
-          className="max-w-2xl mx-auto text-lg text-gray-400"
+          className="max-w-2xl mx-auto text-base sm:text-lg text-gray-400"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}

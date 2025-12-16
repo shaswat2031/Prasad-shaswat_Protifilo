@@ -321,30 +321,30 @@ const Skills = () => {
   return (
     <section
       id="skills"
-      className="py-24 bg-portfolio-dark text-white min-h-screen relative overflow-hidden"
+      className="py-16 md:py-24 bg-portfolio-dark text-white min-h-screen relative overflow-hidden"
     >
       {/* Background glow effects for aesthetic appeal */}
-      <div className="absolute top-1/4 -left-24 w-72 h-72 bg-portfolio-primary rounded-full filter blur-3xl opacity-10"></div>
-      <div className="absolute bottom-1/4 -right-24 w-72 h-72 bg-portfolio-secondary rounded-full filter blur-3xl opacity-10"></div>
+      <div className="absolute top-1/4 -left-24 w-48 h-48 md:w-72 md:h-72 bg-portfolio-primary rounded-full filter blur-3xl opacity-10"></div>
+      <div className="absolute bottom-1/4 -right-24 w-48 h-48 md:w-72 md:h-72 bg-portfolio-secondary rounded-full filter blur-3xl opacity-10"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <motion.div
-          className="text-center mb-16"
+          className="text-center mb-10 md:mb-16"
           initial={{ opacity: 0, y: -30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <div className="inline-block mb-6">
+          <div className="inline-block mb-4 md:mb-6">
             <div className="relative">
               <div className="absolute inset-0 bg-portfolio-primary rounded-xl blur-md opacity-40"></div>
-              <div className="relative w-16 h-16 mx-auto bg-portfolio-dark/50 rounded-xl flex items-center justify-center border-2 border-portfolio-primary/50 shadow-lg shadow-portfolio-primary/20">
-                <FaLaptopCode className="text-portfolio-primary text-3xl" />
+              <div className="relative w-12 h-12 md:w-16 md:h-16 mx-auto bg-portfolio-dark/50 rounded-xl flex items-center justify-center border-2 border-portfolio-primary/50 shadow-lg shadow-portfolio-primary/20">
+                <FaLaptopCode className="text-portfolio-primary text-2xl md:text-3xl" />
               </div>
             </div>
           </div>
-          <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight mb-4">
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-portfolio-primary to-portfolio-secondary">
               Technical Expertise
             </span>

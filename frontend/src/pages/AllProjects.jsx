@@ -303,11 +303,11 @@ function AllProjects() {
         >
           <div className="relative mb-6">
             <div className="absolute inset-0 bg-portfolio-accent blur-3xl opacity-10 rounded-full transform -translate-y-1/2"></div>
-            <h1 className="text-5xl font-extrabold mb-4 bg-gradient-to-r from-portfolio-accent via-portfolio-primary to-portfolio-secondary bg-clip-text text-transparent relative z-10">
+            <h1 className="text-3xl md:text-5xl font-extrabold mb-4 bg-gradient-to-r from-portfolio-accent via-portfolio-primary to-portfolio-secondary bg-clip-text text-transparent relative z-10">
               Project Gallery
             </h1>
           </div>
-          <p className="text-gray-400 max-w-3xl mx-auto text-lg">
+          <p className="text-gray-400 max-w-3xl mx-auto text-base md:text-lg">
             Explore my collection of projects that showcase my skills and
             experience in web development. Each project represents a unique
             challenge and learning opportunity that has helped shape my journey
@@ -382,8 +382,8 @@ function AllProjects() {
                               setSelectedTag(selectedTag === tag ? "" : tag)
                             }
                             className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${selectedTag === tag
-                                ? "bg-portfolio-accent/90 text-white"
-                                : "bg-gray-700/70 text-gray-300 hover:bg-gray-600/70"
+                              ? "bg-portfolio-accent/90 text-white"
+                              : "bg-gray-700/70 text-gray-300 hover:bg-gray-600/70"
                               }`}
                             aria-label={`Filter by ${tag}`}
                           >
@@ -461,8 +461,8 @@ function AllProjects() {
                   key={tag}
                   onClick={() => setSelectedTag(selectedTag === tag ? "" : tag)}
                   className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${selectedTag === tag
-                      ? "bg-portfolio-accent/90 text-white"
-                      : "bg-gray-700/70 text-gray-300 hover:bg-gray-600/70"
+                    ? "bg-portfolio-accent/90 text-white"
+                    : "bg-gray-700/70 text-gray-300 hover:bg-gray-600/70"
                     }`}
                   aria-label={`Filter by ${tag}`}
                 >
@@ -726,7 +726,7 @@ function AllProjects() {
         </motion.div>
 
         {/* Footer section with stats */}
-        <div className="mt-20 pt-10 border-t border-gray-800/50 text-center">
+        <div className="mt-16 md:mt-20 pt-10 border-t border-gray-800/50 text-center">
           <p className="text-gray-400 mb-6">
             Thank you for exploring my projects!
           </p>
@@ -737,24 +737,24 @@ function AllProjects() {
             <IoArrowBack /> Back to Portfolio
           </Link>
 
-          <div className="flex justify-center gap-8 mt-8">
-            <div className="text-center">
-              <div className="text-3xl font-bold text-portfolio-accent">
+          <div className="flex flex-wrap justify-center gap-4 md:gap-8 mt-8">
+            <div className="text-center min-w-[80px]">
+              <div className="text-2xl md:text-3xl font-bold text-portfolio-accent">
                 {projects.length}
               </div>
-              <div className="text-gray-500 text-sm">Total Projects</div>
+              <div className="text-gray-500 text-xs md:text-sm">Total Projects</div>
             </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-portfolio-secondary">
+            <div className="text-center min-w-[80px]">
+              <div className="text-2xl md:text-3xl font-bold text-portfolio-secondary">
                 {allTags.length}
               </div>
-              <div className="text-gray-500 text-sm">Technologies</div>
+              <div className="text-gray-500 text-xs md:text-sm">Technologies</div>
             </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-portfolio-primary">
+            <div className="text-center min-w-[80px]">
+              <div className="text-2xl md:text-3xl font-bold text-portfolio-primary">
                 {projects.filter((p) => p.featured).length}
               </div>
-              <div className="text-gray-500 text-sm">Featured</div>
+              <div className="text-gray-500 text-xs md:text-sm">Featured</div>
             </div>
           </div>
         </div>

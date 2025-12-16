@@ -160,8 +160,6 @@ const Projects = () => {
           ))}
         </motion.div>
 
-        {/* Call to Action */}
-
       </div>
 
       {/* Modal */}

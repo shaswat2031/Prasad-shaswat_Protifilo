@@ -1,25 +1,39 @@
-import React from 'react';
-import { User, BookOpen, Cpu, Briefcase, Award, Mail, Terminal, FileText } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { User, BookOpen, Cpu, Briefcase, Award, Mail, Terminal, FileText, Building } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { scroller } from 'react-scroll';
 
 import myselfImage from "../../Assets/shaswat2.png"
 
-const Sidebar = ({ isOpen, onClose }) => {
+const Sidebar = ({ isOpen, onClose, activeSection }) => {
     const navigate = useNavigate();
     const location = useLocation();
 
     const menuItems = [
-        { icon: FileText, label: 'RESUME / HERO', path: '/' },
-        { icon: BookOpen, label: 'EDUCATION', path: '/education' },
-        { icon: Cpu, label: 'SKILLS', path: '/skills' },
-        { icon: Briefcase, label: 'PROJECTS', path: '/projects' },
-        { icon: Award, label: 'CERTIFICATIONS', path: '/certifications' },
-        { icon: Mail, label: 'CONTACT', path: '/contact' },
+        { icon: FileText, label: 'RESUME / HERO', id: 'hero' },
+        { icon: BookOpen, label: 'EDUCATION', id: 'education' },
+        { icon: Building, label: 'EXPERIENCE', id: 'experience' },
+        { icon: Cpu, label: 'SKILLS', id: 'skills' },
+        { icon: Briefcase, label: 'PROJECTS', id: 'projects' },
+        { icon: Award, label: 'CERTIFICATIONS', id: 'certifications' },
+        { icon: Mail, label: 'CONTACT', id: 'contact' },
         { icon: Terminal, label: 'ALL PROJECTS', path: '/all-projects' },
     ];
 
-    const handleNavigation = (path) => {
-        navigate(path);
+    const handleNavigation = (item) => {
+        if (item.path) {
+            navigate(item.path);
+        } else if (item.id) {
+            if (location.pathname !== '/') {
+                navigate('/', { state: { scrollTo: item.id } });
+            } else {
+                scroller.scrollTo(item.id, {
+                    duration: 800,
+                    delay: 0,
+                    smooth: 'easeInOutQuart'
+                });
+            }
+        }
         if (onClose) onClose();
     };
 
@@ -30,26 +44,32 @@ const Sidebar = ({ isOpen, onClose }) => {
             </div>
 
             <div className="space-y-2 py-4">
-                {menuItems.map((item) => (
-                    <button
-                        key={item.label}
-                        onClick={() => handleNavigation(item.path)}
-                        className={`w-full flex items-center gap-3 px-5 py-3.5 rounded-2xl text-sm font-bold tracking-wide transition-all duration-300 ${location.pathname === item.path
-                            ? 'bg-portfolio-primary text-white shadow-lg shadow-portfolio-primary/30 scale-[1.02]'
-                            : 'text-gray-500 hover:bg-white hover:text-portfolio-secondary hover:pl-6'
-                            }`}
-                    >
-                        <item.icon
-                            size={20}
-                            strokeWidth={2.5}
-                            className={location.pathname === item.path ? "text-white" : "text-gray-400 group-hover:text-portfolio-secondary"}
-                        />
-                        {item.label}
-                        {location.pathname === item.path && (
-                            <div className="ml-auto w-1.5 h-1.5 rounded-full bg-white" />
-                        )}
-                    </button>
-                ))}
+                {menuItems.map((item) => {
+                    const isActive = item.path
+                        ? location.pathname === item.path
+                        : (location.pathname === '/' && activeSection === item.id);
+
+                    return (
+                        <button
+                            key={item.label}
+                            onClick={() => handleNavigation(item)}
+                            className={`w-full flex items-center gap-3 px-5 py-3.5 rounded-2xl text-sm font-bold tracking-wide transition-all duration-300 ${isActive
+                                ? 'bg-portfolio-primary text-white shadow-lg shadow-portfolio-primary/30 scale-[1.02]'
+                                : 'text-gray-500 hover:bg-white hover:text-portfolio-secondary hover:pl-6'
+                                }`}
+                        >
+                            <item.icon
+                                size={20}
+                                strokeWidth={2.5}
+                                className={isActive ? "text-white" : "text-gray-400 group-hover:text-portfolio-secondary"}
+                            />
+                            {item.label}
+                            {isActive && (
+                                <div className="ml-auto w-1.5 h-1.5 rounded-full bg-white" />
+                            )}
+                        </button>
+                    );
+                })}
             </div>
 
             <div className="mt-auto px-5 py-6">

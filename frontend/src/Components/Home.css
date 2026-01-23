@@ -16,7 +16,7 @@
   display: inline-block;
   animation: fall 3s ease-in-out forwards;
   /* Adjust duration and easing */
-  color: #749C75;
+  color: #EA2F14;
   /* Set text color to portfolio-primary */
 }
 
@@ -28,7 +28,7 @@
 .typing-text {
   display: inline-block;
   position: relative;
-  color: #749C75;
+  color: #EA2F14;
   /* portfolio-primary */
   font-weight: 600;
   min-width: 12ch;
@@ -38,7 +38,7 @@
 .typing {
   overflow: hidden;
   white-space: nowrap;
-  border-right: 2px solid #749C75;
+  border-right: 2px solid #EA2F14;
   animation: typing 5s steps(40) infinite,
     blink-caret 0.5s step-end infinite;
 }
@@ -76,7 +76,7 @@
   }
 
   50% {
-    border-color: #749C75
+    border-color: #EA2F14
   }
 }
 
@@ -140,4 +140,44 @@
 
 .group:hover .group-hover\:translate-y-0 {
   transform: translateY(0);
+}
+
+/* 3D Text Effect */
+.text-3d-shadow {
+  text-shadow:
+    1px 1px 0 #276FBF,
+    2px 2px 0 #276FBF,
+    3px 3px 0 #276FBF,
+    4px 4px 6px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease;
+}
+
+.text-3d-shadow:hover {
+  text-shadow:
+    2px 2px 0 #EA2F14,
+    4px 4px 0 #EA2F14,
+    6px 6px 0 #EA2F14,
+    8px 8px 12px rgba(0, 0, 0, 0.6);
+  transform: translateY(-2px);
+}
+
+/* 3D Utilities */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.transform-style-3d {
+  transform-style: preserve-3d;
+}
+
+.hover\:translate-z-10:hover {
+  transform: translateZ(10px);
+}
+
+.photo-hover {
+  transition: transform 0.3s ease;
+}
+
+.photo-hover:hover {
+  transform: translateZ(20px);
 }

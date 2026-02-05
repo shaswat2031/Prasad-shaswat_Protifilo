@@ -1,14 +1,13 @@
-import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import React from "react";
+import { motion } from "framer-motion";
 import {
   Award,
   Calendar,
   Shield,
-  ExternalLink,
   Cpu,
-  Globe,
+  Code,
   Users,
-  Code
+  Globe
 } from "lucide-react";
 
 import hackthonImage from "../Assets/hackthon4.0.png";

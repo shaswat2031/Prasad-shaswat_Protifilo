@@ -1,10 +1,7 @@
-import React, { useState, useRef } from "react";
-import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import React, { useRef } from "react";
+import { motion } from "framer-motion";
 import {
   Github,
-  ExternalLink,
-  Layers,
-  Code2,
   ArrowUpRight,
   FolderOpen
 } from "lucide-react";

@@ -7,13 +7,6 @@ import {
   Server,
   Terminal,
   Cpu,
-  Globe,
-  GitBranch,
-  Layers,
-  Box,
-  Braces,
-  Container,
-  Command,
   Hash
 } from "lucide-react";
 

@@ -1,15 +1,6 @@
 import React, { useRef } from "react";
 import { motion, useMotionTemplate, useMotionValue, useSpring } from "framer-motion";
-import {
-    Briefcase,
-    Calendar,
-    Globe,
-    Code2,
-    Server,
-    Users,
-    Zap,
-    ArrowUpRight
-} from "lucide-react";
+import { Briefcase, Calendar, Code2, Zap, ArrowUpRight } from "lucide-react";
 
 const ROTATION_RANGE = 32.5;
 const HALF_ROTATION_RANGE = 32.5 / 2;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
     FileText,
@@ -67,8 +67,8 @@ const ModernNav = ({ activeSection }) => {
                                 onHoverStart={() => setHoveredTab(item.label)}
                                 onHoverEnd={() => setHoveredTab(null)}
                                 className={`p-3 rounded-full transition-all duration-300 relative z-10 ${isActive
-                                        ? "text-white bg-white/10"
-                                        : "text-gray-400 hover:text-white hover:bg-white/5"
+                                    ? "text-white bg-white/10"
+                                    : "text-gray-400 hover:text-white hover:bg-white/5"
                                     }`}
                                 whileHover={{ scale: 1.1, y: -2 }}
                                 whileTap={{ scale: 0.95 }}

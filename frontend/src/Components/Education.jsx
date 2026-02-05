@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { motion, useScroll, useTransform, useSpring, useInView } from "framer-motion";
+import { motion, useScroll, useSpring, useInView } from "framer-motion";
 import BhagwatLogo from "../Assets/bhagwat.png";
 import ParulLogo from "../Assets/parul.png";
 import SungraceLogo from "../Assets/Sungrace.png";

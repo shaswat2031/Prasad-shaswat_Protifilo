@@ -1,254 +1,190 @@
-import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Briefcase, Globe, Mail } from "lucide-react";
+import React, { useRef } from "react";
+import { motion, useMotionTemplate, useMotionValue, useSpring } from "framer-motion";
 import {
-    FaLaptopCode,
-    FaServer,
-    FaCode,
-    FaUsers,
-    FaChevronRight,
-    FaChevronDown,
-    FaCalendarAlt,
-    FaBuilding,
-} from "react-icons/fa";
+    Briefcase,
+    Calendar,
+    Globe,
+    Code2,
+    Server,
+    Users,
+    Zap,
+    ArrowUpRight
+} from "lucide-react";
+
+const ROTATION_RANGE = 32.5;
+const HALF_ROTATION_RANGE = 32.5 / 2;
 
 const Experience = () => {
-    const [expandedItem, setExpandedItem] = useState(null);
-
-    const experienceData = [
-        {
-            id: "rym-grenergy",
-            company: "RYM Grenergy",
-            website: "www.rymgrenergy.com",
-            email: "rym.grenergy.info@gmail.com",
-            role: "Full Stack Developer",
-            period: "01 Jan 2026 – 30 Apr 2026",
-            duration: "4 Months",
-            type: "Internship",
-            color: "from-portfolio-primary to-portfolio-secondary",
-            bgAccent: "bg-portfolio-primary/10",
-            description: "Contributing to the design, development, and deployment of scalable and efficient applications aligned with RYM Grenergy's goals.",
-            details: [
-                { icon: <FaLaptopCode />, content: "Design & development of scalable applications" },
-                { icon: <FaUsers />, content: "Close collaboration with product & dev teams" },
-                { icon: <FaServer />, content: "Backend system optimization & deployment" },
-                { icon: <FaCode />, content: "Full Stack implementation using modern tech" },
-            ],
-        },
-    ];
-
     return (
-        <section
-            id="experience"
-            className="py-16 md:py-24 bg-portfolio-dark text-gray-200 relative overflow-hidden"
-        >
-            {/* Abstract background elements */}
-            <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-20">
-                <div className="absolute top-40 left-10 w-48 h-48 md:w-72 md:h-72 bg-portfolio-primary rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
-                <div className="absolute top-60 right-10 w-48 h-48 md:w-72 md:h-72 bg-portfolio-secondary rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
-                <div className="absolute bottom-40 left-1/2 w-48 h-48 md:w-72 md:h-72 bg-portfolio-accent rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
-            </div>
+        <section id="experience" className="min-h-screen bg-[#050505] py-24 relative overflow-hidden flex flex-col justify-center">
+            {/* Background Grid */}
+            <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
 
-            <div className="max-w-5xl mx-auto px-4 sm:px-6 relative">
+            {/* Ambient Glow */}
+            <div className="absolute left-0 bottom-0 w-96 h-96 bg-purple-600/10 rounded-full blur-[128px] pointer-events-none" />
+
+            <div className="container mx-auto px-4 relative z-10">
                 <motion.div
-                    initial={{ opacity: 0, y: -20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="text-center mb-10 md:mb-16"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="mb-16 text-center"
                 >
-                    <div className="inline-flex items-center justify-center gap-2 mb-3 px-4 py-2 rounded-full bg-portfolio-primary/10 text-portfolio-primary text-sm font-medium">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-blue-400 text-sm font-medium mb-6">
                         <Briefcase size={16} />
-                        <span>Professional Experience</span>
+                        <span>Professional Career</span>
                     </div>
-
-                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-5 leading-tight">
-                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-portfolio-primary via-portfolio-accent to-portfolio-secondary">
-                            Work History
-                        </span>
+                    <h2 className="text-4xl md:text-6xl font-bold text-white mb-6">
+                        Work <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">History</span>
                     </h2>
-
-                    <p className="text-gray-400 max-w-2xl mx-auto text-base sm:text-lg">
-                        My professional journey and contributions to real-world projects, applying technical skills to solve business problems.
+                    <p className="text-gray-400 max-w-xl mx-auto text-lg">
+                        Contributions to real-world projects and technical problem solving.
                     </p>
-
-                    <div className="mt-8 flex justify-center">
-                        <div className="h-1 w-20 bg-gradient-to-r from-portfolio-primary via-portfolio-accent to-portfolio-secondary rounded-full"></div>
-                    </div>
                 </motion.div>
 
-                <div className="grid gap-6 md:gap-8">
-                    {experienceData.map((item, index) => (
-                        <ExperienceCard
-                            key={item.id}
-                            item={item}
-                            index={index}
-                            isExpanded={expandedItem === index}
-                            onToggle={() =>
-                                setExpandedItem(expandedItem === index ? null : index)
-                            }
-                        />
-                    ))}
+                <div className="flex justify-center perspective-1000">
+                    <TiltCard />
                 </div>
             </div>
         </section>
     );
 };
 
-const ExperienceCard = ({ item, index, isExpanded, onToggle }) => {
+const TiltCard = () => {
+    const ref = useRef(null);
+
+    const x = useMotionValue(0);
+    const y = useMotionValue(0);
+
+    const xSpring = useSpring(x);
+    const ySpring = useSpring(y);
+
+    const transform = useMotionTemplate`rotateX(${xSpring}deg) rotateY(${ySpring}deg)`;
+
+    const handleMouseMove = (e) => {
+        if (!ref.current) return [0, 0];
+
+        const rect = ref.current.getBoundingClientRect();
+
+        const width = rect.width;
+        const height = rect.height;
+
+        const mouseX = (e.clientX - rect.left) * ROTATION_RANGE;
+        const mouseY = (e.clientY - rect.top) * ROTATION_RANGE;
+
+        const rX = (mouseY / height - HALF_ROTATION_RANGE) * -1;
+        const rY = mouseX / width - HALF_ROTATION_RANGE;
+
+        x.set(rX);
+        y.set(rY);
+    };
+
+    const handleMouseLeave = () => {
+        x.set(0);
+        y.set(0);
+    };
+
     return (
         <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.15 }}
-            className="w-full"
+            ref={ref}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            style={{
+                transformStyle: "preserve-3d",
+                transform,
+            }}
+            className="relative h-[600px] w-full max-w-4xl rounded-2xl bg-[#0a0a0a] border border-white/10 p-2 md:p-4"
         >
-            <motion.div
-                layoutId={`card-container-${item.id}`}
-                className={`bg-portfolio-dark/40 backdrop-blur-lg border border-gray-700/50 rounded-xl overflow-hidden transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-[1.01] ${isExpanded
-                    ? `ring-2 ring-offset-2 ring-offset-portfolio-dark ring-portfolio-primary`
-                    : ""
-                    }`}
-                style={{
-                    boxShadow: isExpanded
-                        ? `0 10px 30px -10px rgba(0, 0, 0, 0.5), 0 0 15px -3px rgba(234, 47, 20, 0.3)`
-                        : ''
-                }}
+            <div
+                style={{ transform: "translateZ(75px)", transformStyle: "preserve-3d" }}
+                className="absolute inset-4 md:inset-8 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center"
             >
-                {/* Header */}
-                <div
-                    onClick={onToggle}
-                    className={`p-4 sm:p-6 cursor-pointer transition-colors group ${isExpanded
-                        ? `${item.bgAccent}`
-                        : "hover:bg-portfolio-dark/60"
-                        }`}
-                >
-                    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-5">
-                        {/* Logo Area - Using Icon since no logo image */}
-                        <div className="flex justify-between w-full sm:w-auto items-center">
-                            <div
-                                className={`flex-shrink-0 p-3 bg-gradient-to-br ${item.color} rounded-xl shadow-lg transform transition-transform group-hover:scale-105`}
-                            >
-                                <div className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center bg-portfolio-dark/90 backdrop-blur-sm rounded-lg p-2">
-                                    <FaBuilding className="text-white w-full h-full" />
-                                </div>
-                            </div>
-
-                            {/* Expand Icon for Mobile */}
-                            <div className="sm:hidden block">
-                                <motion.div
-                                    animate={{ rotate: isExpanded ? 90 : 0 }}
-                                    transition={{ duration: 0.2 }}
-                                    className={`text-gradient bg-clip-text text-transparent bg-gradient-to-r ${item.color} p-2 rounded-full`}
-                                >
-                                    {isExpanded ? (
-                                        <FaChevronDown size={18} />
-                                    ) : (
-                                        <FaChevronRight size={18} />
-                                    )}
-                                </motion.div>
-                            </div>
+                {/* Left Side: Brand & Visuals */}
+                <div className="flex flex-col h-full justify-between order-2 md:order-1">
+                    <div>
+                        <div className="inline-block p-4 rounded-2xl bg-gradient-to-br from-blue-500/20 to-purple-500/20 border border-white/10 mb-8 backdrop-blur-md">
+                            <Code2 size={40} className="text-blue-400" />
                         </div>
 
-                        {/* Info Area */}
-                        <div className="flex-1 w-full">
-                            <div className="flex flex-col sm:flex-row justify-between items-start gap-2">
-                                <h3 className="text-lg sm:text-xl font-bold text-white flex flex-wrap items-center gap-2 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-portfolio-highlight group-hover:to-white transition-all duration-300">
-                                    {item.company}
-                                    {item.type && (
-                                        <span className="text-xs sm:text-sm font-normal text-portfolio-secondary bg-portfolio-secondary/10 px-2 py-0.5 rounded-md border border-portfolio-secondary/20">
-                                            {item.type}
-                                        </span>
-                                    )}
-                                </h3>
-                                <div className="text-xs sm:text-sm text-gray-300 flex items-center gap-2 bg-portfolio-dark/60 backdrop-blur-md px-3 py-1 rounded-full shadow-sm mt-1 sm:mt-0">
-                                    <FaCalendarAlt size={14} className="text-gray-400" />
-                                    <span>{item.period}</span>
-                                </div>
-                            </div>
-
-                            <div className="mt-3 flex flex-wrap items-center gap-3">
-                                <div className="text-base sm:text-lg text-gray-200 font-medium bg-gradient-to-r from-white/90 to-gray-300/90 bg-clip-text text-transparent w-full sm:w-auto">
-                                    {item.role}
-                                </div>
-
-                                <div className="text-xs sm:text-sm bg-portfolio-dark/60 backdrop-blur-sm px-2 py-0.5 rounded-md text-gray-300 border border-gray-700/30">
-                                    {item.duration}
-                                </div>
-
-                                <div className="sm:ml-auto text-xs sm:text-sm font-medium bg-portfolio-dark/80 backdrop-blur-md px-4 py-1.5 rounded-full text-gray-200 flex items-center gap-2 shadow-inner mt-2 sm:mt-0 hover:text-portfolio-primary transition-colors">
-                                    <Globe size={14} />
-                                    <a href={`https://${item.website}`} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()}>
-                                        {item.website}
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Expand Icon Desktop */}
-                        <motion.div
-                            animate={{ rotate: isExpanded ? 90 : 0 }}
-                            transition={{ duration: 0.2 }}
-                            className={`hidden sm:block text-gradient bg-clip-text text-transparent bg-gradient-to-r ${item.color} p-2 rounded-full ${isExpanded ? '' : 'group-hover:bg-portfolio-dark/60'}`}
+                        <h3 className="text-3xl md:text-5xl font-bold text-white mb-2 leading-tight">
+                            RYM <br />
+                            <span className="text-gray-500">Grenergy</span>
+                        </h3>
+                        <a
+                            href="https://www.rymgrenergy.com"
+                            target="_blank"
+                            rel="noreferrer"
+                            className="flex items-center gap-2 text-blue-400 hover:text-blue-300 transition-colors text-sm font-medium"
                         >
-                            {isExpanded ? (
-                                <FaChevronDown size={18} />
-                            ) : (
-                                <FaChevronRight size={18} />
-                            )}
-                        </motion.div>
+                            rymgrenergy.com <ArrowUpRight size={14} />
+                        </a>
+                    </div>
+
+                    <div className="space-y-4">
+                        <div className="flex items-center gap-4 text-gray-400 text-sm">
+                            <div className="p-2 rounded-lg bg-white/5 border border-white/5">
+                                <Calendar size={18} />
+                            </div>
+                            <div>
+                                <p className="text-white font-medium">Jan 2026 - Apr 2026</p>
+                                <p className="text-xs">4 Months Duration</p>
+                            </div>
+                        </div>
+                        <div className="flex items-center gap-4 text-gray-400 text-sm">
+                            <div className="p-2 rounded-lg bg-white/5 border border-white/5">
+                                <Briefcase size={18} />
+                            </div>
+                            <div>
+                                <p className="text-white font-medium">Internship</p>
+                                <p className="text-xs">Full Stack Developer</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                {/* Expandable Details */}
-                <AnimatePresence>
-                    {isExpanded && (
-                        <motion.div
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: "auto", opacity: 1 }}
-                            exit={{ height: 0, opacity: 0 }}
-                            transition={{ duration: 0.35, ease: "easeInOut" }}
-                            className="overflow-hidden"
-                        >
-                            <div className="p-6 pt-4 border-t border-gray-700/30">
-                                <p className="text-gray-300 mb-6 leading-relaxed italic border-l-4 border-portfolio-primary pl-4 py-1 bg-portfolio-dark/30">
-                                    "{item.description}"
-                                </p>
+                {/* Right Side: Details & Tech */}
+                <div className="bg-white/5 rounded-xl p-6 md:p-8 h-full border border-white/5 backdrop-blur-sm flex flex-col justify-between order-1 md:order-2 relative overflow-hidden group">
+                    {/* Decorative background gradients */}
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/20 rounded-full blur-[50px] pointer-events-none" />
 
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    {item.details.map((detail, i) => (
-                                        <motion.div
-                                            key={i}
-                                            initial={{ opacity: 0, y: 10 }}
-                                            animate={{ opacity: 1, y: 0 }}
-                                            transition={{ delay: i * 0.1 }}
-                                            className="flex items-start p-4 rounded-xl bg-portfolio-dark/60 backdrop-blur-sm border border-gray-700/50 hover:border-portfolio-primary/50 transition-all hover:shadow-md group"
-                                        >
-                                            <div
-                                                className={`p-2 rounded-lg mr-3 bg-gradient-to-r ${item.color} bg-opacity-20 group-hover:bg-opacity-30 transition-all`}
-                                            >
-                                                <span
-                                                    className={`text-gradient bg-clip-text text-transparent bg-gradient-to-r ${item.color}`} // Force white/colored text if gradient fails
-                                                >
-                                                    <span className="text-white">
-                                                        {React.cloneElement(detail.icon, { size: 16 })}
-                                                    </span>
-                                                </span>
-                                            </div>
-                                            <span className="text-sm text-gray-300 leading-relaxed group-hover:text-white transition-colors">
-                                                {detail.content}
-                                            </span>
-                                        </motion.div>
-                                    ))}
-                                </div>
+                    <div>
+                        <h4 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
+                            <Zap className="text-yellow-400 fill-yellow-400" size={20} />
+                            Key Contributions
+                        </h4>
 
-                                <div className="mt-6 flex items-center gap-2 text-sm text-gray-400">
-                                    <Mail size={14} />
-                                    <span>{item.email}</span>
-                                </div>
-                            </div>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
-            </motion.div>
+                        <ul className="space-y-4 mb-8">
+                            <li className="flex gap-3 text-gray-300 text-sm leading-relaxed">
+                                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-blue-500 flex-shrink-0" />
+                                Designed and developed scalable applications aligned with company goals.
+                            </li>
+                            <li className="flex gap-3 text-gray-300 text-sm leading-relaxed">
+                                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-purple-500 flex-shrink-0" />
+                                Optimized backend systems for high-performance deployment.
+                            </li>
+                            <li className="flex gap-3 text-gray-300 text-sm leading-relaxed">
+                                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-green-500 flex-shrink-0" />
+                                Collaborated closely with product teams to refine user requirements.
+                            </li>
+                        </ul>
+                    </div>
+
+                    {/* Tech Stack Pills */}
+                    <div>
+                        <p className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Technologies Used</p>
+                        <div className="flex flex-wrap gap-2">
+                            {["React", "Node.js", "MongoDB", "Express", "Tailwind"].map((tech) => (
+                                <span key={tech} className="px-3 py-1 rounded-full bg-black/40 border border-white/10 text-xs text-gray-300">
+                                    {tech}
+                                </span>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* Card Border Highlight/Glow */}
+            <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-blue-500/10 to-purple-500/10 opacity-50 pointer-events-none" />
         </motion.div>
     );
 };

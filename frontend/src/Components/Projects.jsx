@@ -1,271 +1,171 @@
-import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useState, useRef } from "react";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import {
-  FaGithub,
-  FaCalendarAlt,
-  FaTools,
-  FaArrowRight,
-  FaLaptopCode,
-  FaFire,
-  FaExternalLinkAlt,
-} from "react-icons/fa";
+  Github,
+  ExternalLink,
+  Layers,
+  Code2,
+  ArrowUpRight,
+  FolderOpen
+} from "lucide-react";
 
 import universityConnect from "../Assets/university-connect.png";
 import unolinks from "../Assets/unolinks.png";
 import SlotlyBookingApp from "../Assets/sloty.png";
 
-// Data for the projects
-export const projects = [
+const projects = [
   {
+    id: 1,
     title: "University Connect",
-    description:
-      "A student-driven platform for profiles, skill showcases, and collaboration.",
-    longDescription:
-      "Developed a dynamic UI with React, integrated student profiles, a real-time messaging system, and a certification showcase. The backend uses Node.js and Express with JWT for secure authentication and optimized data handling with MongoDB.",
-    date: "Jan 2025 – Feb 2025",
-    githubLink:
-      "https://github.com/shaswat2031/Minor-Project-University-Connect.git",
-    liveLink: null,
+    subtitle: "Student Collaboration Platform",
+    description: "A centralized hub for connecting students, simplifying resource sharing, and fostering academic collaboration through an intuitive digital ecosystem.",
     image: universityConnect,
-    tags: ["React", "Node.js", "MongoDB", "Express", "JWT", "TailwindCSS"],
-    highlight: true,
+    tags: ["React", "Node.js", "MongoDB", "Express"],
+    live: null,
+    github: "https://github.com/shaswat2031/Minor-Project-University-Connect.git",
+    color: "from-blue-500 to-cyan-500"
   },
   {
+    id: 2,
     title: "Unolinks",
-    description:
-      "One link for everything you love — a vintage-inspired bio link platform.",
-    longDescription: "UnoLinks is a personal bio-link platform that allows users to bring all their content into a single beautifully crafted, vintage-inspired profile. Users can showcase social links, portfolios, and important resources through one customizable link with a clean and responsive UI.",
-    date: "OCT 2025 – Present",
-    githubLink: null,
-    liveLink: "https://unolinks.prasadshaswat.app/",
+    subtitle: "Bio Link Management",
+    description: "A sleek, vintage-inspired link management tool allowing users to consolidate their digital presence into a single, highly customizable landing page.",
     image: unolinks,
-    tags: ["React", "Tailwind CSS", "Web App", "Personal Branding"],
-    highlight: false,
+    tags: ["React", "Tailwind CSS", "Web App"],
+    live: "https://unolinks.prasadshaswat.app/",
+    github: null,
+    color: "from-purple-500 to-pink-500"
   },
   {
-    title: "Slotly - Booking App",
-    description:
-      "A real-time booking app with vendor dashboards and Twilio notifications.",
-    longDescription:
-      "A comprehensive MERN stack booking application featuring real-time slot availability, a dedicated dashboard for vendors to manage their schedules, and automated SMS notifications using the Twilio API.",
-    date: "March 2025 – April 2025",
-    githubLink: "https://github.com/shaswat2031/",
-    liveLink: null,
+    id: 3,
+    title: "Slotly",
+    subtitle: "Smart Booking System",
+    description: "An automated booking solution featuring real-time availability tracking, vendor dashboards, and instant SMS notifications via Twilio.",
     image: SlotlyBookingApp,
-    tags: ["React", "Node.js", "MongoDB", "Twilio", "Tailwind CSS"],
-    highlight: false,
-  },
-
-
+    tags: ["React", "Node.js", "MongoDB", "Twilio"],
+    live: null,
+    github: "https://github.com/shaswat2031/",
+    color: "from-orange-500 to-red-500"
+  }
 ];
 
 const Projects = () => {
-  const [selectedId, setSelectedId] = useState(null);
+  const containerRef = useRef(null);
 
   return (
-    <section
-      id="projects"
-      className="py-24 bg-portfolio-dark text-white relative overflow-hidden"
-    >
-      {/* Background Decorative Elements */}
-      <div className="absolute inset-0 bg-grid-gray-800/20 [mask-image:linear-gradient(to_bottom,white_5%,transparent_95%)]"></div>
-      <div className="absolute top-1/4 -left-24 w-72 h-72 bg-portfolio-primary rounded-full filter blur-3xl opacity-10 animate-pulse"></div>
-      <div className="absolute bottom-1/4 -right-24 w-72 h-72 bg-portfolio-secondary rounded-full filter blur-3xl opacity-10 animate-pulse animation-delay-4000"></div>
+    <section id="projects" ref={containerRef} className="py-32 bg-[#050505] relative overflow-hidden">
+      {/* Background Patterns */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
 
-      <div className="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
-        {/* Section Header */}
-        <motion.div
-          className="mb-12 md:mb-20 text-center"
-          initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <div className="inline-block mb-4">
-            <div className="relative w-12 h-12 md:w-16 md:h-16 mx-auto bg-portfolio-dark rounded-xl flex items-center justify-center border-2 border-portfolio-primary shadow-lg shadow-portfolio-primary/20">
-              <FaLaptopCode className="text-portfolio-primary text-2xl md:text-3xl" />
-            </div>
-          </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight mb-3">
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-portfolio-primary to-portfolio-secondary">
-              My Creative Portfolio
-            </span>
-          </h2>
-          <div className="h-1 w-24 mx-auto bg-gradient-to-r from-portfolio-primary to-portfolio-secondary rounded-full mb-4"></div>
-          <p className="text-gray-400 max-w-2xl mx-auto text-base md:text-lg">
-            A selection of projects that showcase my passion for building modern
-            web applications.
-          </p>
-        </motion.div>
+      <div className="container mx-auto px-4 relative z-10">
+        {/* Header */}
+        <div className="mb-20 space-y-4">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="flex items-center gap-2 text-purple-400 font-mono text-sm tracking-wider"
+          >
+            <FolderOpen size={16} />
+            <span>/ FEATURED WORK</span>
+          </motion.div>
 
-        {/* Projects Grid */}
-        <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          transition={{ staggerChildren: 0.1 }}
-        >
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="text-4xl md:text-6xl font-bold text-white max-w-2xl leading-tight"
+          >
+            Turning concepts into <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-blue-500">digital reality.</span>
+          </motion.h2>
+        </div>
+
+        {/* Projects List */}
+        <div className="flex flex-col gap-20">
           {projects.map((project, index) => (
-            <motion.div
-              key={index}
-              layoutId={`card-${index}`}
-              onClick={() => setSelectedId(index)}
-              className="bg-portfolio-dark/40 backdrop-blur-lg rounded-2xl overflow-hidden border border-gray-700/80 cursor-pointer group relative hover:z-10"
-              variants={{
-                hidden: { y: 20, opacity: 0 },
-                visible: { y: 0, opacity: 1 },
-              }}
-              whileHover={{
-                y: -6,
-                scale: 1.02,
-                transition: { type: "spring", stiffness: 300 },
-              }}
-            >
-              <div className="overflow-hidden h-48 md:h-52">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-              </div>
-              <div className="p-5 md:p-6">
-                <div className="flex justify-between items-start">
-                  <h3 className="text-lg md:text-xl font-bold text-white mb-2">
-                    {project.title}
-                  </h3>
-                  {project.highlight && (
-                    <span className="inline-flex items-center px-2.5 py-1 rounded-full bg-portfolio-primary/20 text-portfolio-primary text-xs font-bold border border-portfolio-primary/50 whitespace-nowrap ml-2">
-                      <FaFire className="mr-1.5 text-portfolio-secondary" size={12} />
-                      Featured
-                    </span>
-                  )}
-                </div>
-                <p className="text-gray-400 text-sm mb-4 h-auto md:h-10 line-clamp-2 md:line-clamp-none">
-                  {project.description}
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {project.tags.slice(0, 4).map((tag) => (
-                    <span
-                      key={tag}
-                      className="px-2 md:px-3 py-1 text-xs font-semibold bg-portfolio-dark/80 text-portfolio-accent rounded-full border border-gray-600"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-              <div className="absolute inset-0 border-2 border-transparent group-hover:border-portfolio-primary rounded-2xl transition-all duration-300 pointer-events-none"></div>
-            </motion.div>
+            <ProjectCard key={project.id} project={project} index={index} />
           ))}
-        </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+};
 
+const ProjectCard = ({ project, index }) => {
+  const isEven = index % 2 === 0;
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.7, delay: index * 0.1 }}
+      className={`flex flex-col lg:flex-row gap-8 lg:gap-16 items-center ${isEven ? '' : 'lg:flex-row-reverse'}`}
+    >
+      {/* Image Side */}
+      <div className="w-full lg:w-3/5 group relative perspective-1000">
+        <div className="relative rounded-2xl overflow-hidden bg-[#111] border border-white/10 shadow-2xl transition-transform duration-500 group-hover:scale-[1.02] group-hover:shadow-purple-500/10">
+          {/* Overlay Gradient */}
+          <div className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-0 group-hover:opacity-20 transition-opacity duration-500 z-10`} />
+
+          <img
+            src={project.image}
+            alt={project.title}
+            className="w-full h-auto object-cover transform transition-transform duration-700 group-hover:scale-105 filter grayscale hover:grayscale-0"
+          />
+        </div>
       </div>
 
-      {/* Modal */}
-      <AnimatePresence>
-        {selectedId !== null && (
-          <motion.div
-            layoutId={`card-${selectedId}`}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6"
-            onClick={() => setSelectedId(null)}
-          >
-            <motion.div
-              className="absolute inset-0 bg-black/70 backdrop-blur-sm"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-            />
-            <motion.div
-              className="relative w-full max-w-3xl bg-portfolio-dark rounded-2xl overflow-hidden border border-gray-700 shadow-2xl flex flex-col max-h-[90vh]"
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ type: "spring", stiffness: 200, damping: 25 }}
-              onClick={(e) => e.stopPropagation()}
+      {/* Content Side */}
+      <div className="w-full lg:w-2/5 space-y-6">
+        <div className="space-y-2">
+          <h3 className="text-3xl font-bold text-white flex items-center gap-3">
+            {project.title}
+            <div className={`h-[2px] flex-grow bg-gradient-to-r ${project.color} opacity-50`} />
+          </h3>
+          <p className="text-purple-400 font-mono text-sm">{project.subtitle}</p>
+        </div>
+
+        <p className="text-gray-400 leading-relaxed text-lg">
+          {project.description}
+        </p>
+
+        {/* Tags */}
+        <div className="flex flex-wrap gap-2">
+          {project.tags.map(tag => (
+            <span key={tag} className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-xs text-gray-300 font-medium tracking-wide">
+              {tag}
+            </span>
+          ))}
+        </div>
+
+        {/* Links */}
+        <div className="flex items-center gap-4 pt-4">
+          {project.live && (
+            <a
+              href={project.live}
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center gap-2 px-6 py-3 bg-white text-black rounded-lg font-bold hover:bg-gray-200 transition-colors group"
             >
-              <div className="h-48 sm:h-64 overflow-hidden shrink-0">
-                <img
-                  src={projects[selectedId].image}
-                  alt={projects[selectedId].title}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="p-6 md:p-8 overflow-y-auto">
-                <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
-                  {projects[selectedId].title}
-                </h2>
-                <p className="text-portfolio-accent text-sm mb-4">
-                  <FaCalendarAlt className="inline mr-2" />
-                  {projects[selectedId].date}
-                </p>
-                <p className="text-gray-300 mb-6 text-sm md:text-base">
-                  {projects[selectedId].longDescription}
-                </p>
-                <h4 className="font-bold text-white mb-3 flex items-center">
-                  <FaTools className="mr-2 text-portfolio-primary" />
-                  Key Features
-                </h4>
-                <ul className="space-y-2 mb-6">
-                  {projects[selectedId].tags.map((tag) => (
-                    <li
-                      key={tag}
-                      className="text-sm text-gray-400 flex items-start"
-                    >
-                      <span className="text-portfolio-primary mr-2 mt-1">▹</span>
-                      {tag}
-                    </li>
-                  ))}
-                </ul>
-                <div className="flex flex-col sm:flex-row items-center gap-4 pt-4 border-t border-gray-700">
-                  <motion.a
-                    href={projects[selectedId].githubLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center w-full px-4 py-3 text-sm font-semibold rounded-lg text-white bg-portfolio-primary hover:bg-portfolio-primary/80 transition-colors"
-                    whileHover={{ scale: 1.03 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    <FaGithub className="mr-2" /> View on GitHub
-                  </motion.a>
-                  {projects[selectedId].liveLink && (
-                    <motion.a
-                      href={projects[selectedId].liveLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center justify-center w-full px-4 py-3 text-sm font-semibold rounded-lg text-gray-200 bg-gray-700 hover:bg-gray-600 transition-colors"
-                      whileHover={{ scale: 1.03 }}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      <FaExternalLinkAlt className="mr-2" /> Live Demo
-                    </motion.a>
-                  )}
-                </div>
-              </div>
-              <button
-                onClick={() => setSelectedId(null)}
-                className="absolute top-4 right-4 p-2 rounded-full bg-black/30 text-white hover:bg-black/60 transition-colors z-10"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              </button>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </section>
+              View Live <ArrowUpRight size={18} className="group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform" />
+            </a>
+          )}
+          {project.github && (
+            <a
+              href={project.github}
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center gap-2 px-6 py-3 bg-white/5 border border-white/10 text-white rounded-lg font-bold hover:bg-white/10 transition-colors"
+            >
+              <Github size={18} /> Source
+            </a>
+          )}
+        </div>
+      </div>
+    </motion.div>
   );
 };
 

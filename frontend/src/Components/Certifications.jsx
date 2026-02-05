@@ -1,28 +1,15 @@
-import React, { useState, memo } from "react";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
-  motion,
-  AnimatePresence,
-  useMotionValue,
-  useTransform,
-  useSpring,
-} from "framer-motion";
-import {
-  FaCalendarAlt,
-  FaTimes,
-  FaAward,
-  FaCertificate,
-  FaLaptopCode,
-  FaBrain,
-  FaNetworkWired,
-  FaUsers,
-  FaShieldAlt,
-  FaCode,
-  FaServer,
-  FaLaptop,
-  FaPalette,
-  FaMedkit,
-  FaStar,
-} from "react-icons/fa";
+  Award,
+  Calendar,
+  Shield,
+  ExternalLink,
+  Cpu,
+  Globe,
+  Users,
+  Code
+} from "lucide-react";
 
 import hackthonImage from "../Assets/hackthon4.0.png";
 import figmaImage from "../Assets/Figma.png";
@@ -33,396 +20,198 @@ import cyberbootcamp from "../Assets/cyber.jpg";
 import fullstackImage from "../Assets/bootcamp.jpg";
 import enterpenershipImage from "../Assets/enter.png";
 import days from "../Assets/30days.png";
-import oracle from "../Assets/oracle.png"
+import oracle from "../Assets/oracle.png";
 
-// --- ICON HELPERS ---
-const skillIconMap = [
-  { match: "problem", icon: <FaBrain className="text-teal-300" /> },
-  { match: "team", icon: <FaUsers className="text-orange-300" /> },
-  { match: "ui/ux", icon: <FaPalette className="text-pink-300" /> },
-  { match: "prototype", icon: <FaCode className="text-sky-300" /> },
-  { match: "health", icon: <FaMedkit className="text-red-300" /> },
-  { match: "network", icon: <FaNetworkWired className="text-green-300" /> },
-  { match: "cyber", icon: <FaShieldAlt className="text-indigo-300" /> },
-  { match: "event", icon: <FaCalendarAlt className="text-purple-300" /> },
-  { match: "leadership", icon: <FaUsers className="text-yellow-300" /> },
-  { match: "react", icon: <FaCode className="text-blue-300" /> },
-  { match: "node", icon: <FaServer className="text-lime-300" /> },
-  { match: "security", icon: <FaShieldAlt className="text-red-400" /> },
-];
-
-const getSkillIcon = (skill) => {
-  const lower = skill.toLowerCase();
-  const found = skillIconMap.find(({ match }) => lower.includes(match));
-  return found ? found.icon : <FaLaptop className="text-gray-300" />;
-};
-
-const typeIconMap = {
-  Competition: <FaAward className="text-yellow-400" />,
-  Design: <FaPalette className="text-purple-400" />,
-  Technical: <FaLaptopCode className="text-sky-400" />,
-  Leadership: <FaUsers className="text-green-400" />,
-  "Web Development": <FaCode className="text-blue-400" />,
-};
-
-const getCertificateTypeIcon = (type) =>
-  typeIconMap[type] || <FaCertificate className="text-gray-400" />;
-
-// --- DATA ---
 const certificates = [
+  {
+    id: 9,
+    title: "Oracle Cloud Infrastructure 2025 AI Foundations",
+    issuer: "Oracle",
+    date: "Oct 2025",
+    image: oracle,
+    color: "from-red-500 to-orange-500",
+    icon: Cpu,
+    category: "AI & Cloud"
+  },
   {
     id: 1,
     title: "Hackathon of Vadodara 4.0",
-    issuer: "Parul Institute of Innovation",
-    date: "October 2023",
-    type: "Competition",
+    issuer: "Parul Institute",
+    date: "Oct 2023",
     image: hackthonImage,
-    skills: ["Problem Solving", "Team Collaboration", "Innovation"],
-    description:
-      "Collaborated in a high-pressure environment to develop innovative solutions to real-world problems, demonstrating rapid prototyping and creative problem-solving skills.",
+    color: "from-blue-500 to-indigo-500",
+    icon: Code,
+    category: "Competition"
   },
   {
-    id: 2,
-    title: "Figma UI/UX Design",
-    issuer: "Udemy",
-    date: "August 2023",
-    type: "Design",
-    image: figmaImage,
-    skills: ["UI/UX Design", "Prototyping", "Wireframing"],
-    description:
-      "Completed an intensive Figma course covering UI/UX principles, interactive prototyping, and design systems to create user-centric and accessible interfaces.",
+    id: 5,
+    title: "Global Funfest Coordinator",
+    issuer: "Career Development Cell",
+    date: "Mar 2024",
+    image: cdcimage,
+    color: "from-yellow-500 to-amber-500",
+    icon: Users,
+    category: "Leadership"
   },
   {
-    id: 3,
-    title: "MyOnSite Healthcare Hackathon",
-    issuer: "Parul University",
-    date: "January 2024",
-    type: "Competition",
-    image: onmySiteImage,
-    skills: ["Healthcare Tech", "Rapid Prototyping", "Problem Solving"],
-    description:
-      "Participated in a hackathon focused on creating technology that addresses real-world healthcare challenges, with an emphasis on accessibility and user-centered design.",
+    id: 6,
+    title: "Cyber Security Bootcamp",
+    issuer: "60-Day Intensive",
+    date: "Feb 2024",
+    image: cyberbootcamp,
+    color: "from-green-500 to-emerald-500",
+    icon: Shield,
+    category: "Security"
   },
   {
     id: 4,
     title: "Cisco Certified Network Associate",
     issuer: "Cisco",
-    date: "November 2023",
-    type: "Technical",
+    date: "Nov 2023",
     image: CiscoImagenetwork,
-    skills: ["Network Architecture", "Security", "Protocols"],
-    description:
-      "Earned Cisco certification, demonstrating proficiency in network architecture, security protocols, and infrastructure management with hands-on experience.",
+    color: "from-cyan-500 to-blue-500",
+    icon: Globe,
+    category: "Network"
   },
   {
-    id: 5,
-    title: "CDC Coordinator in GLOBAL FUNFEST",
-    issuer: "Career Development Cell",
-    date: "March 2024",
-    type: "Leadership",
-    image: cdcimage,
-    skills: ["Event Management", "Leadership", "Coordination"],
-    description:
-      "Served as a coordinator, managing team operations and stakeholder communication. Demonstrated leadership by supervising logistics and ensuring smooth event execution.",
-  },
-  {
-    id: 6,
-    title: "Cyber Security Bootcamp",
-    issuer: "60-Day Intensive Program",
-    date: "February 2024",
-    type: "Technical",
-    image: cyberbootcamp,
-    skills: ["Cybersecurity", "Threat Detection", "Security"],
-    description:
-      "Completed a rigorous bootcamp covering penetration testing, vulnerability assessment, and security protocols, gaining hands-on experience with industry-standard tools.",
+    id: 8,
+    title: "Discovering Entrepreneurship",
+    issuer: "Cisco Academy",
+    date: "May 2025",
+    image: enterpenershipImage,
+    color: "from-purple-500 to-pink-500",
+    icon: Award,
+    category: "Business"
   },
   {
     id: 7,
     title: "Full Stack Web Development",
     issuer: "Udemy",
-    date: "December 2023",
-    type: "Technical",
+    date: "Dec 2023",
     image: fullstackImage,
-    skills: ["React", "Node.js", "MongoDB"],
-    description:
-      "Mastered both frontend and backend technologies through a comprehensive course, developing proficiency in the MERN stack for building modern web applications.",
+    color: "from-pink-500 to-rose-500",
+    icon: Code,
+    category: "Development"
   },
   {
-    id: 8,
-    title: "Discovering Entrepreneurship",
-    issuer: "Cisco Networking Academy",
-    date: "May 2025",
-    type: "Technical",
-    image: enterpenershipImage,
-    skills: [
-      "Entrepreneurial Vision",
-      "Entrepreneurial Mindset",
-      "Business Opportunity Analysis",
-      "Competitive Analysis",
-      "Pitch Development",
-    ],
-    description:
-      "Completed the Discovering Entrepreneurship course by Cisco Networking Academy. Gained skills in entrepreneurial vision and mindset, business opportunity research, competitive analysis, and creating pitches tailored to different audiences.",
+    id: 2,
+    title: "Figma UI/UX Design",
+    issuer: "Udemy",
+    date: "Aug 2023",
+    image: figmaImage,
+    color: "from-orange-500 to-red-500",
+    icon: Award,
+    category: "Design"
   },
   {
-    id: 9,
-    title: "Job Ready MERN Full-Stack Web Development Course",
+    id: 3,
+    title: "Healthcare Hackathon",
+    issuer: "Parul University",
+    date: "Jan 2024",
+    image: onmySiteImage,
+    color: "from-teal-500 to-cyan-500",
+    icon: Award,
+    category: "Hackathon"
+  },
+  {
+    id: 10,
+    title: "MERN Full-Stack Course",
     issuer: "30 Days Coding",
-    date: "May 19, 2024",
-    type: "Web Development",
+    date: "May 2024",
     image: days,
-    skills: [
-      "MongoDB",
-      "Express.js",
-      "React.js",
-      "Node.js",
-      "Full-Stack Web Development",
-    ],
-    description:
-      "Completed the Job Ready MERN Full-Stack Web Development course offered by 30 Days Coding. Acquired hands-on experience in MongoDB, Express.js, React.js, and Node.js for building scalable, production-ready web applications.",
-  },
-  {
-    id: 11,
-    title: "Oracle Cloud Infrastructure 2025 Certified AI Foundations Associate",
-    issuer: "Oracle",
-    date: "October 27, 2025",
-    type: "Cloud & AI",
-    image: oracle,
-    skills: [
-      "Oracle Cloud Infrastructure (OCI)",
-      "Artificial Intelligence Fundamentals",
-      "Cloud Computing Concepts",
-      "Machine Learning Basics",
-      "Data Management in OCI"
-    ],
-    description:
-      "Achieved the Oracle Cloud Infrastructure 2025 Certified AI Foundations Associate certification, demonstrating foundational knowledge in Oracle Cloud services, AI concepts, and machine learning integration within OCI environments."
+    color: "from-indigo-500 to-violet-500",
+    icon: Code,
+    category: "Development"
   }
-
-
 ];
 
-// --- CARD COMPONENT ---
-const CertificateCard = memo(({ cert, onViewDetails }) => {
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-
-  const mouseXSpring = useSpring(x, { stiffness: 300, damping: 20 });
-  const mouseYSpring = useSpring(y, { stiffness: 300, damping: 20 });
-
-  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["12deg", "-12deg"]);
-  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-12deg", "12deg"]);
-
-  const handleMouseMove = (e) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    x.set((e.clientX - rect.left) / rect.width - 0.5);
-    y.set((e.clientY - rect.top) / rect.height - 0.5);
-  };
-
+const Certifications = () => {
   return (
-    <motion.div
-      onMouseMove={handleMouseMove}
-      onMouseLeave={() => {
-        x.set(0);
-        y.set(0);
-      }}
-      style={{ rotateY, rotateX, transformStyle: "preserve-3d" }}
-      className="relative w-full min-h-[460px] cursor-pointer hover:scale-[1.02] transition-transform duration-300"
-      onClick={() => onViewDetails(cert)}
-    >
-      <div
-        style={{ transform: "translateZ(75px)", transformStyle: "preserve-3d" }}
-        className="absolute inset-0 bg-portfolio-dark/70 backdrop-blur-md rounded-2xl border border-gray-700 p-6 flex flex-col"
-      >
-        <div className="relative h-48 w-full mb-4 rounded-lg overflow-hidden flex-shrink-0">
-          <img
-            src={cert.image}
-            alt={cert.title}
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute top-2 right-2 bg-gray-900/50 text-white text-xs px-2 py-1 rounded-full flex items-center gap-1.5 backdrop-blur-sm border border-white/10">
-            {getCertificateTypeIcon(cert.type)}
-            <span>{cert.type}</span>
-          </div>
-        </div>
-        <div className="flex flex-col flex-grow">
-          <h3 className="text-xl font-bold text-gray-100 mb-1 line-clamp-2">
-            {cert.title}
-          </h3>
-          <div className="flex items-center text-gray-400 text-sm mb-4">
-            <span className="truncate">{cert.issuer}</span>
-            <span className="mx-2">•</span>
-            <span>{cert.date}</span>
-          </div>
-          <div className="flex flex-wrap gap-2 mb-4">
-            {cert.skills.slice(0, 3).map((skill) => (
-              <div
-                key={skill}
-                className="bg-portfolio-dark/80 text-gray-300 text-xs rounded-full px-3 py-1 flex items-center gap-2 border border-gray-600"
-              >
-                {getSkillIcon(skill)}
-                {skill}
-              </div>
-            ))}
-          </div>
-          <div className="mt-auto text-center text-portfolio-primary font-semibold group">
-            View Details{" "}
-            <motion.span className="inline-block group-hover:translate-x-1 transition-transform">
-              →
-            </motion.span>
-          </div>
-        </div>
-      </div>
-    </motion.div>
-  );
-});
-
-// --- MAIN COMPONENT ---
-export default function Certifications() {
-  const [selectedCert, setSelectedCert] = useState(null);
-
-  return (
-    <section
-      id="certifications"
-      className="relative py-24 sm:py-32 bg-portfolio-dark text-gray-200"
-    >
-      {/* Gradient Background */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute -top-20 -left-40 w-96 h-96 bg-portfolio-primary/20 rounded-full blur-3xl animate-blob"></div>
-        <div className="absolute -bottom-20 -right-40 w-96 h-96 bg-portfolio-secondary/20 rounded-full blur-3xl animate-blob animation-delay-4000"></div>
-      </div>
+    <section id="certifications" className="min-h-screen bg-[#050505] py-24 relative overflow-hidden">
+      {/* Background Gradients */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="container mx-auto px-4 relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-10 md:mb-16"
-        >
-          <div className="inline-block p-3 md:p-4 bg-portfolio-dark/50 rounded-2xl border border-gray-700 mb-4">
-            <FaStar className="text-yellow-400 text-2xl md:text-3xl" />
-          </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white mb-4">
-            Certifications & Achievements
-          </h2>
-          <p className="text-base md:text-lg text-gray-400 max-w-3xl mx-auto">
-            A curated collection of my professional development milestones and
-            key recognitions.
-          </p>
-        </motion.div>
-
-        <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-x-12 md:gap-y-24"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          transition={{ staggerChildren: 0.1 }}
-        >
-          {certificates.map((cert) => (
-            <motion.div
-              key={cert.id}
-              variants={{
-                hidden: { opacity: 0, y: 30 },
-                visible: {
-                  opacity: 1,
-                  y: 0,
-                  transition: { type: "spring", stiffness: 100, damping: 12 },
-                },
-              }}
-              style={{ perspective: "1000px" }}
-            >
-              <CertificateCard cert={cert} onViewDetails={setSelectedCert} />
-            </motion.div>
-          ))}
-        </motion.div>
-      </div>
-
-      {/* MODAL */}
-      <AnimatePresence>
-        {selectedCert && (
+        <div className="mb-20 text-center">
           <motion.div
-            className="fixed inset-0 z-50 flex items-center justify-center p-4"
-            onClick={() => setSelectedCert(null)}
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-yellow-500 text-sm font-medium mb-6"
           >
-            <motion.div
-              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-            />
-            <motion.div
-              className="relative bg-portfolio-dark/80 backdrop-blur-xl rounded-2xl w-full max-w-3xl max-h-[85vh] overflow-y-auto border border-gray-700 shadow-2xl"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <button
-                onClick={() => setSelectedCert(null)}
-                className="absolute top-4 right-4 bg-portfolio-dark/50 hover:bg-portfolio-dark/80 text-gray-300 rounded-full p-2 transition-colors z-10"
-                aria-label="Close"
-              >
-                <FaTimes />
-              </button>
-              <div className="p-4 md:p-6 grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-                <div className="md:col-span-1">
-                  <div className="h-48 md:h-auto overflow-hidden rounded-lg">
-                    <img
-                      src={selectedCert.image}
-                      alt={selectedCert.title}
-                      className="w-full h-full object-cover md:object-contain rounded-lg shadow-lg"
-                    />
-                  </div>
-                </div>
-                <div className="md:col-span-2">
-                  <div className="flex items-center gap-2 mb-2">
-                    {getCertificateTypeIcon(selectedCert.type)}
-                    <span className="text-portfolio-primary font-semibold">
-                      {selectedCert.type}
-                    </span>
-                  </div>
-                  <h2 className="text-2xl md:text-3xl font-extrabold text-white mb-2">
-                    {selectedCert.title}
-                  </h2>
-                  <div className="flex flex-wrap items-center text-gray-400 text-sm mb-6 gap-2 md:gap-4">
-                    <span>
-                      Issued by:{" "}
-                      <strong className="text-gray-300">
-                        {selectedCert.issuer}
-                      </strong>
-                    </span>
-                    <span className="flex items-center gap-1.5">
-                      <FaCalendarAlt /> {selectedCert.date}
-                    </span>
-                  </div>
-                  <h3 className="text-lg font-bold text-white mb-3">
-                    Description
-                  </h3>
-                  <p className="text-gray-300 mb-6 text-sm md:text-base">
-                    {selectedCert.description}
-                  </p>
-                  <h3 className="text-lg font-bold text-white mb-3">
-                    Skills Gained
-                  </h3>
-                  <div className="flex flex-wrap gap-2">
-                    {selectedCert.skills.map((skill) => (
-                      <div
-                        key={skill}
-                        className="bg-gray-700/60 text-gray-200 text-xs md:text-sm rounded-full px-3 md:px-4 py-1.5 flex items-center gap-2 border border-gray-600"
-                      >
-                        {getSkillIcon(skill)}
-                        {skill}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </motion.div>
+            <Award size={16} />
+            <span>Honors & Awards</span>
           </motion.div>
-        )}
-      </AnimatePresence>
+
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+            Certifications & <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500">Validation</span>
+          </h2>
+          <p className="text-gray-400 max-w-xl mx-auto text-lg">
+            Recognized milestones in my technical and professional journey.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {certificates.map((cert, index) => (
+            <CertificateCard key={cert.id} cert={cert} index={index} />
+          ))}
+        </div>
+      </div>
     </section>
   );
-}
+};
+
+const CertificateCard = ({ cert, index }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ delay: index * 0.05 }}
+    className="group relative bg-[#0a0a0a] rounded-2xl border border-white/10 overflow-hidden hover:border-white/20 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1"
+  >
+    {/* Image / Header */}
+    <div className="h-40 overflow-hidden relative">
+      <div className={`absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10`} />
+      <img
+        src={cert.image}
+        alt={cert.title}
+        className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+      />
+
+      <div className="absolute top-3 right-3 z-20">
+        <span className={`px-2 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider bg-black/60 backdrop-blur-md border border-white/10 text-white`}>
+          {cert.category}
+        </span>
+      </div>
+    </div>
+
+    {/* Content */}
+    <div className="p-5 relative z-20">
+      {/* Title */}
+      <h3 className="text-lg font-bold text-white mb-2 line-clamp-2 leading-tight group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-gray-400 transition-all">
+        {cert.title}
+      </h3>
+
+      {/* Metadata */}
+      <div className="flex items-center justify-between text-xs text-gray-500 font-mono mt-4 pt-4 border-t border-white/5">
+        <span className="flex items-center gap-1.5">
+          <Users size={12} />
+          {cert.issuer}
+        </span>
+        <span className="flex items-center gap-1.5">
+          <Calendar size={12} />
+          {cert.date}
+        </span>
+      </div>
+    </div>
+
+    {/* Glow Effect on Hover */}
+    <div className={`absolute inset-0 bg-gradient-to-r ${cert.color} opacity-0 group-hover:opacity-5 transition-opacity duration-300 pointer-events-none`} />
+
+    {/* Border Gradient Bottom */}
+    <div className={`absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r ${cert.color} transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300`} />
+  </motion.div>
+);
+
+export default Certifications;

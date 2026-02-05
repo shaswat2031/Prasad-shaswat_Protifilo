@@ -1,352 +1,219 @@
-import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useRef } from "react";
+import { motion, useScroll, useTransform, useSpring, useInView } from "framer-motion";
 import BhagwatLogo from "../Assets/bhagwat.png";
 import ParulLogo from "../Assets/parul.png";
 import SungraceLogo from "../Assets/Sungrace.png";
-import { Sparkles, GraduationCap, ScrollText } from "lucide-react";
 import {
-  FaGraduationCap,
-  FaBookOpen,
-  FaChalkboardTeacher,
-  FaAward,
-  FaCalendarAlt,
-  FaCode,
-  FaFlask,
-  FaUsers,
-  FaTrophy,
-  FaLightbulb,
-  FaStar,
-  FaChevronRight,
-  FaChevronDown,
-  FaUniversity,
-  FaSchool,
-} from "react-icons/fa";
+    GraduationCap,
+    MapPin,
+    Award,
+    BookOpen,
+    School,
+    Building2
+} from "lucide-react";
 
 const Education = () => {
-  const [expandedItem, setExpandedItem] = useState(null);
+    const containerRef = useRef(null);
+    const { scrollYProgress } = useScroll({
+        target: containerRef,
+        offset: ["start end", "end start"], // Start animation when section enters view
+    });
 
-  const educationData = [
-    {
-      id: "parul",
-      school: "Parul University",
-      logo: ParulLogo,
-      period: "2022 – 2026",
-      degree: "B.Tech in Computer Science & Engineering",
-      field: "Specialization in Full Stack Development",
-      grade: "CGPA: 7.03/10",
-      board: "PIT",
-      icon: <FaUniversity />,
-      color: "from-portfolio-accent to-portfolio-primary",
-      bgAccent: "bg-portfolio-accent/10",
-      details: [
-        { icon: <FaCode />, content: "Built scalable full-stack web apps" },
-        {
-          icon: <FaBookOpen />,
-          content: "Proficient in Data Structures & Algorithms",
-        },
-        {
-          icon: <FaUsers />,
-          content: "Led collaborative development projects",
-        },
-        { icon: <FaAward />, content: "Hackathon finalist" },
-      ],
-    },
-    {
-      id: "bhagwat",
-      school: "Bhagwat Vidyapith",
-      location: "Chhapra",
-      logo: BhagwatLogo,
-      period: "2020 – 2022",
-      degree: "Higher Secondary (Science & Mathematics)",
-      field: "Physics, Chemistry, Mathematics, CS",
-      grade: "59.20%",
-      board: "CBSE",
-      icon: <FaSchool />,
-      color: "from-portfolio-primary to-portfolio-intro", // intro is roughly secondary/primary mix, let's use primary to secondary
-      color: "from-portfolio-primary to-portfolio-secondary",
-      bgAccent: "bg-portfolio-primary/10",
-      details: [
-        { icon: <FaFlask />, content: "Strong foundation in core sciences" },
-        {
-          icon: <FaLightbulb />,
-          content: "Introduced to programming concepts",
-        },
-        { icon: <FaCode />, content: "Developed early coding skills" },
-      ],
-    },
-    {
-      id: "sungrace",
-      school: "Sungrace School",
-      location: "Surat",
-      logo: SungraceLogo,
-      period: "Completed 2020",
-      degree: "Secondary School (General Studies)",
-      field: "Science & Mathematics Focus",
-      grade: "56.66%",
-      board: "GSEB",
-      icon: <FaBookOpen />,
-      color: "from-portfolio-secondary to-portfolio-accent",
-      bgAccent: "bg-portfolio-secondary/10",
-      details: [
-        {
-          icon: <FaChalkboardTeacher />,
-          content: "Excelled in mathematics and sciences",
-        },
-        { icon: <FaStar />, content: "Active member of tech club" },
-        { icon: <FaTrophy />, content: "Math competition finalist" },
-      ],
-    },
-  ];
+    // Smooth out the scroll progress
+    const scaleY = useSpring(scrollYProgress, {
+        stiffness: 100,
+        damping: 30,
+        restDelta: 0.001
+    });
 
-  return (
-    <section
-      id="education"
-      className="py-16 md:py-24 bg-portfolio-dark text-gray-200 relative overflow-hidden"
-    >
-      {/* Abstract background elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-20">
-        <div className="absolute top-40 left-10 w-48 h-48 md:w-72 md:h-72 bg-portfolio-primary rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
-        <div className="absolute top-60 right-10 w-48 h-48 md:w-72 md:h-72 bg-portfolio-secondary rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
-        <div className="absolute bottom-40 left-1/2 w-48 h-48 md:w-72 md:h-72 bg-portfolio-accent rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
-      </div>
+    const educationData = [
+        {
+            id: "parul",
+            school: "Parul University",
+            logo: ParulLogo,
+            period: "2022 – 2026",
+            degree: "B.Tech in Computer Science & Engineering",
+            grade: "CGPA: 7.03/10",
+            location: "Vadodara, Gujarat",
+            board: "PIT",
+            icon: Building2,
+            color: "#8B5CF6", // Violet
+            tags: ["Full Stack Dev", "DSA", "Hackathons"],
+            description: "Building strong fundamentals in Computer Science with a focus on scalable web architectures."
+        },
+        {
+            id: "bhagwat",
+            school: "Bhagwat Vidyapith",
+            logo: BhagwatLogo,
+            period: "2020 – 2022",
+            degree: "Higher Secondary (Science)",
+            grade: "59.20%",
+            location: "Chhapra, Bihar",
+            board: "CBSE",
+            icon: School,
+            color: "#EC4899", // Pink
+            tags: ["Physics", "Mathematics", "Chemistry"],
+            description: "Developed a strong analytical foundation through rigorous science and mathematics curriculum."
+        },
+        {
+            id: "sungrace",
+            school: "Sungrace School",
+            logo: SungraceLogo,
+            period: "Completed 2020",
+            degree: "Secondary School",
+            grade: "56.66%",
+            location: "Surat, Gujarat",
+            board: "GSEB",
+            icon: BookOpen,
+            color: "#3B82F6", // Blue
+            tags: ["General Studies", "Tech Club"],
+            description: "Early engagement with technology and active participation in school tech competitions."
+        },
+    ];
 
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 relative">
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-10 md:mb-16"
+    return (
+        <section
+            id="education"
+            ref={containerRef}
+            className="relative w-full min-h-screen py-24 bg-[#050505] overflow-hidden"
         >
-          <div className="inline-flex items-center justify-center gap-2 mb-3 px-4 py-2 rounded-full bg-portfolio-primary/10 text-portfolio-primary text-sm font-medium">
-            <GraduationCap size={16} />
-            <span>Education & Learning</span>
-          </div>
+            {/* Background Ambient Glow */}
+            <div className="absolute top-[20%] left-[10%] w-[500px] h-[500px] bg-purple-900/10 rounded-full blur-[100px] pointer-events-none" />
+            <div className="absolute bottom-[20%] right-[10%] w-[400px] h-[400px] bg-blue-900/10 rounded-full blur-[100px] pointer-events-none" />
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-5 leading-tight">
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-portfolio-accent via-portfolio-primary to-portfolio-secondary">
-              Academic Journey
-            </span>
-          </h2>
-
-          <p className="text-gray-400 max-w-2xl mx-auto text-base sm:text-lg">
-            A timeline of my learning path — from building strong academic
-            fundamentals to mastering advanced technologies in Computer Science.
-          </p>
-
-          <div className="mt-8 flex justify-center">
-            <div className="h-1 w-20 bg-gradient-to-r from-portfolio-accent via-portfolio-primary to-portfolio-secondary rounded-full"></div>
-          </div>
-        </motion.div>
-
-        <div className="grid gap-6 md:gap-8">
-          {educationData.map((item, index) => (
-            <EducationCard
-              key={item.id}
-              item={item}
-              index={index}
-              isExpanded={expandedItem === index}
-              onToggle={() =>
-                setExpandedItem(expandedItem === index ? null : index)
-              }
-            />
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-};
-
-const EducationCard = ({ item, index, isExpanded, onToggle }) => {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.15 }}
-      className="w-full"
-    >
-      <motion.div
-        layoutId={`card-container-${item.id}`}
-        className={`bg-portfolio-dark/40 backdrop-blur-lg border border-gray-700/50 rounded-xl overflow-hidden transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-[1.01] ${isExpanded
-          ? `ring-2 ring-offset-2 ring-offset-portfolio-dark ring-${item.color.split(" ")[0].replace("from-", "")
-          }`
-          : ""
-          }`}
-        style={{
-          boxShadow: isExpanded
-            ? `0 10px 30px -10px rgba(0, 0, 0, 0.5), 0 0 15px -3px rgba(79, 70, 229, 0.3)`
-            : ''
-        }}
-      >
-        {/* Header */}
-        <div
-          onClick={onToggle}
-          className={`p-4 sm:p-6 cursor-pointer transition-colors group ${isExpanded
-            ? `${item.bgAccent}`
-            : "hover:bg-portfolio-dark/60"
-            }`}
-        >
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-5">
-            {/* Logo Area */}
-            <div className="flex justify-between w-full sm:w-auto items-center">
-              <div
-                className={`flex-shrink-0 p-3 bg-gradient-to-br ${item.color} rounded-xl shadow-lg transform transition-transform group-hover:scale-105`}
-              >
-                <div className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center bg-portfolio-dark/90 backdrop-blur-sm rounded-lg p-2">
-                  <img
-                    src={item.logo}
-                    alt={item.school}
-                    className="w-full h-full object-contain"
-                  />
-                </div>
-              </div>
-
-              {/* Expand Icon for Mobile (Shown next to logo if needed, or keep at bottom/right) */}
-              <div className="sm:hidden block">
+            <div className="container mx-auto px-4 relative z-10">
+                {/* Header */}
                 <motion.div
-                  animate={{ rotate: isExpanded ? 90 : 0 }}
-                  transition={{ duration: 0.2 }}
-                  className={`text-gradient bg-clip-text text-transparent bg-gradient-to-r ${item.color} p-2 rounded-full`}
+                    initial={{ opacity: 0, y: -20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="text-center mb-20"
                 >
-                  {isExpanded ? (
-                    <FaChevronDown size={18} />
-                  ) : (
-                    <FaChevronRight size={18} />
-                  )}
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-purple-400 text-sm font-medium mb-4 backdrop-blur-md">
+                        <GraduationCap size={16} />
+                        <span>Academic Journey</span>
+                    </div>
+                    <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">
+                        Education & <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-blue-500">Milestones</span>
+                    </h2>
+                    <p className="text-gray-400 max-w-xl mx-auto">
+                        The structured path of learning that has shaped my technical perspective.
+                    </p>
                 </motion.div>
-              </div>
-            </div>
 
-            {/* Info Area */}
-            <div className="flex-1 w-full">
-              <div className="flex flex-col sm:flex-row justify-between items-start gap-2">
-                <h3 className="text-lg sm:text-xl font-bold text-white flex flex-wrap items-center gap-2 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-gray-100 group-hover:to-white transition-all duration-300">
-                  {item.school}
-                  {item.location && (
-                    <span className="text-xs sm:text-sm font-normal text-gray-400 bg-gray-800/70 px-2 py-0.5 rounded-md">
-                      {item.location}
-                    </span>
-                  )}
-                </h3>
-                <div className="text-xs sm:text-sm text-gray-300 flex items-center gap-2 bg-portfolio-dark/60 backdrop-blur-md px-3 py-1 rounded-full shadow-sm mt-1 sm:mt-0">
-                  <FaCalendarAlt size={14} className="text-gray-400" />
-                  <span>{item.period}</span>
-                </div>
-              </div>
+                {/* Timeline Container */}
+                <div className="relative max-w-4xl mx-auto">
+                    {/* Central Vertical Line (Base) */}
+                    <div className="absolute left-[20px] md:left-1/2 top-0 bottom-0 w-[2px] bg-white/5 -translate-x-1/2 md:translate-x-0" />
 
-              <div className="mt-3 flex flex-wrap items-center gap-3">
-                <div className="text-base sm:text-lg text-gray-200 font-medium bg-gradient-to-r from-white/90 to-gray-300/90 bg-clip-text text-transparent w-full sm:w-auto">
-                  {item.degree}
-                </div>
-
-                {item.board && (
-                  <div className="text-xs sm:text-sm bg-portfolio-dark/60 backdrop-blur-sm px-2 py-0.5 rounded-md text-gray-300 border border-gray-700/30">
-                    {item.board}
-                  </div>
-                )}
-
-                <div className="sm:ml-auto text-xs sm:text-sm font-medium bg-portfolio-dark/80 backdrop-blur-md px-4 py-1.5 rounded-full text-gray-200 flex items-center gap-2 shadow-inner mt-2 sm:mt-0">
-                  <span
-                    className={`w-2 h-2 rounded-full bg-gradient-to-r ${item.color} animate-pulse`}
-                  ></span>
-                  {item.grade}
-                </div>
-              </div>
-            </div>
-
-            {/* Expand Icon Desktop */}
-            <motion.div
-              animate={{ rotate: isExpanded ? 90 : 0 }}
-              transition={{ duration: 0.2 }}
-              className={`hidden sm:block text-gradient bg-clip-text text-transparent bg-gradient-to-r ${item.color} p-2 rounded-full ${isExpanded ? '' : 'group-hover:bg-portfolio-dark/60'}`}
-            >
-              {isExpanded ? (
-                <FaChevronDown size={18} />
-              ) : (
-                <FaChevronRight size={18} />
-              )}
-            </motion.div>
-          </div>
-        </div>
-
-        {/* Expandable Details */}
-        <AnimatePresence>
-          {isExpanded && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.35, ease: "easeInOut" }}
-              className="overflow-hidden"
-            >
-              <div className="p-6 pt-4 border-t border-gray-700/30">
-                <div className="flex items-center mb-4">
-                  <span
-                    className={`px-4 py-1.5 ${item.bgAccent} text-white rounded-full text-sm font-medium flex items-center gap-2 shadow-md`}
-                  >
-                    <Sparkles size={14} className="text-gray-300" />
-                    {item.field}
-                  </span>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-                  {item.details.map((detail, i) => (
+                    {/* Animated Progress Line */}
                     <motion.div
-                      key={i}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: i * 0.1 }}
-                      className="flex items-start p-4 rounded-xl bg-portfolio-dark/60 backdrop-blur-sm border border-gray-700/50 hover:border-gray-600/70 transition-all hover:shadow-md group"
-                    >
-                      <div
-                        className={`p-2 rounded-lg mr-3 bg-gradient-to-r ${item.color} bg-opacity-20 group-hover:bg-opacity-30 transition-all`}
-                      >
-                        <span
-                          className={`text-gradient bg-clip-text text-transparent bg-gradient-to-r ${item.color}`}
-                        >
-                          {React.cloneElement(detail.icon, { size: 16 })}
-                        </span>
-                      </div>
-                      <span className="text-sm text-gray-300 leading-relaxed group-hover:text-white transition-colors">
-                        {detail.content}
-                      </span>
-                    </motion.div>
-                  ))}
+                        style={{ scaleY, originY: 0 }}
+                        className="absolute left-[20px] md:left-1/2 top-0 bottom-0 w-[2px] bg-gradient-to-b from-purple-500 via-blue-500 to-purple-500 -translate-x-1/2 md:translate-x-0 origin-top"
+                    />
+
+                    <div className="space-y-16 md:space-y-24">
+                        {educationData.map((item, index) => (
+                            <TimelineItem key={item.id} item={item} index={index} />
+                        ))}
+                    </div>
                 </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </motion.div>
-    </motion.div>
-  );
+            </div>
+        </section>
+    );
 };
 
-// Add CSS keyframes for animations
-const animationCSS = document.createElement('style');
-animationCSS.innerHTML = `
-  @keyframes blob {
-    0% {
-      transform: translate(0px, 0px) scale(1);
-    }
-    33% {
-      transform: translate(30px, -50px) scale(1.1);
-    }
-    66% {
-      transform: translate(-20px, 20px) scale(0.9);
-    }
-    100% {
-      transform: translate(0px, 0px) scale(1);
-    }
-  }
-  .animate-blob {
-    animation: blob 7s infinite;
-  }
-  .animation-delay-2000 {
-    animation-delay: 2s;
-  }
-  .animation-delay-4000 {
-    animation-delay: 4s;
-  }
-`;
-document.head.appendChild(animationCSS);
+const TimelineItem = ({ item, index }) => {
+    const ref = useRef(null);
+    const isInView = useInView(ref, { once: true, margin: "-100px" });
+    const isEven = index % 2 === 0;
+
+    return (
+        <div ref={ref} className={`relative flex flex-col md:flex-row items-center gap-8 md:gap-0 ${isEven ? 'md:flex-row-reverse' : ''}`}>
+
+            {/* Timeline Node/Dot */}
+            <div className="absolute left-[20px] md:left-1/2 transform -translate-x-1/2 md:translate-x-0 md:-ml-[1px] z-20">
+                <motion.div
+                    initial={{ scale: 0 }}
+                    animate={isInView ? { scale: 1 } : { scale: 0 }}
+                    transition={{ type: "spring", stiffness: 200, delay: 0.2 }}
+                    className="w-4 h-4 rounded-full bg-[#050505] border-2 border-purple-500 relative"
+                >
+                    <div className="absolute inset-0 rounded-full bg-purple-500 animate-ping opacity-75" />
+                </motion.div>
+            </div>
+
+            {/* Date/Period Label (Desktop) */}
+            <div className={`hidden md:block w-1/2 ${isEven ? 'pl-12 text-left' : 'pr-12 text-right'}`}>
+                <motion.div
+                    initial={{ opacity: 0, x: isEven ? 20 : -20 }}
+                    animate={isInView ? { opacity: 1, x: 0 } : {}}
+                    transition={{ delay: 0.3 }}
+                    className="text-2xl font-bold text-white/10"
+                >
+                    {item.period}
+                </motion.div>
+            </div>
+
+            {/* Content Card */}
+            <div className="grid w-full md:w-1/2 pl-12 md:pl-0">
+                <motion.div
+                    initial={{ opacity: 0, x: isEven ? -50 : 50, rotateY: isEven ? -15 : 15 }}
+                    animate={isInView ? { opacity: 1, x: 0, rotateY: 0 } : {}}
+                    transition={{ duration: 0.8, ease: "easeOut" }}
+                    className={`relative ${isEven ? 'md:mr-12' : 'md:ml-12'}`}
+                >
+                    {/* Card Body */}
+                    <div className="group relative bg-[#111] border border-white/10 rounded-2xl p-6 hover:border-purple-500/30 transition-colors duration-300">
+                        {/* Period Tag (Mobile Only) */}
+                        <div className="md:hidden inline-block px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs text-gray-400 mb-4">
+                            {item.period}
+                        </div>
+
+                        <div className="flex items-start justify-between mb-4">
+                            <div className="flex items-center gap-3">
+                                <div className="p-3 bg-white/5 rounded-xl border border-white/10 group-hover:border-purple-500/20 transition-colors">
+                                    <img src={item.logo} alt={item.school} className="w-8 h-8 object-contain" />
+                                </div>
+                                <div>
+                                    <h3 className="text-xl font-bold text-white leading-tight">{item.school}</h3>
+                                    <p className="text-sm text-purple-400 font-medium">{item.degree}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="space-y-4">
+                            <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-gray-400">
+                                <span className="flex items-center gap-1.5">
+                                    <MapPin size={14} className="text-gray-500" />
+                                    {item.location}
+                                </span>
+                                <span className="flex items-center gap-1.5">
+                                    <Award size={14} className="text-gray-500" />
+                                    {item.grade}
+                                </span>
+                            </div>
+
+                            <p className="text-gray-400 text-sm leading-relaxed border-t border-white/5 pt-4">
+                                {item.description}
+                            </p>
+
+                            <div className="flex flex-wrap gap-2 pt-2">
+                                {item.tags.map(tag => (
+                                    <span key={tag} className="px-2 py-1 bg-white/5 text-xs text-gray-300 rounded hover:bg-white/10 transition-colors">
+                                        #{tag}
+                                    </span>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Glow Effect */}
+                        <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-purple-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+                    </div>
+                </motion.div>
+            </div>
+        </div>
+    );
+};
 
 export default Education;

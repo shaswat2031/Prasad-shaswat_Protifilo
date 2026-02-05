@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import Sidebar from "./Sidebar";
+import ModernNav from "./ModernNav";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { scroller } from "react-scroll";
@@ -49,7 +49,7 @@ const MainContent = ({ onSectionChange }) => {
     }, [onSectionChange]);
 
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col pb-24"> {/* Added padding bottom for dock */}
             <section id="hero" className="min-h-screen bg-portfolio-dark">
                 <Home />
             </section>
@@ -77,11 +77,7 @@ const MainContent = ({ onSectionChange }) => {
 
 const DashboardLayout = () => {
     const location = useLocation();
-    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [activeSection, setActiveSection] = useState('hero');
-
-    // Import icons for mobile menu
-    const { Menu, X } = require('lucide-react');
 
     // Handle scroll on navigation
     useEffect(() => {
@@ -99,29 +95,9 @@ const DashboardLayout = () => {
             <CustomCursor />
             <FloatingShapes />
 
-            {/* Mobile Sidebar Overlay */}
-            {isSidebarOpen && (
-                <div
-                    className="fixed inset-0 bg-black/50 z-30 md:hidden backdrop-blur-sm"
-                    onClick={() => setIsSidebarOpen(false)}
-                />
-            )}
+            <ModernNav activeSection={activeSection} />
 
-            {/* Mobile Menu Button */}
-            <button
-                onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-                className="fixed top-4 right-4 z-40 p-2 bg-portfolio-primary text-white rounded-lg shadow-lg md:hidden hover:bg-portfolio-primary/90 transition-colors"
-            >
-                {isSidebarOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-
-            <Sidebar
-                isOpen={isSidebarOpen}
-                onClose={() => setIsSidebarOpen(false)}
-                activeSection={activeSection}
-            />
-
-            <div className="flex-1 w-full md:ml-64 relative z-10">
+            <div className="flex-1 w-full relative z-10">
                 <AnimatePresence mode="wait">
                     <motion.div
                         key={location.pathname === '/' ? 'home' : location.pathname}
@@ -133,7 +109,7 @@ const DashboardLayout = () => {
                     >
                         <Routes>
                             <Route path="/" element={<MainContent onSectionChange={setActiveSection} />} />
-                            <Route path="/all-projects" element={<div className="bg-portfolio-dark min-h-screen"><AllProjects /></div>} />
+                            <Route path="/all-projects" element={<div className="bg-portfolio-dark min-h-screen pb-24"><AllProjects /></div>} />
                             <Route path="*" element={<MainContent onSectionChange={setActiveSection} />} />
                         </Routes>
                     </motion.div>

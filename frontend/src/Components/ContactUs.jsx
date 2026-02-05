@@ -88,7 +88,7 @@ const OrbitalIcon = ({ link, angle, radius, onHover }) => {
         rel="noopener noreferrer"
         onMouseEnter={() => onHover(link.id)}
         onMouseLeave={() => onHover(null)}
-        className={`relative w-16 h-16 rounded-full bg-portfolio-dark/50 border border-portfolio-primary/30 flex items-center justify-center text-gray-400 text-3xl transition-colors duration-300 ${link.color}`}
+        className={`relative w-16 h-16 rounded-full bg-white/5 backdrop-blur-md border border-white/10 flex items-center justify-center text-gray-300 text-3xl transition-all duration-300 ${link.color} hover:border-white/30`}
         whileHover={{ scale: 1.2, boxShadow: `0 0 20px var(--shadow-color)` }}
         style={{
           "--shadow-color": link.shadow

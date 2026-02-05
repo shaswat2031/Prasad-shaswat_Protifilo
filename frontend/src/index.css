@@ -40,79 +40,32 @@ body,
   background: #EA2F14;
 }
 
-/* GLOBAL MINIMAL OVERRIDES */
+/* GLOBAL MINIMAL DESIGN SYSTEM */
 
-/* 1. Hide messy background blobs for a cleaner look */
-.animate-blob,
-[class*="blur-3xl"] {
-  opacity: 0 !important;
-  display: none !important;
+/* 1. Global Reset for Minimalism */
+body {
+  background-color: #050505;
+  color: #E5E5E5;
+  line-height: 1.6;
 }
 
-/* 2. Soften gradients to be flat or subtle */
-.bg-gradient-to-r,
-.bg-gradient-to-br,
-.bg-clip-text {
-  background-image: none !important;
-  background-color: transparent !important;
-  -webkit-text-fill-color: inherit !important;
-  color: inherit !important;
+/* 2. Modern Design Base */
+/* Removed aggressive resets to allow for blurs, gradients, and proper glassmorphism */
+
+/* 7. Clean Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
 }
 
-/* Exception: Keep gradients/colors for Brand elements if specifically needed, 
-   but for "minimal style" we usually prefer solids. 
-   Let's allow the PRIMARY RED to stand out. */
-.text-transparent {
-  color: #EA2F14 !important;
-  -webkit-text-fill-color: #EA2F14 !important;
+::-webkit-scrollbar-track {
+  background: #000000;
 }
 
-/* 3. Card Styling: Flat and Bordered instead of Glassmorphism/Shadows */
-.backdrop-blur-lg,
-.backdrop-blur-md,
-.backdrop-blur-sm,
-[class*="bg-portfolio-dark/"] {
-  background-color: #000000 !important;
-  /* Force solid black for cards */
-  backdrop-filter: none !important;
-  border: 1px solid #262626 !important;
-  /* Subtle border */
-  box-shadow: none !important;
+::-webkit-scrollbar-thumb {
+  background: #333333;
+  border-radius: 3px;
 }
 
-/* 4. Hover states: Clean, no scale/glow mess */
-.hover\:scale-\[1\.01\]:hover,
-.hover\:scale-105:hover,
-.transform:hover {
-  transform: none !important;
-  border-color: #EA2F14 !important;
-  /* Red border on hover */
-}
-
-/* 5. Buttons */
-button,
-a.group {
-  box-shadow: none !important;
-}
-
-/* Ensure smooth scrolling */
-html {
-  scroll-behavior: smooth;
-}
-
-/* Utility for fading in content */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-fadeIn {
-  animation: fadeIn 0.8s ease-out forwards;
+::-webkit-scrollbar-thumb:hover {
+  background: #EA2F14;
 }

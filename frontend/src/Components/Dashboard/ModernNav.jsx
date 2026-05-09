@@ -24,7 +24,7 @@ const ModernNav = ({ activeSection }) => {
         { id: "experience", icon: Building, label: "Experience" },
         { id: "skills", icon: Cpu, label: "Skills" },
         { id: "projects", icon: Briefcase, label: "Projects" },
-        { id: "certifications", icon: Award, label: "Certifications" },
+        // { id: "certifications", icon: Award, label: "Certifications" },
         { id: "contact", icon: Mail, label: "Contact" },
         { path: "/all-projects", icon: Terminal, label: "All Projects" },
     ];

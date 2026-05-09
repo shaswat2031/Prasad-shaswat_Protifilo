@@ -9,7 +9,7 @@ import Home from "../Home";
 import Education from "../Education";
 import Skills from "../Skills";
 import Projects from "../Projects";
-import Certifications from "../Certifications";
+// import Certifications from "../Certifications";
 import Experience from "../Experience";
 import ContactUs from "../ContactUs";
 import AllProjects from "../../pages/AllProjects";
@@ -65,9 +65,9 @@ const MainContent = ({ onSectionChange }) => {
             <section id="projects" className="min-h-screen bg-portfolio-dark">
                 <Projects />
             </section>
-            <section id="certifications" className="min-h-screen bg-portfolio-dark">
+            {/* <section id="certifications" className="min-h-screen bg-portfolio-dark">
                 <Certifications />
-            </section>
+            </section> */}
             <section id="contact" className="min-h-screen bg-portfolio-dark">
                 <ContactUs />
             </section>

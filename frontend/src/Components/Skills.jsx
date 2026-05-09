@@ -1,196 +1,176 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  Code2,
-  Database,
-  Layout,
-  Server,
-  Terminal,
-  Cpu,
-  Hash
+import { 
+  Code2, 
+  Layout, 
+  Server, 
+  Database, 
+  Terminal, 
+  Cpu, 
+  ArrowRight, 
+  Binary, 
+  ChevronRight,
+  Monitor
 } from "lucide-react";
-
-// Lucide doesn't have brand icons, so we mix in a few dedicated brand libraries or use generic fallbacks
-// For this 'out of the box' design, we'll use abstract representations + coloring to denote specific tech
-// This creates a cleaner, more high-tech aesthetic than just slapping logos everywhere.
 
 const skillCategories = [
   {
     id: "languages",
     label: "Languages",
     icon: Code2,
-    color: "from-yellow-400 to-orange-500",
-    skills: ["JavaScript", "Python", "Java", "HTML5", "CSS3"]
+    skills: ["JavaScript", "Python", "Java", "HTML5", "CSS3"],
+    color: "#f59e0b",
+    description: "The core syntax used to command the digital world."
   },
   {
     id: "frontend",
     label: "Frontend",
     icon: Layout,
-    color: "from-cyan-400 to-blue-500",
-    skills: ["React.js", "Tailwind CSS", "Bootstrap", "Framer Motion"]
+    skills: ["React.js", "Tailwind CSS", "Framer Motion", "Vite"],
+    color: "#3b82f6",
+    description: "Architecting interactive and fluid user experiences."
   },
   {
     id: "backend",
     label: "Backend",
     icon: Server,
-    color: "from-green-400 to-emerald-600",
-    skills: ["Node.js", "Express", "Flask", "REST APIs"]
+    skills: ["Node.js", "Express", "Flask", "REST APIs"],
+    color: "#10b981",
+    description: "Building the robust logic behind the interface."
   },
   {
     id: "database",
     label: "Database",
     icon: Database,
-    color: "from-pink-400 to-rose-600",
-    skills: ["MongoDB", "MySQL", "PostgreSQL"]
+    skills: ["MongoDB", "MySQL", "PostgreSQL", "Redis"],
+    color: "#ec4899",
+    description: "Structuring and persisting critical data assets."
   },
   {
     id: "tools",
     label: "Tools",
     icon: Terminal,
-    color: "from-purple-400 to-indigo-600",
-    skills: ["Git", "Docker", "Postman", "Vercel"]
+    skills: ["Git", "Docker", "Postman", "Vercel"],
+    color: "#8b5cf6",
+    description: "Modern toolkits for accelerated development cycles."
   },
   {
     id: "concepts",
     label: "Concepts",
     icon: Cpu,
-    color: "from-red-400 to-orange-600",
-    skills: ["DS & Algo", "OOP", "System Design"]
+    skills: ["DS & Algo", "OOP", "System Design"],
+    color: "#6366f1",
+    description: "The fundamental principles of computer science."
   }
 ];
 
 const Skills = () => {
-  const [activeTab, setActiveTab] = useState(0);
+  const [hoveredIndex, setHoveredIndex] = useState(null);
 
   return (
-    <section id="skills" className="min-h-screen bg-[#050505] py-24 relative overflow-hidden flex flex-col justify-center">
+    <section id="skills" className="py-32 bg-[#020202] relative overflow-hidden">
+      {/* Cinematic Background */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-blue-600/5 rounded-full blur-[120px]" />
+        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-purple-600/5 rounded-full blur-[120px]" />
+      </div>
 
-      {/* Background Elements */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:32px_32px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_70%,transparent_100%)]" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-indigo-500/10 rounded-full blur-[120px] pointer-events-none" />
-
-      <div className="container mx-auto px-4 relative z-10 max-w-6xl">
-        <div className="text-center mb-16">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+      <div className="container mx-auto px-6 relative z-10 max-w-7xl">
+        {/* Header Section */}
+        <div className="flex flex-col md:flex-row justify-between items-end gap-8 mb-24">
+          <div className="max-w-2xl">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="flex items-center gap-3 text-blue-400 font-mono text-xs tracking-[0.4em] mb-6"
+            >
+              <Binary size={16} />
+              <span>TECHNICAL ARSENAL</span>
+            </motion.div>
+            <motion.h2 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="text-5xl md:text-8xl font-bold text-white tracking-tighter leading-none"
+            >
+              Commanding <br />
+              <span className="text-gray-700 italic">Technology.</span>
+            </motion.h2>
+          </div>
+          <motion.p 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-indigo-400 text-sm font-medium mb-6"
+            transition={{ delay: 0.3 }}
+            className="text-gray-500 text-lg max-w-sm border-l border-white/10 pl-8"
           >
-            <Cpu size={16} />
-            <span>Technical Arsenal</span>
-          </motion.div>
-
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 tracking-tight">
-            Commanding <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">Technology</span>
-          </h2>
-          <p className="text-gray-400 max-w-2xl mx-auto text-lg">
             A curated suite of powerful tools and languages customized for building next-generation applications.
-          </p>
+          </motion.p>
         </div>
 
-        <div className="flex flex-col lg:flex-row gap-12 items-start">
-
-          {/* Navigation Pylons (Tabs) */}
-          <div className="w-full lg:w-1/3 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-1 gap-4">
-            {skillCategories.map((cat, index) => (
-              <TabButton
-                key={cat.id}
-                category={cat}
-                isActive={activeTab === index}
-                onClick={() => setActiveTab(index)}
-              />
-            ))}
-          </div>
-
-          {/* Main Display Area (Holographic Deck) */}
-          <div className="w-full lg:w-2/3 min-h-[400px]">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeTab}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                transition={{ duration: 0.3 }}
-                className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 relative overflow-hidden group"
-              >
-                {/* Decorative Background Gradient tied to category color */}
-                <div className={`absolute -right-20 -top-20 w-80 h-80 bg-gradient-to-br ${skillCategories[activeTab].color} opacity-10 rounded-full blur-[80px] pointer-events-none`} />
-
-                <div className="relative z-10">
-                  <div className="flex items-center gap-4 mb-8 border-b border-white/10 pb-6">
-                    <div className={`p-3 rounded-xl bg-gradient-to-br ${skillCategories[activeTab].color} bg-opacity-20`}>
-                      {React.createElement(skillCategories[activeTab].icon, { size: 32, className: "text-white" })}
-                    </div>
-                    <div>
-                      <h3 className="text-3xl font-bold text-white">{skillCategories[activeTab].label}</h3>
-                      <p className="text-gray-400 text-sm">Specialized competencies</p>
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-                    {skillCategories[activeTab].skills.map((skill, idx) => (
-                      <SkillCard key={skill} skill={skill} index={idx} color={skillCategories[activeTab].color} />
-                    ))}
-                  </div>
+        {/* List-Based Interactive Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-16 gap-x-12">
+          {skillCategories.map((category, index) => (
+            <motion.div
+              key={category.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+              onMouseEnter={() => setHoveredIndex(index)}
+              onMouseLeave={() => setHoveredIndex(null)}
+              className="group cursor-default"
+            >
+              <div className="flex items-center gap-4 mb-8">
+                <div className="p-4 bg-white/5 rounded-2xl border border-white/10 group-hover:border-white/30 transition-all duration-500">
+                    <category.icon size={28} className="text-white group-hover:scale-110 transition-transform" />
                 </div>
-              </motion.div>
-            </AnimatePresence>
-          </div>
+                <div className="h-[1px] flex-grow bg-white/10 group-hover:bg-white/30 transition-colors" />
+                <span className="text-white/20 font-mono text-xs">0{index + 1}</span>
+              </div>
+
+              <div className="space-y-4">
+                <h3 className="text-2xl font-bold text-white flex items-center gap-3">
+                    {category.label}
+                    <motion.div
+                        animate={{ x: hoveredIndex === index ? 5 : 0, opacity: hoveredIndex === index ? 1 : 0 }}
+                        className="text-blue-400"
+                    >
+                        <ChevronRight size={20} />
+                    </motion.div>
+                </h3>
+                <p className="text-gray-500 text-sm leading-relaxed">
+                    {category.description}
+                </p>
+
+                <div className="pt-4 flex flex-wrap gap-2">
+                    {category.skills.map((skill) => (
+                        <span 
+                            key={skill} 
+                            className="text-sm text-gray-300 font-mono relative overflow-hidden group/skill px-2 py-1"
+                        >
+                            <span className="relative z-10">{skill}</span>
+                            <span className="absolute bottom-0 left-0 w-full h-[1px] bg-white/10 group-hover/skill:h-full group-hover/skill:bg-white/5 transition-all" />
+                        </span>
+                    ))}
+                </div>
+              </div>
+            </motion.div>
+          ))}
         </div>
+      </div>
+
+      {/* Decorative Floating Status */}
+      <div className="absolute bottom-12 right-12 hidden lg:flex items-center gap-4 text-[10px] font-mono text-gray-700 uppercase tracking-widest">
+        <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
+        <span>Systems Online</span>
+        <div className="w-[100px] h-[1px] bg-white/5" />
+        <span>Core_V3.0.2</span>
       </div>
     </section>
   );
 };
-
-const TabButton = ({ category, isActive, onClick }) => (
-  <button
-    onClick={onClick}
-    className={`relative group flex items-center gap-4 p-4 rounded-xl transition-all duration-300 w-full text-left
-            ${isActive ? "bg-white/10 border-white/20" : "bg-transparent border-transparent hover:bg-white/5"}
-            border
-        `}
-  >
-    {isActive && (
-      <motion.div
-        layoutId="activeTabIndicator"
-        className={`absolute inset-0 rounded-xl bg-gradient-to-r ${category.color} opacity-10`}
-      />
-    )}
-
-    <div className={`p-2 rounded-lg transition-colors duration-300 ${isActive ? "text-white" : "text-gray-500 group-hover:text-gray-300"}`}>
-      {React.createElement(category.icon, { size: 24 })}
-    </div>
-
-    <span className={`font-semibold transition-colors duration-300 ${isActive ? "text-white" : "text-gray-500 group-hover:text-gray-300"}`}>
-      {category.label}
-    </span>
-
-    {/* Hover Arrow */}
-    <div className={`ml-auto transition-opacity duration-300 ${isActive ? "opacity-100 text-white" : "opacity-0"}`}>
-      →
-    </div>
-  </button>
-);
-
-const SkillCard = ({ skill, index, color }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ delay: index * 0.1 }}
-    className="relative group cursor-default"
-  >
-    <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-    <div className="p-4 rounded-xl bg-[#0a0a0a] border border-white/10 relative z-10 hover:border-white/30 transition-colors duration-300 h-24 flex flex-col justify-end">
-      {/* Abstract Tech Icon representation */}
-      <div className="mb-auto opacity-50">
-        <Hash size={16} className="text-gray-500" />
-      </div>
-
-      <p className="font-bold text-gray-200 group-hover:text-white transition-colors">{skill}</p>
-      <div className={`h-1 w-0 group-hover:w-full bg-gradient-to-r ${color} transition-all duration-300 rounded-full mt-2`} />
-    </div>
-  </motion.div>
-);
 
 export default Skills;

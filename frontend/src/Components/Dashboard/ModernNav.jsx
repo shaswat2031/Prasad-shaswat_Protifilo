@@ -6,7 +6,6 @@ import {
     Building,
     Cpu,
     Briefcase,
-    Award,
     Mail,
     Terminal
 } from "lucide-react";

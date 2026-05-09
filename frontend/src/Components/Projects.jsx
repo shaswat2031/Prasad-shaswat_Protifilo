@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Github, ExternalLink, Code2, Database, Layout, Smartphone, Search } from "lucide-react";
+import { Github, ExternalLink } from "lucide-react";
 
 import universityConnect from "../Assets/university-connect.png";
 import unolinks from "../Assets/unolinks.png";

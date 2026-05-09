@@ -1,12 +1,8 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
-  Briefcase, 
-  Calendar, 
   ArrowUpRight, 
-  Globe, 
   Zap,
-  CheckCircle2,
   ExternalLink,
   Sparkles,
   Trophy

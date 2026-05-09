@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { 
   Code2, 
   Layout, 
@@ -7,10 +7,8 @@ import {
   Database, 
   Terminal, 
   Cpu, 
-  ArrowRight, 
   Binary, 
-  ChevronRight,
-  Monitor
+  ChevronRight
 } from "lucide-react";
 
 const skillCategories = [
